@@ -1,5 +1,5 @@
 'use strict';
-require('dotenv').config({path: __dirname + './../../../.env'});
+require('dotenv').config({ path: __dirname + './../../../.env' });
 console.log(process.env.DB_PASSWORD)
 module.exports = {
   development: {
