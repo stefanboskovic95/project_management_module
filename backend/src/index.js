@@ -1,6 +1,7 @@
 const express = require('express')
 const { Sequelize } = require('sequelize');
 const connection = require('./db/connection/sequelize');
+const User = require('./db/models/user')
 const port = process.env.NODE_DOCKER_PORT || 8000
 
 const app = express();
@@ -12,12 +13,11 @@ router.route('/test').get(async (req, res) => {
 
 router.route('/test_orm').get(async (req, res) => {
     try {
-        const User = require('./db/models/user')(connection, Sequelize.DataTypes);
         User.create({
             username: 'sboskovi',
             password: 's123',
-            name: 'Stefan',
-            lastName: 'Boskovic'
+            first_name: 'Stefan',
+            last_name: 'Boskovic'
         });
         res.status(200).send({ message: 'ok' });
     }
