@@ -1,9 +1,9 @@
 'use strict';
 
-const { Model, DataTypes } = require('sequelize');
-const connection = require('./../connection/sequelize')
+import { Model, DataTypes } from 'sequelize';
+import connection from '../connection/connection';
 
-class User extends Model { }
+export default class User extends Model { };
 
 User.init({
   id: {
@@ -19,5 +19,3 @@ User.init({
   modelName: 'user',
   underscored: true
 });
-
-module.exports = User

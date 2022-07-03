@@ -1,9 +1,11 @@
-const { Sequelize } = require('sequelize');
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + './../config/config.js')[env];
+import { Sequelize } from 'sequelize';
+import env from './../config/config';
+const _env = process.env.NODE_ENV || 'development';
+const config = env[_env];
 
-let sequelize = null
-sequelize = new Sequelize(
+
+let connection = null;
+connection = new Sequelize(
     config.database,
     config.username,
     config.password,
@@ -12,15 +14,15 @@ sequelize = new Sequelize(
         dialect: 'mysql',
         port: config.port
     }
-)
+);
 
-sequelize.
+connection.
     authenticate()
     .then(() => {
         console.log("Connected to database!")
     })
     .catch((err) => {
         console.error("Unable to connect to database", JSON.stringify(err))
-    })
+    });
 
-module.exports = sequelize
+export default connection;

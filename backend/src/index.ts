@@ -1,11 +1,9 @@
-const express = require('express')
-const { Sequelize } = require('sequelize');
-const connection = require('./db/connection/sequelize');
-const User = require('./db/models/user')
+import express, { Router } from 'express';
+import User from './db/models/user';
 const port = process.env.NODE_DOCKER_PORT || 8000
 
 const app = express();
-const router = express.Router();
+const router = Router();
 
 router.route('/test').get(async (req, res) => {
     res.status(200).send({ status: 'ONLINE' })

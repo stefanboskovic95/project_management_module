@@ -1,6 +1,8 @@
 'use strict';
-require('dotenv').config({ path: __dirname + './../../../.env' });
-module.exports = {
+import dotenv from 'dotenv'
+dotenv.config({ path: __dirname + './../../../.env' });
+
+export default {
   development: {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,

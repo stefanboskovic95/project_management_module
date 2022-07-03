@@ -1,13 +1,12 @@
-const jwt = require('jsonwebtoken')
+import { verify, decode } from 'jsonwebtoken'
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   try {
     // Convention: "Bearer token"
     const token = req.headers.authorization.split(" ")[1]
-    jwt.verify(token, process.env.SECRET)
-    const decoded = jwt.decode(token)
+    verify(token, process.env.SECRET)
+    const decoded = decode(token)
     const username = decoded['username']
-    res.locals.isAdmin = isAdmin
     next()
   }
   catch (err) {
