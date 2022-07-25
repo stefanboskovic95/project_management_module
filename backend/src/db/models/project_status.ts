@@ -10,7 +10,10 @@ ProjectStatus.init({
     primaryKey: true,
     type: DataTypes.INTEGER
   },
-  type: DataTypes.STRING
+  status: {
+    unique: true,
+    type: DataTypes.STRING
+  },
 }, {
   sequelize: connection,
   modelName: 'project_status',

@@ -2,7 +2,7 @@
 
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
-
+import ProcurementStatus from './procurement_status';
 
 export default class ProjectItem extends Model { }
 
@@ -17,3 +17,13 @@ ProjectItem.init({
   modelName: 'item',
   underscored: true
 });
+
+ProjectItem.belongsTo(ProcurementStatus, {
+  onUpdate: 'SET NULL',
+  onDelete: 'SET NULL'
+});
+
+// ProcurementStatus.hasMany(ProjectItem, {
+//   onUpdate: 'SET NULL',
+//   onDelete: 'SET NULL'
+// });
