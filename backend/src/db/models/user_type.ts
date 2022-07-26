@@ -8,6 +8,7 @@ export default class UserType extends Model { }
 UserType.init({
   id: {
     primaryKey: true,
+    autoIncrement: true,
     type: DataTypes.INTEGER
   },
   type: DataTypes.STRING

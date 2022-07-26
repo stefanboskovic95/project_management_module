@@ -8,6 +8,7 @@ export default class ProjectStatus extends Model { }
 ProjectStatus.init({
   id: {
     primaryKey: true,
+    autoIncrement: true,
     type: DataTypes.INTEGER
   },
   status: {

@@ -9,6 +9,7 @@ export default class Department extends Model { }
 Department.init({
   id: {
     primaryKey: true,
+    autoIncrement: true,
     type: DataTypes.INTEGER
   },
   full_name: {
@@ -32,13 +33,3 @@ Department.belongsTo(User, {
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL'
 });
-
-// User.belongsTo(Department, {
-//   onUpdate: 'SET NULL',
-//   onDelete: 'SET NULL'
-// });
-
-// Department.hasMany(User, {
-//   onUpdate: 'SET NULL',
-//   onDelete: 'SET NULL'
-// });

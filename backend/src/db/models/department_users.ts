@@ -10,6 +10,7 @@ export default class DepartmentUsers extends Model { }
 DepartmentUsers.init({
     id: {
         primaryKey: true,
+        autoIncrement: true,
         type: DataTypes.INTEGER
     },
 }, {

@@ -8,6 +8,7 @@ export default class ProcurementStatus extends Model { }
 ProcurementStatus.init({
   id: {
     primaryKey: true,
+    autoIncrement: true,
     type: DataTypes.INTEGER
   },
   status: {

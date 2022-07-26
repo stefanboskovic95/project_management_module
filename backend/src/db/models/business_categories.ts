@@ -9,6 +9,7 @@ export default class BusinessCategories extends Model { }
 BusinessCategories.init({
   id: {
     primaryKey: true,
+    autoIncrement: true,
     type: DataTypes.INTEGER
   },
   type: DataTypes.STRING

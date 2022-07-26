@@ -7,6 +7,11 @@ import ProcurementStatus from './procurement_status';
 export default class ProjectItem extends Model { }
 
 ProjectItem.init({
+  id: {
+    primaryKey: true,
+    autoIncrement: true,
+    type: DataTypes.INTEGER
+  },
   name: DataTypes.STRING,
   subject: DataTypes.STRING,
   description: DataTypes.STRING,
@@ -22,8 +27,3 @@ ProjectItem.belongsTo(ProcurementStatus, {
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL'
 });
-
-// ProcurementStatus.hasMany(ProjectItem, {
-//   onUpdate: 'SET NULL',
-//   onDelete: 'SET NULL'
-// });

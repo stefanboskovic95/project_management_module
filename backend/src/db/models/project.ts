@@ -14,6 +14,7 @@ export default class Project extends Model { }
 Project.init({
   id: {
     primaryKey: true,
+    autoIncrement: true,
     type: DataTypes.INTEGER
   },
   name: DataTypes.STRING,
@@ -21,8 +22,7 @@ Project.init({
   region: DataTypes.STRING,
   budget: DataTypes.DOUBLE,
   total_cost: DataTypes.DOUBLE,
-  is_confidential: DataTypes.BOOLEAN,
-  project_status_id: DataTypes.INTEGER
+  is_confidential: DataTypes.BOOLEAN
 }, {
   sequelize: connection,
   modelName: 'project',
@@ -35,6 +35,9 @@ Project.hasMany(ProjectItem, {
 });
 
 Project.belongsTo(ProjectStatus, {
+  foreignKey: {
+    field: 'project_status_id'
+  },
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL'
 });
@@ -45,9 +48,6 @@ Project.belongsTo(BusinessCategories, {
 });
 
 Project.belongsTo(User, {
-  foreignKey: {
-    name: 'project_lead'
-  },
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL'
 });

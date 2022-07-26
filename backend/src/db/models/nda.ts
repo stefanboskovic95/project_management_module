@@ -9,6 +9,7 @@ export default class Nda extends Model { }
 Nda.init({
   id: {
     primaryKey: true,
+    autoIncrement: true,
     type: DataTypes.INTEGER
   },
   name: DataTypes.STRING,
