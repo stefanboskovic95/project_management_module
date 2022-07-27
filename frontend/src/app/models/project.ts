@@ -6,4 +6,5 @@ export interface Project {
   budget: number;
   totalCost: number;
   isConfidential: boolean;
+  projectStatusId: number
 }

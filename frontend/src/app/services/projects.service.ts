@@ -31,8 +31,8 @@ export class ProjectsService {
     })
   }
 
-  getProjectNames(departmentId: number) {
-    return this.http.get<Array<Project>>(`${environment.backend_url}/get_projects?departmentId=${departmentId}`);
+  getProjects(departmentId: number) {
+    return this.http.get<Array<Project>>(`${environment.backend_url}/projects?departmentId=${departmentId}`);
   }
 
   getBusinessCategories() {
