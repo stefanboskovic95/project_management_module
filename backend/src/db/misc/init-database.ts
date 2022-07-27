@@ -1,14 +1,16 @@
 import connection from '../connection/connection';
-import BusinessCategories from '../models/business_categories';
+import BusinessCategory from '../models/businessCategories';
 import Department from '../models/department';
 import Nda from '../models/nda';
-import ProcurementStatus from '../models/procurement_status';
+import ProcurementStatus from '../models/procurementStatus';
 import Project from '../models/project';
-import ProjectItem from '../models/project_item';
-import ProjectStatus from '../models/project_status';
+import ProjectItem from '../models/projectItem';
+import ProjectStatus from '../models/projectStatus';
 import User from '../models/user';
-import UserType from '../models/user_type';
-import DepartmentUsers from '../models/department_users';
+import UserType from '../models/userType';
+import DepartmentUsers from '../models/departmentUsers';
+import Region from '../models/regions';
+import Currency from '../models/currency';
 
 
 connection.sync().then(async () => {
@@ -20,8 +22,52 @@ connection.sync().then(async () => {
     await ProcurementStatus.findAll();
     await Nda.findAll();
     await Department.findAll();
-    await BusinessCategories.findAll();
+    await BusinessCategory.findAll();
     await DepartmentUsers.findAll();
+
+    // ==================== Region ====================
+    Region.create({
+        id: 1,
+        abbrev: 'WE',
+        name: 'Western Europe'
+    });
+
+    Region.create({
+        id: 2,
+        abbrev: 'CE',
+        name: 'Central Europe'
+    });
+
+    Region.create({
+        id: 3,
+        abbrev: 'EE',
+        name: 'Eastern Europe'
+    });
+
+    Region.create({
+        id: 4,
+        abbrev: 'ME',
+        name: 'Middle East'
+    });
+
+    // ==================== Currency ====================
+    Currency.create({
+        id: 1,
+        name: 'EUR',
+        ratioToEur: 1.0
+    });
+
+    Currency.create({
+        id: 2,
+        name: 'USD',
+        ratioToEur: 1.01
+    });
+
+    Currency.create({
+        id: 3,
+        name: 'RSD',
+        ratioToEur: 0.0085
+    });
 
     // ==================== ProjectStatus ====================
     await ProjectStatus.create({
@@ -54,19 +100,19 @@ connection.sync().then(async () => {
     await Department.create({
         id: 1,
         abbrev: 'CPX',
-        full_name: 'Capital Investment Department'
+        fullName: 'Capital Investment Department'
     });
 
     await Department.create({
         id: 2,
         abbrev: 'INV',
-        full_name: 'Inventory Department'
+        fullName: 'Inventory Department'
     });
 
     await Department.create({
         id: 3,
         abbrev: 'UTIL',
-        full_name: 'Utilities Department'
+        fullName: 'Utilities Department'
     });
 
     // ==================== ProcurementStatus ====================
@@ -86,17 +132,17 @@ connection.sync().then(async () => {
     });
 
     // ==================== BusinessCategories ====================
-    await BusinessCategories.create({
+    await BusinessCategory.create({
         id: 1,
         type: 'Investment Project'
     });
 
-    await BusinessCategories.create({
+    await BusinessCategory.create({
         id: 2,
         type: 'Resource Project'
     });
 
-    await BusinessCategories.create({
+    await BusinessCategory.create({
         id: 3,
         type: 'Development Project'
     });
@@ -123,8 +169,8 @@ connection.sync().then(async () => {
         id: 1,
         username: 'sboskovi',
         password: '',
-        first_name: 'Stefan',
-        last_name: 'Boskovic',
+        firstName: 'Stefan',
+        lastName: 'Boskovic',
         userTypeId: 3
     });
 
@@ -132,8 +178,8 @@ connection.sync().then(async () => {
         id: 2,
         username: 'mandrije',
         password: '',
-        first_name: 'Marko',
-        last_name: 'Andrijevic',
+        firstName: 'Marko',
+        lastName: 'Andrijevic',
         userTypeId: 3
     });
 
@@ -141,8 +187,8 @@ connection.sync().then(async () => {
         id: 3,
         username: 'gstancev',
         password: '',
-        first_name: 'Goran',
-        last_name: 'Stancevic',
+        firstName: 'Goran',
+        lastName: 'Stancevic',
         userTypeId: 3
     });
 
@@ -150,8 +196,8 @@ connection.sync().then(async () => {
         id: 4,
         username: 'mmatejic',
         password: '',
-        first_name: 'Mihailo',
-        last_name: 'Matejic',
+        firstName: 'Mihailo',
+        lastName: 'Matejic',
         userTypeId: 2
     });
 
@@ -159,8 +205,8 @@ connection.sync().then(async () => {
         id: 5,
         username: 'mstojkov',
         password: '',
-        first_name: 'Marko',
-        last_name: 'Stojkovic',
+        firstName: 'Marko',
+        lastName: 'Stojkovic',
         userTypeId: 2
     });
 

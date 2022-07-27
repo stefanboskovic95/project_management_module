@@ -3,18 +3,16 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
 
+export default class UserType extends Model { }
 
-export default class Nda extends Model { }
-
-Nda.init({
+UserType.init({
   id: {
     primaryKey: true,
     autoIncrement: true,
     type: DataTypes.INTEGER
   },
-  name: DataTypes.STRING,
-  text: DataTypes.TEXT
+  type: DataTypes.STRING
 }, {
   sequelize: connection,
-  modelName: 'nda'
+  modelName: 'userType'
 });

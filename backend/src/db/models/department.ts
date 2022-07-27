@@ -12,7 +12,7 @@ Department.init({
     autoIncrement: true,
     type: DataTypes.INTEGER
   },
-  full_name: {
+  fullName: {
     unique: true,
     type: DataTypes.STRING
   },
@@ -22,13 +22,12 @@ Department.init({
   },
 }, {
   sequelize: connection,
-  modelName: 'department',
-  underscored: true
+  modelName: 'department'
 });
 
 Department.belongsTo(User, {
   foreignKey: {
-    name: 'department_chief_id'
+    name: 'departmentChiefId'
   },
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL'

@@ -3,20 +3,17 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
 
-export default class ProjectStatus extends Model { }
 
-ProjectStatus.init({
+export default class BusinessCategory extends Model { }
+
+BusinessCategory.init({
   id: {
     primaryKey: true,
     autoIncrement: true,
     type: DataTypes.INTEGER
   },
-  status: {
-    unique: true,
-    type: DataTypes.STRING
-  },
+  type: DataTypes.STRING
 }, {
   sequelize: connection,
-  modelName: 'project_status',
-  underscored: true
+  modelName: 'businessCategories'
 });

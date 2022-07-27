@@ -3,18 +3,20 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
 
+export default class Region extends Model { }
 
-export default class BusinessCategories extends Model { }
-
-BusinessCategories.init({
+Region.init({
   id: {
     primaryKey: true,
     autoIncrement: true,
     type: DataTypes.INTEGER
   },
-  type: DataTypes.STRING
+  abbrev: {
+    unique: true,
+    type: DataTypes.STRING
+  },
+  name: DataTypes.STRING,
 }, {
   sequelize: connection,
-  modelName: 'business_categories',
-  underscored: true
+  modelName: 'region'
 });

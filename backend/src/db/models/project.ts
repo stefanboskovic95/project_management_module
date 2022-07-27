@@ -2,11 +2,13 @@
 
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
-import BusinessCategories from './business_categories';
+import BusinessCategory from './businessCategories';
+import Currency from './currency';
 import Department from './department';
 import Nda from './nda';
-import ProjectItem from './project_item';
-import ProjectStatus from './project_status';
+import ProjectItem from './projectItem';
+import ProjectStatus from './projectStatus';
+import Region from './regions';
 import User from './user';
 
 export default class Project extends Model { }
@@ -19,14 +21,12 @@ Project.init({
   },
   name: DataTypes.STRING,
   description: DataTypes.STRING,
-  region: DataTypes.STRING,
   budget: DataTypes.DOUBLE,
-  total_cost: DataTypes.DOUBLE,
-  is_confidential: DataTypes.BOOLEAN
+  totalCost: DataTypes.DOUBLE,
+  isConfidential: DataTypes.BOOLEAN
 }, {
   sequelize: connection,
-  modelName: 'project',
-  underscored: true
+  modelName: 'project'
 });
 
 Project.hasMany(ProjectItem, {
@@ -42,7 +42,7 @@ Project.belongsTo(ProjectStatus, {
   onDelete: 'SET NULL'
 });
 
-Project.belongsTo(BusinessCategories, {
+Project.belongsTo(BusinessCategory, {
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL'
 });
@@ -61,3 +61,13 @@ Project.hasOne(Nda, {
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL'
 });
+
+Project.belongsTo(Currency, {
+  onUpdate: 'SET NULL',
+  onDelete: 'SET NULL'
+});
+
+Project.belongsTo(Region, {
+  onUpdate: 'SET NULL',
+  onDelete: 'SET NULL'
+})

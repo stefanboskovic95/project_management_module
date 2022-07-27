@@ -2,7 +2,7 @@
 
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
-import UserType from './user_type';
+import UserType from './userType';
 
 export default class User extends Model { };
 
@@ -17,12 +17,11 @@ User.init({
     type: DataTypes.STRING
   },
   password: DataTypes.STRING,
-  first_name: DataTypes.STRING,
-  last_name: DataTypes.STRING
+  firstName: DataTypes.STRING,
+  lastName: DataTypes.STRING
 }, {
   sequelize: connection,
-  modelName: 'user',
-  underscored: true
+  modelName: 'user'
 });
 
 User.belongsTo(UserType, {

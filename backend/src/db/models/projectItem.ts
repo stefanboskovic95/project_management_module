@@ -2,7 +2,7 @@
 
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
-import ProcurementStatus from './procurement_status';
+import ProcurementStatus from './procurementStatus';
 
 export default class ProjectItem extends Model { }
 
@@ -16,11 +16,10 @@ ProjectItem.init({
   subject: DataTypes.STRING,
   description: DataTypes.STRING,
   cost: DataTypes.DOUBLE,
-  nda_signed: DataTypes.BOOLEAN
+  isNdaSigned: DataTypes.BOOLEAN
 }, {
   sequelize: connection,
-  modelName: 'item',
-  underscored: true
+  modelName: 'item'
 });
 
 ProjectItem.belongsTo(ProcurementStatus, {

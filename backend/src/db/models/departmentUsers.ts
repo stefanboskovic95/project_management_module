@@ -15,8 +15,7 @@ DepartmentUsers.init({
     },
 }, {
     sequelize: connection,
-    modelName: 'department_users',
-    underscored: true
+    modelName: 'departmentUsers'
 });
 
 DepartmentUsers.belongsTo(Department, {

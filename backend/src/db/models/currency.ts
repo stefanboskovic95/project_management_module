@@ -3,17 +3,17 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
 
-export default class UserType extends Model { }
+export default class Currency extends Model { }
 
-UserType.init({
+Currency.init({
   id: {
     primaryKey: true,
     autoIncrement: true,
     type: DataTypes.INTEGER
   },
-  type: DataTypes.STRING
+  name: DataTypes.STRING,
+  ratioToEur: DataTypes.DOUBLE
 }, {
   sequelize: connection,
-  modelName: 'user_type',
-  underscored: true
+  modelName: 'currency'
 });

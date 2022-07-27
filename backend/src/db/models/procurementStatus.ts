@@ -3,18 +3,19 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
 
+export default class ProcurementStatus extends Model { }
 
-export default class Nda extends Model { }
-
-Nda.init({
+ProcurementStatus.init({
   id: {
     primaryKey: true,
     autoIncrement: true,
     type: DataTypes.INTEGER
   },
-  name: DataTypes.STRING,
-  text: DataTypes.TEXT
+  status: {
+    unique: true,
+    type: DataTypes.STRING
+  },
 }, {
   sequelize: connection,
-  modelName: 'nda'
+  modelName: 'procurementStatus'
 });
