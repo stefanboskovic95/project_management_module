@@ -10,30 +10,32 @@ import { Project } from 'src/app/models/project';
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
+  dropIdToStatusId: { [key: string]: number } = {
+    'cdk-drop-list-0': 1, // draft
+    'cdk-drop-list-1': 2, // draft
+    'cdk-drop-list-2': 3, // draft
+  }
+
   projectsDraft: Array<Project> = [];
-  projectNamesDraft: Array<string> = [];
   projectsDeliberation: Array<Project> = [];
-  projectNamesDeliberation: Array<string> = [];
   projectsAccepted: Array<Project> = [];
-  projectNamesAccepted: Array<string> = [];
 
   constructor(private projectsService: ProjectsService, private router: Router) { }
 
   ngOnInit(): void {
     this.projectsService.getProjects(this.projectsService.getDepartmentId()).subscribe((projects) => {
       this.projectsDraft = projects.filter(project => project.projectStatusId == 1);
-      this.projectNamesDraft = this.projectsDraft.map((project) => project.name);
       this.projectsDeliberation = projects.filter(project => project.projectStatusId == 2);
-      this.projectNamesDeliberation = this.projectsDeliberation.map((project) => project.name);
       this.projectsAccepted = projects.filter(project => project.projectStatusId == 3);
-      this.projectNamesAccepted = this.projectsAccepted.map(project => project.name);
     });
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<Project[]>) {
     const item = event.previousContainer.data[event.previousIndex];
+    item.projectStatusId = this.dropIdToStatusId[event.container.id];
+    this.projectsService.updateProjectStatus(item.id, this.dropIdToStatusId[event.container.id]).subscribe();
+
     console.log(item)
-    console.log(event.container.id)
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

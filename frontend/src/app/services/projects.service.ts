@@ -31,6 +31,13 @@ export class ProjectsService {
     })
   }
 
+  updateProjectStatus(projectId: number, projectStatusId: number) {
+    return this.http.post(`${environment.backend_url}/update_project_status`, {
+      projectId,
+      projectStatusId
+    })
+  }
+
   getProjects(departmentId: number) {
     return this.http.get<Array<Project>>(`${environment.backend_url}/projects?departmentId=${departmentId}`);
   }
