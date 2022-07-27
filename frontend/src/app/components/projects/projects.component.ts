@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
+import { Project } from 'src/app/models/project';
 
 @Component({
   selector: 'app-projects',
@@ -17,7 +18,9 @@ export class ProjectsComponent implements OnInit {
   constructor(private projectsService: ProjectsService, private router: Router) { }
 
   ngOnInit(): void {
-    this.projectNames = this.projectsService.getProjectNames();
+    this.projectsService.getProjectNames(this.projectsService.getDepartmentId()).subscribe((projects) => {
+      this.projectNames = projects.map((project) => project.name); 
+    });
   }
 
   drop(event: CdkDragDrop<string[]>) {
