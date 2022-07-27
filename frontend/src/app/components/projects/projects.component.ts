@@ -35,7 +35,6 @@ export class ProjectsComponent implements OnInit {
     item.projectStatusId = this.dropIdToStatusId[event.container.id];
     this.projectsService.updateProjectStatus(item.id, this.dropIdToStatusId[event.container.id]).subscribe();
 
-    console.log(item)
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

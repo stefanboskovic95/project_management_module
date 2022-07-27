@@ -32,7 +32,6 @@ export class AddProjectComponent implements OnInit {
       this.regions = regions;
     });
     this.projectsService.getCurrencies().subscribe((currencies) => {
-      console.log(currencies)
       this.currencies = currencies;
     });
   }
