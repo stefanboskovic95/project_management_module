@@ -36,7 +36,7 @@ Project.hasMany(ProjectItem, {
 
 Project.belongsTo(ProjectStatus, {
   foreignKey: {
-    field: 'project_status_id'
+    field: 'projectStatusId'
   },
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL'
@@ -48,6 +48,10 @@ Project.belongsTo(BusinessCategory, {
 });
 
 Project.belongsTo(User, {
+  // TODO: Why is this causing problems?
+  // foreignKey: {
+  //   field: 'projectLeadId'
+  // },
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL'
 });

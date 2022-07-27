@@ -17,5 +17,5 @@ ProcurementStatus.init({
   },
 }, {
   sequelize: connection,
-  modelName: 'procurementStatus'
+  modelName: 'procurement_status'
 });

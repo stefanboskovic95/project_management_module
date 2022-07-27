@@ -1,5 +1,5 @@
 import express, { Router, Request, Response } from 'express';
-import { createProject, getProjectStatuses, getBusinessCategories, getCurrencies, getRegions } from './routes/project';
+import { createProject, getProjectStatuses, getBusinessCategories, getCurrencies, getRegions, getProjects } from './routes/project';
 import { getDepartments, getDepartmentOfficials} from './routes/department';
 import cors from 'cors';
 const port = process.env.NODE_DOCKER_PORT || 8000
@@ -21,6 +21,7 @@ router.route('/departments').get(getDepartments);
 router.route('/department_officials').get(getDepartmentOfficials);
 router.route('/currencies').get(getCurrencies);
 router.route('/regions').get(getRegions);
+router.route('/projects').get(getProjects);
 
 app.use('/', router);
 app.listen(port, () => {

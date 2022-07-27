@@ -41,6 +41,18 @@ export const createProject = async (req: Request, res: Response) => {
   }
 };
 
+export const getProjects = async (req: Request, res: Response) => {
+  try {
+    const departmentId: number = req.query.departmentId;
+    const projects: Array<Project> = await Project.findAll({ where: { departmentId }});
+    res.status(200).send(projects);
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).send({ message: err });
+  }
+};
+
 export const getProjectStatuses = async (req: Request, res: Response) => {
   try {
     const projectStatuses: Array<ProjectStatus> = await ProjectStatus.findAll();

@@ -244,4 +244,62 @@ connection.sync().then(async () => {
         userId: 5
     });
 
+
+    // ==================== Projects ====================
+    await Project.create({
+        name: 'Izgradnja pristupnih puteva ka mostu na Adi',
+        description: 'Izgradnja pristupnih puteva ka mostu na Adi. Put treba da ima dvije trake u oba smjera.',
+        budget: 15000000.00,
+        totalCost: 0,
+        isConfidential: false,
+        projectStatusId: 1, // Draft
+        currencyId: 1,
+        userId: 1,
+        businessCategoryId: 1,
+        departmentId: 1,
+        regionId: 3
+    });
+
+
+    await Project.create({
+        name: 'Autoput Čačak - Požega',
+        description: 'Izgradnja dionice autoputa između Čačka i Požege.',
+        budget: 85000000.00,
+        totalCost: 0,
+        isConfidential: false,
+        projectStatusId: 2, // Deliberation
+        currencyId: 1,
+        userId: 2,
+        businessCategoryId: 1,
+        departmentId: 1,
+        regionId: 3
+    });
+
+    await Project.create({
+        name: 'Alternativni put Foča - Tjentište',
+        description: 'Izgradnja alternativnog puta postojecem izmedju Foče i Tjentišta.',
+        budget: 45000000.00,
+        totalCost: 0,
+        isConfidential: false,
+        projectStatusId: 2, // Deliberation
+        currencyId: 1,
+        userId: 2,
+        businessCategoryId: 1,
+        departmentId: 1,
+        regionId: 3
+    });
+
+    await Project.create({
+        name: 'Kanalizaciona mreža u centru Zemuna.',
+        description: 'Kanalizaciona mreža u centru Zemuna.',
+        budget: 8000000.00,
+        totalCost: 0,
+        isConfidential: false,
+        projectStatusId: 3, // Accepted
+        currencyId: 1,
+        userId: 2,
+        businessCategoryId: 2,
+        departmentId: 1,
+        regionId: 3
+    });
 });

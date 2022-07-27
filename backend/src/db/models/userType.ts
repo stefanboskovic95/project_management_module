@@ -14,5 +14,5 @@ UserType.init({
   type: DataTypes.STRING
 }, {
   sequelize: connection,
-  modelName: 'userType'
+  modelName: 'user_type'
 });

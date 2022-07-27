@@ -15,5 +15,5 @@ BusinessCategory.init({
   type: DataTypes.STRING
 }, {
   sequelize: connection,
-  modelName: 'businessCategories'
+  modelName: 'business_categories'
 });

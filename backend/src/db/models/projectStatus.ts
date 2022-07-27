@@ -17,5 +17,5 @@ ProjectStatus.init({
   },
 }, {
   sequelize: connection,
-  modelName: 'projectStatus'
+  modelName: 'project_status'
 });
