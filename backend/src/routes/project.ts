@@ -33,18 +33,34 @@ export const createProject = async (req: Request, res: Response) => {
       userId,
       departmentId
     });
-    res.status(200).send({message: 'Project created'})
+    res.status(200).send({ message: 'Project created' })
   }
   catch (err) {
-      console.log(err);
-      res.status(400).send({ message: err });
+    console.log(err);
+    res.status(400).send({ message: err });
+  }
+};
+
+export const updateProjectStatus = async (req: Request, res: Response) => {
+  try {
+    const projectId: number = req.body.projectId;
+    const projectStatusId: number = req.body.projectStatusId;
+    await Project.update(
+      { projectStatusId },
+      { where: { id: projectId } }
+    );
+    res.status(200).send({ message: 'Updated!' });
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).send({ message: err });
   }
 };
 
 export const getProjects = async (req: Request, res: Response) => {
   try {
     const departmentId: number = req.query.departmentId;
-    const projects: Array<Project> = await Project.findAll({ where: { departmentId }});
+    const projects: Array<Project> = await Project.findAll({ where: { departmentId } });
     res.status(200).send(projects);
   }
   catch (err) {
