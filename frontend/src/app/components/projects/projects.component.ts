@@ -47,7 +47,7 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
-  gotoNewProject() {
+  goToAddProject() {
     this.router.navigate(['add_project']);
   }
 

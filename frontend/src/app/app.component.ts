@@ -20,4 +20,8 @@ export class AppComponent {
   onLogout() {
 
   }
+
+  goToAddProject() {
+    this.router.navigate(['add_project']);
+  }
 }
