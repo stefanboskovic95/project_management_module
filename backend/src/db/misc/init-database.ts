@@ -92,6 +92,11 @@ connection.sync().then(async () => {
 
     await ProjectStatus.create({
         id: 5,
+        status: 'dropped'
+    });
+
+    await ProjectStatus.create({
+        id: 6,
         status: 'completed'
     });
 
@@ -123,7 +128,7 @@ connection.sync().then(async () => {
 
     await ProcurementStatus.create({
         id: 2,
-        status: 'in_progress'
+        status: 'inProgress'
     });
 
     await ProcurementStatus.create({
@@ -164,47 +169,55 @@ connection.sync().then(async () => {
         type: 'Department Chief',
     });
 
+    await UserType.create({
+        id: 4,
+        type: 'admin',
+    });
+
     // ==================== Users ====================
     await User.create({
-        id: 1,
+        username: 'admin',
+        password: '$2b$10$sMuiKseNOSS5.WJRxLdC1.p85cerpkH0sC/KsnqM0/3xRmJV9tMpW', // admin123
+        firstName: 'Admin',
+        lastName: 'Admin',
+        userTypeId: 4
+    });
+
+    await User.create({
         username: 'sboskovi',
-        password: '',
+        password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
         firstName: 'Stefan',
         lastName: 'Boskovic',
         userTypeId: 3
     });
 
     await User.create({
-        id: 2,
         username: 'mandrije',
-        password: '',
+        password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
         firstName: 'Marko',
         lastName: 'Andrijevic',
         userTypeId: 3
     });
 
     await User.create({
-        id: 3,
         username: 'gstancev',
-        password: '',
+        password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
         firstName: 'Goran',
         lastName: 'Stancevic',
         userTypeId: 3
     });
 
     await User.create({
-        id: 4,
         username: 'mmatejic',
-        password: '',
+        password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
         firstName: 'Mihailo',
         lastName: 'Matejic',
         userTypeId: 2
     });
 
     await User.create({
-        id: 5,
         username: 'mstojkov',
-        password: '',
+        password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
         firstName: 'Marko',
         lastName: 'Stojkovic',
         userTypeId: 2
@@ -214,34 +227,34 @@ connection.sync().then(async () => {
     await DepartmentUsers.create({
         id: 1,
         departmentId: 1,
-        userId: 1
+        userId: 2
     });
 
     await DepartmentUsers.create({
         id: 2,
         departmentId: 2,
-        userId: 2
+        userId: 3
     });
 
 
     await DepartmentUsers.create({
         id: 3,
         departmentId: 3,
-        userId: 3
+        userId: 4
     });
 
 
     await DepartmentUsers.create({
         id: 4,
         departmentId: 1,
-        userId: 4
+        userId: 5
     });
 
 
     await DepartmentUsers.create({
         id: 5,
         departmentId: 2,
-        userId: 5
+        userId: 6
     });
 
 
