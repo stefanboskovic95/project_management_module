@@ -15,9 +15,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 
-
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -25,6 +24,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     ProjectsComponent,
     AddProjectComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
