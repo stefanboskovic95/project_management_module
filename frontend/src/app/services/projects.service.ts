@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BusinessCategory } from '../models/businessCategory';
-import { User } from '../models/User';
+import { User } from '../models/user';
 import { Project } from '../models/project';
 import { Region } from '../models/region';
 import { Currency } from '../models/currency';

@@ -1,0 +1,25 @@
+.header {
+  text-align: right;
+  padding: 10px;
+  display: flex;
+}
+
+.img-head {
+  cursor: pointer;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+h2:hover {
+  text-shadow: 1px 1px #797979;
+  cursor: pointer;
+}
+
+
+.navbar-btn {
+  margin: 10px;
+  margin-top: 0px;
+  width: auto;
+}

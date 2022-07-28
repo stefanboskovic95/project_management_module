@@ -30,6 +30,32 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+button {
+  padding: 0px 0px;
+  margin-top: 16px;
+
+  background-color: transparent;
+  color: #007904;
+  /* all: unset; */
+  cursor: pointer;
+}
+
+#h2-w-button {
+  /* border: 1px solid green; */
+  /* display: flex;
+  align-items: center; */
+}
+
+#h2-w-button h3 {
+  /* border: 1px solid green; */
+  display: inline-block;
+}
+
+#h2-w-button button {
+  /* border: 1px solid red; */
+  float: right;
+}
+
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 4px;

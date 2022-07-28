@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ProjectsService } from './services/projects.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frontend';
+  isAuthenticated = true;
+
+  constructor(private router: Router,private projectsService:ProjectsService) {}
+
+  goToProjects() {
+    this.router.navigate(['/']);
+  }
+
+  onLogout() {
+
+  }
 }

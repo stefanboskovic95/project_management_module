@@ -12,6 +12,11 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+
+
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -30,7 +35,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     BrowserAnimationsModule,
     MatInputModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatMenuModule,
+    MatIconModule,
+
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BusinessCategory } from 'src/app/models/businessCategory';
 import { Currency } from 'src/app/models/currency';
 import { Region } from 'src/app/models/region';
-import { User } from 'src/app/models/User';
+import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
@@ -39,7 +39,7 @@ export class AddProjectComponent implements OnInit {
   submitProduct(data:any) {
     this.projectsService.addProject(data.name, data.description, data.budget, data.isConfidential, data.currency, data.projectLead, data.category, data.region)
       .subscribe(() => {
-        console.log('Project Added!')
+        console.log('Project Added!');
       })
   }
 
