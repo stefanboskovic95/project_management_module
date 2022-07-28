@@ -19,7 +19,10 @@ Project.init({
     autoIncrement: true,
     type: DataTypes.INTEGER
   },
-  name: DataTypes.STRING,
+  name: {
+    unique: true,
+    type: DataTypes.STRING
+  },
   description: DataTypes.STRING,
   budget: DataTypes.DOUBLE,
   totalCost: DataTypes.DOUBLE,
