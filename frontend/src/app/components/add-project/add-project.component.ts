@@ -14,6 +14,7 @@ export class AddProjectComponent implements OnInit {
   businessCategories: Array<BusinessCategory> = [];
   users: Array<User> = [];
   regions: Array<Region> = [];
+  isConfidential: boolean = false;
 
   currencies: Array<Currency> = []
 

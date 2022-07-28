@@ -54,12 +54,13 @@
 
         <div class="example-half-width-left-margin">
             <section class="example-section">
-                <mat-checkbox class="example-margin" name="isConfidential" ngModel>Is Confidential</mat-checkbox>
+                <mat-checkbox class="example-margin" name="isConfidential" ngModel color="warn" [(ngModel)]="isConfidential">Is confidential</mat-checkbox>
             </section>
         </div>
-
-        <button class="example-half-width-right-margin">Upload NDA</button>
-
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>NDA</mat-label>
+            <textarea matInput name="nda" ngModel [disabled]="!isConfidential"></textarea>
+        </mat-form-field>
         <button type="submit">Submit</button>
     </form>
 </div>
