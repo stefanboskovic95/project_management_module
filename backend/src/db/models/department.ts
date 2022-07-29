@@ -32,12 +32,3 @@ Department.belongsTo(User, {
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL'
 });
-
-
-User.belongsTo(Department, {
-  foreignKey: {
-    name: 'departmentId'
-  },
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL'
-});
