@@ -2,6 +2,7 @@
 
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
+import Department from './department';
 import UserType from './userType';
 
 export default class User extends Model { };

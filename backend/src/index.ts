@@ -27,15 +27,15 @@ router.route('/test').get(async (_: Request, res: Response) => {
 });
 
 router.route('/login').post(login);
-router.route('/create_project', checkAuth).post(createProject);
-router.route('/project_statuses', checkAuth).get(getProjectStatuses);
-router.route('/business_categories', checkAuth).get(getBusinessCategories);
-router.route('/departments', checkAuth).get(getDepartments);
-router.route('/department_officials', checkAuth).get(getDepartmentOfficials);
-router.route('/currencies', checkAuth).get(getCurrencies);
-router.route('/regions', checkAuth).get(getRegions);
-router.route('/projects', checkAuth).get(getProjects);
-router.route('/update_project_status', checkAuth).post(updateProjectStatus);
+router.route('/create_project').post(checkAuth, createProject);
+router.route('/projects').get(checkAuth, getProjects);
+router.route('/project_statuses').get(checkAuth, getProjectStatuses);
+router.route('/business_categories').get(checkAuth, getBusinessCategories);
+router.route('/departments').get(checkAuth, getDepartments);
+router.route('/department_officials').get(checkAuth, getDepartmentOfficials);
+router.route('/currencies').get(checkAuth, getCurrencies);
+router.route('/regions').get(checkAuth, getRegions);
+router.route('/update_project_status').post(checkAuth, updateProjectStatus);
 
 app.use('/', router);
 app.listen(port, () => {
