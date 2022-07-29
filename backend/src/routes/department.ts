@@ -24,17 +24,13 @@ export const getDepartmentOfficials = async (req: Request, res: Response) => {
       },
       include: [User]
     });
-    const officials = await departmentUsers.map((depUser) => {
-      // Department officials and department Chief
-      if ([2, 3].includes(depUser.user.userTypeId)) {
-        return {
-          id: depUser.user.id,
-          username: depUser.user.username,
-          firstName: depUser.user.firstName,
-          lastName: depUser.user.lastName
-        }
-      }
-    });
+    const officials = await departmentUsers.filter(depUser => [2, 3].includes(depUser.user.userTypeId)).map((depUser) => ({
+      id: depUser.user.id,
+      username: depUser.user.username,
+      firstName: depUser.user.firstName,
+      lastName: depUser.user.lastName
+    }));
+    console.log(officials)
     res.status(200).send(officials);
   }
   catch (err) {
