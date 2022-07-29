@@ -13,8 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ProjectsComponent implements OnInit {
   dropIdToStatusId: { [key: string]: number } = {
     'cdk-drop-list-0': 1, // draft
-    'cdk-drop-list-1': 2, // draft
-    'cdk-drop-list-2': 3, // draft
+    'cdk-drop-list-1': 2, // deliberation
+    'cdk-drop-list-2': 3, // accepted
   }
 
   projectsDraft: Array<Project> = [];
@@ -36,24 +36,31 @@ export class ProjectsComponent implements OnInit {
     item.projectStatusId = this.dropIdToStatusId[event.container.id];
     this.projectsService.updateProjectStatus(item.id, this.dropIdToStatusId[event.container.id]).subscribe({
       next: () => {
-        if (event.previousContainer === event.container) {
-          moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-        } else {
-          transferArrayItem(
-            event.previousContainer.data,
-            event.container.data,
-            event.previousIndex,
-            event.currentIndex,
-          );
-        }
       },
       error: (err) => {
+        // Revert update
+        this.swap(event, 'previousContainer', 'container');
+        this.updateSwimLanes(event);
+
         console.log(err)
         this.openSnackBar(err.error.message, 'Dismiss')
       }
     });
+    // To avoid flickering this is not done in next part of subscribe.
+    this.updateSwimLanes(event);
+  }
 
-
+  updateSwimLanes(event: CdkDragDrop<Project[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
   }
 
   openSnackBar(message: string, action: string) {
@@ -64,4 +71,7 @@ export class ProjectsComponent implements OnInit {
     this.router.navigate(['add_project']);
   }
 
+  swap(obj: any, key1: string, key2: string) {
+    [obj[key1], obj[key2]] = [obj[key2], obj[key1]];
+  }
 }
