@@ -48,6 +48,20 @@ export const updateProjectStatus = async (req: Request, res: Response) => {
   try {
     const projectId: number = req.body.projectId;
     const projectStatusId: number = req.body.projectStatusId;
+    const userTypeId: number = res.locals.userTypeId;
+
+    // Regular user cannot update projects
+    if (userTypeId == 1) {
+      return res.status(403).send({message: 'You are not authorized to preform this action.'})
+    }
+    
+    const project: Project = await Project.findOne({ where: { id: projectId } });
+
+    // Only department chief can approve or reject the project. High official can update other states.
+    if (userTypeId == 2 && ![3, 4].includes(projectStatusId)) {
+      return res.status(403).send({message: 'Only Department Chief can accept or reject the project.'})
+    }
+
     await Project.update(
       { projectStatusId },
       { where: { id: projectId } }
