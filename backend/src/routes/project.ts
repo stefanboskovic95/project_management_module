@@ -4,6 +4,9 @@ import Project from '../db/models/project';
 import BusinessCategory from '../db/models/businessCategories';
 import Currency from '../db/models/currency';
 import Region from '../db/models/regions';
+import DepartmentUsers from '../db/models/departmentUsers';
+import ProjectUsers from '../db/models/projectUsers';
+import { Op } from "sequelize";
 
 export const createProject = async (req: Request, res: Response) => {
   try {
@@ -59,8 +62,33 @@ export const updateProjectStatus = async (req: Request, res: Response) => {
 
 export const getProjects = async (req: Request, res: Response) => {
   try {
-    const departmentId: number = req.query.departmentId;
-    const projects: Array<Project> = await Project.findAll({ where: { departmentId } });
+    const userId: number = res.locals.userId;
+    const userTypeId: number = res.locals.userTypeId;
+
+    const departmentUser: DepartmentUsers = await DepartmentUsers.findOne({ where: { userId } });
+    const departmentId: number = departmentUser['departmentId'];
+    const where = {};
+
+    // Regular user
+    if (userTypeId == 1) {
+      // Project user belongs to
+      const projectUsers: Array<ProjectUsers> = await ProjectUsers.findAll({ where: { userId } });
+      const projectIds = projectUsers.map(item => item['projectId']);
+      where['id'] = {
+        [Op.or]: projectIds
+      };
+    }
+    // Department High official
+    if (userTypeId == 2) {
+      where['departmentId'] = departmentId;
+      where['isConfidential'] = false;
+    }
+    // Department chief
+    if (userTypeId == 3) {
+      where['departmentId'] = departmentId;
+    }
+
+    const projects: Array<Project> = await Project.findAll({ where });
     res.status(200).send(projects);
   }
   catch (err) {
