@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import User from '../db/models/user';
 import Department from '../db/models/department';
 import DepartmentUsers from '../db/models/departmentUsers';
-import UserType from '../db/models/userType';
 
 export const getDepartments = async (req: Request, res: Response) => {
   try {
@@ -17,6 +16,7 @@ export const getDepartments = async (req: Request, res: Response) => {
 
 export const getDepartmentOfficials = async (req: Request, res: Response) => {
   try {
+    // TODO: Get department id from user
     const departmentId = req.query.departmentId;
     const departmentUsers: any = await DepartmentUsers.findAll({
       where: {
@@ -30,7 +30,6 @@ export const getDepartmentOfficials = async (req: Request, res: Response) => {
       firstName: depUser.user.firstName,
       lastName: depUser.user.lastName
     }));
-    console.log(officials)
     res.status(200).send(officials);
   }
   catch (err) {

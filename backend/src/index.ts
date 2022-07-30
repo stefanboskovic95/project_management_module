@@ -11,6 +11,7 @@ import {
     getCurrencies,
     getRegions,
     getProjects,
+    getProject,
     updateProjectStatus
 } from './routes/project';
 
@@ -29,6 +30,7 @@ router.route('/test').get(async (_: Request, res: Response) => {
 router.route('/login').post(login);
 router.route('/create_project').post(checkAuth, createProject);
 router.route('/projects').get(checkAuth, getProjects);
+router.route('/project').get(checkAuth, getProject);
 router.route('/project_statuses').get(checkAuth, getProjectStatuses);
 router.route('/business_categories').get(checkAuth, getBusinessCategories);
 router.route('/departments').get(checkAuth, getDepartments);

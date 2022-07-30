@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Op } from "sequelize";
 import ProjectStatus from '../db/models/projectStatus';
 import Project from '../db/models/project';
 import BusinessCategory from '../db/models/businessCategories';
@@ -6,10 +7,14 @@ import Currency from '../db/models/currency';
 import Region from '../db/models/regions';
 import DepartmentUsers from '../db/models/departmentUsers';
 import ProjectUsers from '../db/models/projectUsers';
-import { Op } from "sequelize";
+import User from '../db/models/user';
 
 export const createProject = async (req: Request, res: Response) => {
   try {
+    if (res.locals.userTypeId == 1) {
+      return res.status(403).send({ message: 'You are not authorized to preform this action.' })
+    }
+
     const name: string = req.body.name;
     const description: string = req.body.description;
     // const country: string = req.body.country;
@@ -52,14 +57,14 @@ export const updateProjectStatus = async (req: Request, res: Response) => {
 
     // Regular user cannot update projects
     if (userTypeId == 1) {
-      return res.status(403).send({message: 'You are not authorized to preform this action.'})
+      return res.status(403).send({ message: 'You are not authorized to preform this action.' });
     }
-    
+
     const project: Project = await Project.findOne({ where: { id: projectId } });
 
     // Only department chief can approve or reject the project. High official can update other states.
     if (userTypeId == 2 && ![3, 4].includes(projectStatusId)) {
-      return res.status(403).send({message: 'Only Department Chief can accept or reject the project.'})
+      return res.status(403).send({ message: 'Only Department Chief can accept or reject the project.' });
     }
 
     await Project.update(
@@ -104,6 +109,44 @@ export const getProjects = async (req: Request, res: Response) => {
 
     const projects: Array<Project> = await Project.findAll({ where });
     res.status(200).send(projects);
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).send({ message: err });
+  }
+};
+
+export const getProject = async (req: Request, res: Response) => {
+  try {
+    const projectId: number = req.query.projectId;
+    const userId: number = res.locals.userId;
+    const userTypeId: number = res.locals.userTypeId;
+    const where = { id: projectId };
+    let isEditable = true;
+
+    // Regular user
+    if (userTypeId == 1) {
+      // Project user belongs to
+      const projectUsers: ProjectUsers = await ProjectUsers.findOne({ where: { projectId, userId } });
+      if (!projectUsers) {
+        return res.status(403).send({ message: 'You do not have access to this project' })
+      }
+      isEditable = false;
+    }
+
+    console.log(where)
+    const project: Project = await Project.findOne({ where });
+
+    // Department High official cannot edit projects on which he is not a project lead
+    if (userTypeId == 2 && project['userId'] != userId) {
+      isEditable = false;
+    }
+
+    const result = {
+      ...project['dataValues'],
+      'isEditable': isEditable
+    };
+    res.status(200).send(result);
   }
   catch (err) {
     console.log(err);
