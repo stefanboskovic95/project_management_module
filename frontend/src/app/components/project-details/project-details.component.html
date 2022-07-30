@@ -18,7 +18,7 @@
 
     <mat-form-field class="full-width" appearance="fill">
       <mat-label [ngClass]="{'black': !isEditing}">Budget</mat-label>
-      <input matInput name="budget" ngModel [(ngModel)]="project.budget" [disabled]="!isEditing" [ngClass]="{'black-bold': !isEditing}">
+      <input matInput name="budget" ngModel [(ngModel)]="project.budget" [value]="project.budget | currency:getCurrency()" [disabled]="!isEditing" [ngClass]="{'black-bold': !isEditing}">
     </mat-form-field>
 
     <mat-form-field class="full-width" appearance="fill">

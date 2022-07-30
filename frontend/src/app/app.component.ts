@@ -34,6 +34,10 @@ export class AppComponent {
     this.router.navigate(['projects_overview']);
   }
 
+  goToProjectsDetails() {
+    this.router.navigate(['projects_details']);
+  }
+
   onLogout() {
     this.userService.logout();
   }

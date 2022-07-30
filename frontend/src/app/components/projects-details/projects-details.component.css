@@ -1,0 +1,35 @@
+th {
+  padding: 15px;
+}
+
+td {
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.table-container {
+  width: max-content;
+  /* border: 1px solid black; */
+  margin: auto;
+}
+
+#p-w-button p {
+  display: inline-block;
+}
+
+#p-w-button button {
+  float: right;
+}
+
+button {
+  padding: 0px 0px;
+  margin-top: 14px;
+  background-color: transparent;
+  color: #007904;
+  cursor: pointer;
+}
+
+.details-mat-icon {
+  margin: auto;
+}

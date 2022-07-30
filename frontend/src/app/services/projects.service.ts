@@ -6,6 +6,7 @@ import { User } from '../models/user';
 import { Project } from '../models/project';
 import { Region } from '../models/region';
 import { Currency } from '../models/currency';
+import { ProjectStatus } from '../models/projectStatus';
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +40,8 @@ export class ProjectsService {
     })
   }
 
-  getProjects(departmentId: number) {
-    return this.http.get<Array<Project>>(`${environment.backend_url}/projects?departmentId=${departmentId}`);
+  getProjects() {
+    return this.http.get<Array<Project>>(`${environment.backend_url}/projects`);
   }
 
   getProject(projectId: number) {
@@ -61,6 +62,10 @@ export class ProjectsService {
 
   getCurrencies() {
     return this.http.get<Array<Currency>>(`${environment.backend_url}/currencies`);
+  }
+
+  getProjectStatuses() {
+    return this.http.get<Array<ProjectStatus>>(`${environment.backend_url}/project_statuses`);
   }
 
   getDepartmentId() {

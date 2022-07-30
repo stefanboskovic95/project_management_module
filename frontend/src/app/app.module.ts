@@ -22,6 +22,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptor } from './services/auth-interceptor';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
+import { ProjectsDetailsComponent } from './components/projects-details/projects-details.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ProjectDetailsComponent } from './components/project-details/project-de
     AddProjectComponent,
     LoginComponent,
     ProjectDetailsComponent,
+    ProjectsDetailsComponent,
   ],
   imports: [
     BrowserModule,

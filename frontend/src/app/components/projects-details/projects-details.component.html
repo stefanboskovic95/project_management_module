@@ -1,0 +1,105 @@
+<div class="table-container">
+  <table *ngIf="projects">
+    <tr>
+      <th>
+        <div id="p-w-button">
+          <p>Id</p>
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortByName()">
+            <mat-icon *ngIf="sortNameAscending">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="!sortNameAscending">arrow_drop_down</mat-icon>
+          </button>
+        </div>
+      </th>
+      <th>
+        <div id="p-w-button">
+          <p>Project name</p>
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortByName()">
+            <mat-icon *ngIf="sortNameAscending">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="!sortNameAscending">arrow_drop_down</mat-icon>
+          </button>
+        </div>
+      </th>
+      <th>
+        <div id="p-w-button">
+          <p>Budget</p>
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortByName()">
+            <mat-icon *ngIf="sortNameAscending">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="!sortNameAscending">arrow_drop_down</mat-icon>
+          </button>
+        </div>
+      </th>
+      <th>
+        <div id="p-w-button">
+          <p>Budget used</p>
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortByName()">
+            <mat-icon *ngIf="sortNameAscending">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="!sortNameAscending">arrow_drop_down</mat-icon>
+          </button>
+        </div>
+      </th>
+      <th>
+        <div id="p-w-button">
+          <p>Confidential</p>
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortByName()">
+            <mat-icon *ngIf="sortNameAscending">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="!sortNameAscending">arrow_drop_down</mat-icon>
+          </button>
+        </div>
+      </th>
+      <th>
+        <div id="p-w-button">
+          <p>Project status</p>
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortByName()">
+            <mat-icon *ngIf="sortNameAscending">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="!sortNameAscending">arrow_drop_down</mat-icon>
+          </button>
+        </div>
+      </th>
+      <th>
+        <div id="p-w-button">
+          <p>Business category</p>
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortByName()">
+            <mat-icon *ngIf="sortNameAscending">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="!sortNameAscending">arrow_drop_down</mat-icon>
+          </button>
+        </div>
+      </th>
+      <th>
+        <div id="p-w-button">
+          <p>Project lead</p>
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortByName()">
+            <mat-icon *ngIf="sortNameAscending">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="!sortNameAscending">arrow_drop_down</mat-icon>
+          </button>
+        </div>
+      </th>
+      <th>
+        <div id="p-w-button">
+          <p>Region</p>
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortByName()">
+            <mat-icon *ngIf="sortNameAscending">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="!sortNameAscending">arrow_drop_down</mat-icon>
+          </button>
+        </div>
+      </th>
+      <th>
+        <div id="p-w-button">
+          <button mat-icon-button class="tittle-add-btn-btn">
+            <mat-icon>filter_list</mat-icon>
+          </button>
+        </div>
+      </th>
+    </tr>
+    <tr *ngFor="let project of projects">
+      <td>{{project.id}}</td>
+      <td>{{project.name}}</td>
+      <td *ngIf="currencies">{{project.budget | currency:getCurrency(project.currencyId)}}</td>
+      <td>{{0 | currency:getCurrency(project.currencyId)}}</td>
+      <td>{{project.isConfidential ? 'YES' : 'NO'}}</td>
+      <td>{{getProjectStatus(project.projectStatusId)}}</td>
+      <td>{{getBusinessCategory(project.businessCategoryId)}}</td>
+      <td>{{getProjectLead(project.userId)}}</td>
+      <td>{{getRegion(project.regionId)}}</td>
+    </tr>
+  </table>
+</div>

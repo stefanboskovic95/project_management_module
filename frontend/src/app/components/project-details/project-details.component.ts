@@ -55,4 +55,8 @@ export class ProjectDetailsComponent implements OnInit {
     return false
   }
 
+  getCurrency(currencyId: number = 1) {
+    return this.currencies?.find(item => item.id == currencyId)?.name
+  }
+
 }

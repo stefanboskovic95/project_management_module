@@ -25,7 +25,7 @@ export class ProjectsComponent implements OnInit {
   constructor(private userService:UserService, private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.projectsService.getProjects(this.projectsService.getDepartmentId()).subscribe((projects) => {
+    this.projectsService.getProjects().subscribe((projects) => {
       this.projectsDraft = projects.filter(project => project.projectStatusId == 1);
       this.projectsDeliberation = projects.filter(project => project.projectStatusId == 2);
       this.projectsAccepted = projects.filter(project => project.projectStatusId == 3);
