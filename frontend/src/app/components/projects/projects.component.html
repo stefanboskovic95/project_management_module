@@ -1,15 +1,20 @@
 <div>
     <div class="example-container">
-        <div id="h2-w-button">
+        <div id="h3-w-button">
             <h3 class="tittle-add-btn">Draft</h3>
-            <button mat-icon-button (click)="goToAddProject()" class="tittle-add-btn-btn">
+            <button mat-icon-button (click)="goToAddProject()" class="tittle-add-btn-btn" [disabled]="isAddProjectDisabled()">
                 <mat-icon>add_circle_outline</mat-icon>
             </button>
         </div>
         <div cdkDropList #draftList="cdkDropList" [cdkDropListData]="projectsDraft"
             [cdkDropListConnectedTo]="[deliberationList, acceptedList]" class="example-list"
             (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of projectsDraft" cdkDrag>{{item.name}}</div>
+            <div class="example-box" *ngFor="let item of projectsDraft" cdkDrag>
+                <p>{{item.name}}</p>
+                <button class="details-btn" mat-menu-item (click)="goToProject(item.id)">
+                    <mat-icon class="details-mat-icon">pageview</mat-icon>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -18,7 +23,12 @@
         <div cdkDropList #deliberationList="cdkDropList" [cdkDropListData]="projectsDeliberation"
             [cdkDropListConnectedTo]="[draftList, acceptedList]" class="example-list"
             (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of projectsDeliberation" cdkDrag>{{item.name}}</div>
+            <div class="example-box" *ngFor="let item of projectsDeliberation" cdkDrag>
+                <p>{{item.name}}</p>
+                <button class="details-btn" mat-menu-item (click)="goToProject(item.id)">
+                    <mat-icon class="details-mat-icon">pageview</mat-icon>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -27,7 +37,12 @@
         <div cdkDropList #acceptedList="cdkDropList" [cdkDropListData]="projectsAccepted"
             [cdkDropListConnectedTo]="[draftList, deliberationList]" class="example-list"
             (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of projectsAccepted" cdkDrag>{{item.name}}</div>
+            <div class="example-box" *ngFor="let item of projectsAccepted" cdkDrag>
+                <p>{{item.name}}</p>
+                <button class="details-btn" mat-menu-item (click)="goToProject(item.id)">
+                    <mat-icon class="details-mat-icon">pageview</mat-icon>
+                </button>
+            </div>
         </div>
     </div>
 </div>

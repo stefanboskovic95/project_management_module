@@ -14,6 +14,14 @@ button[type="submit"] {
     width: 100%;
 }
 
+button:disabled,
+button[disabled]{
+  /* border: 1px solid #999999; */
+  background-color: #cccccc;
+  color: #666666;
+}
+
+
 .form-container {
     border-radius: 5px;
     background-color: #f2f2f2;
@@ -41,4 +49,26 @@ input[type="number"] {
 
 .error-msg {
     color: red;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.half-width-right-margin {
+    width: 48%;
+    float: right;
+}
+
+.half-width-left-margin {
+    width: 48%;
+    float: left;
+}
+
+.checkbox-section {
+    margin: 12px 0;
+}
+
+.text-area-tall {
+    height: 60px;
 }

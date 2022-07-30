@@ -4,6 +4,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Router } from '@angular/router';
 import { Project } from 'src/app/models/project';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-projects',
@@ -21,7 +22,7 @@ export class ProjectsComponent implements OnInit {
   projectsDeliberation: Array<Project> = [];
   projectsAccepted: Array<Project> = [];
 
-  constructor(private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) { }
+  constructor(private userService:UserService, private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.projectsService.getProjects(this.projectsService.getDepartmentId()).subscribe((projects) => {
@@ -35,8 +36,7 @@ export class ProjectsComponent implements OnInit {
     const item = event.previousContainer.data[event.previousIndex];
     item.projectStatusId = this.dropIdToStatusId[event.container.id];
     this.projectsService.updateProjectStatus(item.id, this.dropIdToStatusId[event.container.id]).subscribe({
-      next: () => {
-      },
+      next: () => { },
       error: (err) => {
         // Revert update
         this.swap(event, 'previousContainer', 'container');
@@ -69,6 +69,18 @@ export class ProjectsComponent implements OnInit {
 
   goToAddProject() {
     this.router.navigate(['add_project']);
+  }
+
+  goToProject(projectId: number) {
+    this.projectsService.setSelectedProjectId(projectId);
+    this.router.navigate(['project_details']);
+  }
+
+  isAddProjectDisabled() {
+    if (this.userService.getUserTypeId() == 1) {
+      return true;
+    }
+    return false;
   }
 
   swap(obj: any, key1: string, key2: string) {

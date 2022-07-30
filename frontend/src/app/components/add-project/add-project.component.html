@@ -1,14 +1,14 @@
 <div class="form-container">
     <h1>Create new project</h1>
-    <form class="example-form" #addProject="ngForm" (ngSubmit)="submitProduct(addProject.value)">
-        <mat-form-field class="example-full-width" appearance="fill">
+    <form #addProject="ngForm" (ngSubmit)="submitProduct(addProject.value)">
+        <mat-form-field class="full-width" appearance="fill">
             <mat-label>Project name</mat-label>
             <input matInput name="name" ngModel>
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="fill">
             <mat-label>Project description</mat-label>
-            <textarea matInput name="description" ngModel></textarea>
+            <textarea class="text-area-tall" matInput name="description" ngModel></textarea>
         </mat-form-field>
 
         <mat-form-field style="width: 78%" appearance="fill">
@@ -25,7 +25,7 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="fill">
             <mat-label>Project lead</mat-label>
             <mat-select name="projectLead" ngModel>
                 <mat-option *ngFor="let user of users" [value]="user.id">
@@ -34,7 +34,7 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="example-half-width-right-margin" appearance="fill">
+        <mat-form-field class="half-width-right-margin" appearance="fill">
             <mat-label>Region</mat-label>
             <mat-select name="region" ngModel>
                 <mat-option *ngFor="let region of regions" [value]="region.id">
@@ -43,7 +43,7 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="example-half-width-left-margin" appearance="fill">
+        <mat-form-field class="half-width-left-margin" appearance="fill">
             <mat-label>Business category</mat-label>
             <mat-select name="category" ngModel>
                 <mat-option *ngFor="let category of businessCategories" [value]="category.id">
@@ -52,14 +52,14 @@
             </mat-select>
         </mat-form-field>
 
-        <div class="example-half-width-left-margin">
-            <section class="example-section">
-                <mat-checkbox class="example-margin" name="isConfidential" ngModel color="warn" [(ngModel)]="isConfidential">Is confidential</mat-checkbox>
+        <div class="half-width-left-margin">
+            <section class="checkbox-section">
+                <mat-checkbox name="isConfidential" ngModel color="warn" [(ngModel)]="isConfidential">Is confidential</mat-checkbox>
             </section>
         </div>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="fill">
             <mat-label>NDA</mat-label>
-            <textarea matInput name="nda" ngModel [disabled]="!isConfidential"></textarea>
+            <textarea class="text-area-tall" matInput name="nda" ngModel [disabled]="!isConfidential"></textarea>
         </mat-form-field>
         <button type="submit">Submit</button>
     </form>

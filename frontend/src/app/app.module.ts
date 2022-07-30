@@ -21,6 +21,7 @@ import { LoginComponent } from './components/login/login.component';
 // Auth Interceptor - to send token in authorization header
 import { AuthInterceptor } from './services/auth-interceptor';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
     ProjectsComponent,
     AddProjectComponent,
     LoginComponent,
+    ProjectDetailsComponent,
   ],
   imports: [
     BrowserModule,

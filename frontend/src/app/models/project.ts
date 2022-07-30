@@ -6,5 +6,11 @@ export interface Project {
   budget: number;
   totalCost: number;
   isConfidential: boolean;
-  projectStatusId: number
+  projectStatusId: number;
+  isEditable: boolean;
+  userId: number;
+  businessCategoryId: number;
+  departmentId: number;
+  currencyId: number;
+  regionId: number;
 }

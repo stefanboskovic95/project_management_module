@@ -1,26 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ProjectsService } from 'src/app/services/projects.service';
 import { BusinessCategory } from 'src/app/models/businessCategory';
 import { Currency } from 'src/app/models/currency';
 import { Region } from 'src/app/models/region';
 import { User } from 'src/app/models/user';
-import { ProjectsService } from 'src/app/services/projects.service';
+import { Project } from 'src/app/models/project';
 
 @Component({
-  selector: 'app-add-project',
-  templateUrl: './add-project.component.html',
-  styleUrls: ['./add-project.component.css']
+  selector: 'app-project-details',
+  templateUrl: './project-details.component.html',
+  styleUrls: ['./project-details.component.css']
 })
-export class AddProjectComponent implements OnInit {
+export class ProjectDetailsComponent implements OnInit {
   businessCategories: Array<BusinessCategory> = [];
   users: Array<User> = [];
   regions: Array<Region> = [];
   isConfidential: boolean = false;
   currencies: Array<Currency> = [];
+  project: Project | undefined;
+  isEditing: boolean = false;
 
-  constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar) { }
+
+  constructor(private projectsService: ProjectsService) { }
 
   ngOnInit(): void {
+    this.projectsService.getProject(this.projectsService.getSelectedProjectId()).subscribe((project) => {
+      this.project = project;
+      this.isConfidential = project.isConfidential;
+    })
     this.projectsService.getBusinessCategories().subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     });
@@ -35,18 +43,16 @@ export class AddProjectComponent implements OnInit {
     });
   }
 
-  submitProduct(data:any) {
-    this.projectsService.addProject(data.name, data.description, data.budget, data.isConfidential, data.currency, data.projectLead, data.category, data.region)
-      .subscribe({
-        next: () => {
-        },
-        error: (err) => {
-          this.openSnackBar(err.error.message);
-        }
-      })
+  editProduct(form: NgForm) {
+
   }
 
-  openSnackBar(message: string, action: string = 'Dismiss') {
-    this._snackBar.open(message, action);
+  isNdaDisabled() {
+    if (this.isEditing && !this.isConfidential)
+      return true;
+    else if (!this.isEditing)
+      return true;
+    return false
   }
+
 }

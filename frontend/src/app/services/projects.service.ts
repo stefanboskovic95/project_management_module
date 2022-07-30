@@ -13,6 +13,7 @@ import { Currency } from '../models/currency';
 export class ProjectsService {
   // TODO: User's department
   private departmentId = 1;
+  private selectedProjectId: number = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -42,6 +43,10 @@ export class ProjectsService {
     return this.http.get<Array<Project>>(`${environment.backend_url}/projects?departmentId=${departmentId}`);
   }
 
+  getProject(projectId: number) {
+    return this.http.get<any>(`${environment.backend_url}/project?projectId=${projectId}`);
+  }
+
   getBusinessCategories() {
     return this.http.get<Array<BusinessCategory>>(`${environment.backend_url}/business_categories`);
   }
@@ -60,5 +65,13 @@ export class ProjectsService {
 
   getDepartmentId() {
     return this.departmentId;
+  }
+
+  setSelectedProjectId(projectId: number) {
+    this.selectedProjectId = projectId;
+  }
+
+  getSelectedProjectId() {
+    return this.selectedProjectId;
   }
 }
