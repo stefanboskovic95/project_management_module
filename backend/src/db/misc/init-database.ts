@@ -343,6 +343,7 @@ connection.sync().then(async () => {
         budget: 15000000.00,
         totalCost: 0,
         isConfidential: false,
+        country: 'Serbia',
         projectStatusId: 1, // Draft
         currencyId: 1,
         userId: 1,
@@ -359,6 +360,7 @@ connection.sync().then(async () => {
         budget: 85000000.00,
         totalCost: 0,
         isConfidential: false,
+        country: 'Serbia',
         projectStatusId: 2, // Deliberation
         currencyId: 1,
         userId: 2,
@@ -374,6 +376,7 @@ connection.sync().then(async () => {
         budget: 45000000.00,
         totalCost: 0,
         isConfidential: false,
+        country: 'Serbia',
         projectStatusId: 2, // Deliberation
         currencyId: 1,
         userId: 2,
@@ -389,6 +392,7 @@ connection.sync().then(async () => {
         budget: 8000000.00,
         totalCost: 0,
         isConfidential: false,
+        country: 'Serbia',
         projectStatusId: 3, // Accepted
         currencyId: 1,
         userId: 2,
@@ -404,6 +408,7 @@ connection.sync().then(async () => {
         budget: 10000000.00,
         totalCost: 0,
         isConfidential: false,
+        country: 'Serbia',
         projectStatusId: 1, // Draft
         currencyId: 1,
         userId: 2,
@@ -419,6 +424,7 @@ connection.sync().then(async () => {
         budget: 10000000.00,
         totalCost: 0,
         isConfidential: false,
+        country: 'Serbia',
         projectStatusId: 1, // Draft
         currencyId: 1,
         userId: 2,

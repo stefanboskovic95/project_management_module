@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { BusinessCategory } from 'src/app/models/businessCategory';
 import { Currency } from 'src/app/models/currency';
 import { Region } from 'src/app/models/region';
@@ -18,7 +19,7 @@ export class AddProjectComponent implements OnInit {
   isConfidential: boolean = false;
   currencies: Array<Currency> = [];
 
-  constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar) { }
+  constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit(): void {
     this.projectsService.getBusinessCategories().subscribe((businessCategories) => {
@@ -36,9 +37,11 @@ export class AddProjectComponent implements OnInit {
   }
 
   submitProduct(data:any) {
-    this.projectsService.addProject(data.name, data.description, data.budget, data.isConfidential, data.currency, data.projectLead, data.category, data.region)
+    this.projectsService.addProject(data.name, data.description, data.budget, data.isConfidential, data.nda, data.currency, data.projectLead, data.category, data.region)
       .subscribe({
         next: () => {
+          this._snackBar.open(`Added: "${data.name}".`, 'Dismiss');
+          this.router.navigate(['/projects_overview']);
         },
         error: (err) => {
           this.openSnackBar(err.error.message);

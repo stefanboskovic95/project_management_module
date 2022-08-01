@@ -8,6 +8,7 @@ import Region from '../db/models/regions';
 import DepartmentUsers from '../db/models/departmentUsers';
 import ProjectUsers from '../db/models/projectUsers';
 import User from '../db/models/user';
+import Nda from '../db/models/nda';
 
 export const createProject = async (req: Request, res: Response) => {
   try {
@@ -17,7 +18,7 @@ export const createProject = async (req: Request, res: Response) => {
 
     const name: string = req.body.name;
     const description: string = req.body.description;
-    // const country: string = req.body.country;
+    const country: string = req.body.country;
     const budget: number = req.body.budget;
     const totalCost: number = 0;
     const isConfidential: boolean = req.body.isConfidential;
@@ -27,6 +28,7 @@ export const createProject = async (req: Request, res: Response) => {
     const userId: number = req.body.projectLeadId;
     const departmentId: number = req.body.departmentId;
     const currencyId: number = req.body.currencyId;
+    const ndaText: string = req.body.nda;
 
     const project = await Project.create({
       name,
@@ -34,6 +36,7 @@ export const createProject = async (req: Request, res: Response) => {
       budget,
       totalCost,
       isConfidential,
+      country,
       regionId,
       currencyId,
       projectStatusId,
@@ -41,6 +44,14 @@ export const createProject = async (req: Request, res: Response) => {
       userId,
       departmentId
     });
+
+    if (isConfidential) {
+      await Nda.create({
+        text: ndaText,
+        projectId: project['id']
+      });
+    }
+
     res.status(200).send({ message: 'Project created' })
   }
   catch (err) {
@@ -135,15 +146,21 @@ export const getProject = async (req: Request, res: Response) => {
     }
 
     console.log(where)
-    const project: Project = await Project.findOne({ where });
+    const project: Project = await Project.findOne({ where, include: [Nda] });
 
     // Department High official cannot edit projects on which he is not a project lead
     if (userTypeId == 2 && project['userId'] != userId) {
       isEditable = false;
     }
 
+    // let nda = {};
+    // if (project['isConfidential']) {
+    //   nda = await Nda.findOne({ where: { projectId: project['id'] } });
+    // }
+
     const result = {
       ...project['dataValues'],
+      // ...nda['dataValues'],
       'isEditable': isEditable
     };
     res.status(200).send(result);

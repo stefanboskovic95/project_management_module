@@ -20,6 +20,7 @@ export class ProjectDetailsComponent implements OnInit {
   currencies: Array<Currency> = [];
   project: Project | undefined;
   isEditing: boolean = false;
+  nda: string = ''
 
 
   constructor(private projectsService: ProjectsService) { }
@@ -27,7 +28,9 @@ export class ProjectDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.projectsService.getProject(this.projectsService.getSelectedProjectId()).subscribe((project) => {
       this.project = project;
+      console.log(project)
       this.isConfidential = project.isConfidential;
+      this.nda = this.project?.nda ? this.project.nda.text : '';
     })
     this.projectsService.getBusinessCategories().subscribe((businessCategories) => {
       this.businessCategories = businessCategories;

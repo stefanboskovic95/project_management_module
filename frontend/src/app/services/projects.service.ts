@@ -18,13 +18,14 @@ export class ProjectsService {
 
   constructor(private http: HttpClient) { }
 
-  addProject(name: string, description: string, budget: number, isConfidential: boolean, currencyId: number,
+  addProject(name: string, description: string, budget: number, isConfidential: boolean, nda: string, currencyId: number,
     projectLeadId: number, businessCategoryId: number, regionId: number) {
     return this.http.post(`${environment.backend_url}/create_project`, {
       name,
       description,
       budget,
       isConfidential,
+      nda,
       regionId,
       currencyId,
       businessCategoryId,

@@ -12,7 +12,6 @@ Nda.init({
     autoIncrement: true,
     type: DataTypes.INTEGER
   },
-  name: DataTypes.STRING,
   text: DataTypes.TEXT
 }, {
   sequelize: connection,

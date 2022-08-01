@@ -2,6 +2,7 @@ export interface Project {
   id: number;
   name: string;
   description: string;
+  country: string;
   region: string;
   budget: number;
   totalCost: number;
@@ -13,4 +14,7 @@ export interface Project {
   departmentId: number;
   currencyId: number;
   regionId: number;
+  nda?: {
+    text: string;
+  };
 }

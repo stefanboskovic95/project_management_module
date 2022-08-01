@@ -25,7 +25,7 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="fill">
+        <mat-form-field class="half-width-float-left" appearance="fill">
             <mat-label>Project lead</mat-label>
             <mat-select name="projectLead" ngModel>
                 <mat-option *ngFor="let user of users" [value]="user.id">
@@ -34,16 +34,7 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="half-width-right-margin" appearance="fill">
-            <mat-label>Region</mat-label>
-            <mat-select name="region" ngModel>
-                <mat-option *ngFor="let region of regions" [value]="region.id">
-                    {{region.name}} ({{region.abbrev}})
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <mat-form-field class="half-width-left-margin" appearance="fill">
+        <mat-form-field class="half-width-float-right" appearance="fill">
             <mat-label>Business category</mat-label>
             <mat-select name="category" ngModel>
                 <mat-option *ngFor="let category of businessCategories" [value]="category.id">
@@ -52,7 +43,21 @@
             </mat-select>
         </mat-form-field>
 
-        <div class="half-width-left-margin">
+        <mat-form-field class="half-width-float-left" appearance="fill">
+            <mat-label>Country</mat-label>
+            <input matInput name="budget" ngModel>
+        </mat-form-field>
+
+        <mat-form-field class="half-width-float-right" appearance="fill">
+            <mat-label>Region</mat-label>
+            <mat-select name="region" ngModel>
+                <mat-option *ngFor="let region of regions" [value]="region.id">
+                    {{region.name}} ({{region.abbrev}})
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="half-width-float-left">
             <section class="checkbox-section">
                 <mat-checkbox name="isConfidential" ngModel color="warn" [(ngModel)]="isConfidential">Is confidential</mat-checkbox>
             </section>

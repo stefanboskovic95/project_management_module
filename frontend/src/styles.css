@@ -55,14 +55,14 @@ input[type="number"] {
     width: 100%;
 }
 
-.half-width-right-margin {
-    width: 48%;
-    float: right;
-}
-
-.half-width-left-margin {
+.half-width-float-left {
     width: 48%;
     float: left;
+}
+
+.half-width-float-right {
+    width: 48%;
+    float: right;
 }
 
 .checkbox-section {

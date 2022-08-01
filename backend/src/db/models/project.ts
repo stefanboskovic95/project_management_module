@@ -26,7 +26,8 @@ Project.init({
   description: DataTypes.STRING,
   budget: DataTypes.DOUBLE,
   totalCost: DataTypes.DOUBLE,
-  isConfidential: DataTypes.BOOLEAN
+  isConfidential: DataTypes.BOOLEAN,
+  country: DataTypes.STRING
 }, {
   sequelize: connection,
   modelName: 'project'
@@ -77,4 +78,9 @@ Project.belongsTo(Currency, {
 Project.belongsTo(Region, {
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL'
-})
+});
+
+Project.hasOne(Nda, {
+  onUpdate: 'SET NULL',
+  onDelete: 'SET NULL'
+});
