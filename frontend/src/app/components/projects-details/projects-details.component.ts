@@ -4,6 +4,7 @@ import { Currency } from 'src/app/models/currency';
 import { Project } from 'src/app/models/project';
 import { ProjectStatus } from 'src/app/models/projectStatus';
 import { Region } from 'src/app/models/region';
+import { SortOption } from 'src/app/models/sortOption';
 import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
 
@@ -19,7 +20,14 @@ export class ProjectsDetailsComponent implements OnInit {
   currencies: Array<Currency> | undefined;
   businessCategories: Array<BusinessCategory> | undefined;
   projectsStatuses: Array<ProjectStatus> | undefined;
-  sortNameAscending: boolean = true;
+  sortNameAscending: boolean = false;
+  sortIdAscending: boolean = false;
+  sortBudgetAscending: boolean = false;
+  sortConfidentialAscending: boolean = false;
+  sortStatusAscending: boolean = false;
+  sortCategoryAscending: boolean = false;
+  sortProjectLeadAscending: boolean = false;
+  sortRegionAscending: boolean = false;
 
   constructor(private projectsService: ProjectsService) { }
 
@@ -49,8 +57,60 @@ export class ProjectsDetailsComponent implements OnInit {
     })
   }
 
+  sortById() {
+    this.sortIdAscending = !this.sortIdAscending;
+    this.projectsService.getProjects('id', this.sortIdAscending).subscribe((projects) => {
+      this.projects = projects;
+    });
+  }
+
   sortByName() {
     this.sortNameAscending = !this.sortNameAscending;
+    this.projectsService.getProjects('name', this.sortNameAscending).subscribe((projects) => {
+      this.projects = projects;
+    });
+  }
+
+  sortByBudget() {
+    this.sortBudgetAscending = !this.sortBudgetAscending;
+    this.projectsService.getProjects('budget', this.sortBudgetAscending).subscribe((projects) => {
+      this.projects = projects;
+    });
+  }
+
+  sortByConfidentiality() {
+    this.sortConfidentialAscending = !this.sortConfidentialAscending;
+    this.projectsService.getProjects('isConfidential', this.sortConfidentialAscending).subscribe((projects) => {
+      this.projects = projects;
+    });
+  }
+
+  sortByProjectStatus() {
+    this.sortStatusAscending = !this.sortStatusAscending;
+    this.projectsService.getProjects('projectStatusId', this.sortStatusAscending).subscribe((projects) => {
+      this.projects = projects;
+    });
+  }
+
+  sortByCategory() {
+    this.sortCategoryAscending = !this.sortCategoryAscending;
+    this.projectsService.getProjects('businessCategoryId', this.sortCategoryAscending).subscribe((projects) => {
+      this.projects = projects;
+    });
+  }
+
+  sortByProjectLead() {
+    this.sortProjectLeadAscending = !this.sortProjectLeadAscending;
+    this.projectsService.getProjects('userId', this.sortProjectLeadAscending).subscribe((projects) => {
+      this.projects = projects;
+    });
+  }
+
+  sortByRegion() {
+    this.sortRegionAscending = !this.sortRegionAscending;
+    this.projectsService.getProjects('regionId', this.sortRegionAscending).subscribe((projects) => {
+      this.projects = projects;
+    });
   }
 
   getCurrency(currencyId: number) {

@@ -60,8 +60,9 @@ export class ProjectsService {
     });
   }
 
-  getProjects() {
-    return this.http.get<Array<Project>>(`${environment.backend_url}/projects`);
+  getProjects(orderBy: string = '', ascending: boolean = true) {
+    console.log(`orderBy: ${orderBy}, ascending: ${ascending}`)
+    return this.http.get<Array<Project>>(`${environment.backend_url}/projects?orderBy=${orderBy}&ascending=${ascending}`);
   }
 
   getProject(projectId: number) {

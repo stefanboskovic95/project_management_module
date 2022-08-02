@@ -115,7 +115,7 @@ export const updateProject = async (req: Request, res: Response) => {
       },
       { where: { id: projectId } }
     );
-    res.status(200).send({message: 'ok'});
+    res.status(200).send({ message: 'ok' });
   }
   catch (err) {
     console.log(err);
@@ -160,6 +160,17 @@ export const getProjects = async (req: Request, res: Response) => {
 
     const departmentUser: DepartmentUsers = await DepartmentUsers.findOne({ where: { userId } });
     const departmentId: number = departmentUser['departmentId'];
+    const orderBy: string = req.query.orderBy;
+    const ascending: string = req.query.ascending;
+    let order = []
+    if (orderBy != '') {
+      order = [[orderBy, ascending === 'true' ? 'ASC' : 'DESC']];
+    }
+    else {
+      order = [['id', 'ASC']];
+    }
+    console.log(order)
+
     const where = {};
 
     // Regular user
@@ -181,7 +192,10 @@ export const getProjects = async (req: Request, res: Response) => {
       where['departmentId'] = departmentId;
     }
 
-    const projects: Array<Project> = await Project.findAll({ where });
+    const projects: Array<Project> = await Project.findAll({
+      where,
+      order
+    });
     res.status(200).send(projects);
   }
   catch (err) {
