@@ -60,6 +60,69 @@ export const createProject = async (req: Request, res: Response) => {
   }
 };
 
+export const updateProject = async (req: Request, res: Response) => {
+  try {
+    if (res.locals.userTypeId == 1) {
+      return res.status(403).send({ message: 'You are not authorized to preform this action.' })
+    }
+
+    console.log(req.body);
+
+    const projectId = req.body.projectId;
+    const name: string = req.body.name;
+    const description: string = req.body.description;
+    const country: string = req.body.country;
+    const budget: number = req.body.budget;
+    const isConfidential: boolean = req.body.isConfidential;
+    const projectStatusId: number = req.body.projectStatus || 1; // draft
+    const businessCategoryId: number = req.body.businessCategoryId;
+    const regionId: string = req.body.regionId;
+    const userId: number = req.body.projectLeadId;
+    const departmentId: number = req.body.departmentId;
+    const currencyId: number = req.body.currencyId;
+    const ndaText: string = req.body.nda;
+
+    const existingProject = await Project.findOne({ where: { id: projectId } });
+
+    if (isConfidential && !existingProject['isConfidential']) {
+      Nda.create({
+        text: ndaText,
+        projectId
+      });
+    }
+    else if (!isConfidential && existingProject['isConfidential']) {
+      Nda.destroy({ where: { projectId } });
+    }
+    else if (isConfidential && existingProject['isConfidential']) {
+      Nda.update(
+        { text: ndaText },
+        { where: { projectId } });
+    }
+
+    await Project.update(
+      {
+        name,
+        description,
+        country,
+        budget,
+        isConfidential,
+        projectStatusId,
+        businessCategoryId,
+        regionId,
+        userId,
+        departmentId,
+        currencyId
+      },
+      { where: { id: projectId } }
+    );
+    res.status(200).send({message: 'ok'});
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).send({ message: err });
+  }
+}
+
 export const updateProjectStatus = async (req: Request, res: Response) => {
   try {
     const projectId: number = req.body.projectId;

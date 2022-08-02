@@ -12,7 +12,8 @@ import {
     getRegions,
     getProjects,
     getProject,
-    updateProjectStatus
+    updateProjectStatus,
+    updateProject
 } from './routes/project';
 
 const port = process.env.NODE_DOCKER_PORT || 8000
@@ -28,9 +29,10 @@ router.route('/test').get(async (_: Request, res: Response) => {
 });
 
 router.route('/login').post(login);
-router.route('/create_project').post(checkAuth, createProject);
-router.route('/projects').get(checkAuth, getProjects);
+router.route('/project').put(checkAuth, createProject);
 router.route('/project').get(checkAuth, getProject);
+router.route('/project').patch(checkAuth, updateProject);
+router.route('/projects').get(checkAuth, getProjects);
 router.route('/project_statuses').get(checkAuth, getProjectStatuses);
 router.route('/business_categories').get(checkAuth, getBusinessCategories);
 router.route('/departments').get(checkAuth, getDepartments);

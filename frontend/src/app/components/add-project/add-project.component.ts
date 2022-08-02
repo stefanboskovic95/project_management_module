@@ -46,7 +46,7 @@ export class AddProjectComponent implements OnInit {
         error: (err) => {
           this.openSnackBar(err.error.message);
         }
-      })
+      });
   }
 
   openSnackBar(message: string, action: string = 'Dismiss') {

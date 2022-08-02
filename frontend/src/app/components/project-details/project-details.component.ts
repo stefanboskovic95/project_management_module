@@ -26,12 +26,7 @@ export class ProjectDetailsComponent implements OnInit {
   constructor(private projectsService: ProjectsService) { }
 
   ngOnInit(): void {
-    this.projectsService.getProject(this.projectsService.getSelectedProjectId()).subscribe((project) => {
-      this.project = project;
-      console.log(project)
-      this.isConfidential = project.isConfidential;
-      this.nda = this.project?.nda ? this.project.nda.text : '';
-    })
+    this.getProject();
     this.projectsService.getBusinessCategories().subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     });
@@ -46,8 +41,31 @@ export class ProjectDetailsComponent implements OnInit {
     });
   }
 
-  editProduct(form: NgForm) {
+  editProject(data: any) {
+    if (!this.project) {
+      return;
+    }
 
+    this.projectsService.updateProject(this.project.id, data.name, data.description, data.budget, data.isConfidential, this.nda, 
+      data.currencyId, data.userId, data.categoryId, data.country, data.regionId)
+    .subscribe({
+      next: () => {
+        this.getProject();
+        this.isEditing = false;
+      },
+      error: (err) => {
+        console.log(err);
+        // this.openSnackBar(err.error.message);
+      }
+    });
+  }
+
+  getProject() {
+    this.projectsService.getProject(this.projectsService.getSelectedProjectId()).subscribe((project) => {
+      this.project = project;
+      this.isConfidential = project.isConfidential;
+      this.nda = this.project?.nda ? this.project.nda.text : '';
+    })
   }
 
   isNdaDisabled() {

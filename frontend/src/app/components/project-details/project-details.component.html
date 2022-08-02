@@ -5,9 +5,9 @@
       <mat-icon class="details-mat-icon">edit</mat-icon>
   </button>
   </div>
-  <form #addProject="ngForm" (ngSubmit)="editProduct(addProject.value)" *ngIf="project">
+  <form #addProject="ngForm" (ngSubmit)="editProject(addProject.value)" *ngIf="project">
     <mat-form-field class="full-width" appearance="fill">
-      <mat-label [ngClass]="{'black': !isEditing}"  >Project name</mat-label>
+      <mat-label [ngClass]="{'black': !isEditing}">Project name</mat-label>
       <input matInput name="name" ngModel [(ngModel)]="project.name" [disabled]="!isEditing" [ngClass]="{'black-bold': !isEditing}">
     </mat-form-field>
 
@@ -16,14 +16,24 @@
       <textarea class="text-area-tall" matInput name="description" ngModel [(ngModel)]="project.description" [disabled]="!isEditing" [ngClass]="{'black-bold': !isEditing}"></textarea>
     </mat-form-field>
 
-    <mat-form-field class="full-width" appearance="fill">
+    <mat-form-field style="width: 78%" appearance="fill">
       <mat-label [ngClass]="{'black': !isEditing}">Budget</mat-label>
-      <input matInput name="budget" ngModel [(ngModel)]="project.budget" [value]="project.budget | currency:getCurrency()" [disabled]="!isEditing" [ngClass]="{'black-bold': !isEditing}">
+      <!-- [value]="project.budget | currency:getCurrency()" -->
+      <input matInput name="budget" ngModel [(ngModel)]="project.budget" [value]="project.budget" [disabled]="!isEditing" [ngClass]="{'black-bold': !isEditing}">
     </mat-form-field>
+
+    <mat-form-field style="width: 20%; float: right" appearance="fill">
+      <!-- <mat-label>Currency</mat-label> -->
+      <mat-select name="currencyId" ngModel [(ngModel)]="project.currencyId">
+          <mat-option *ngFor="let currency of currencies" [value]="currency.id">
+              {{currency.name}}
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
 
     <mat-form-field class="half-width-float-left" appearance="fill">
       <mat-label [ngClass]="{'black': !isEditing}">Project lead</mat-label>
-      <mat-select name="projectLead" ngModel [(ngModel)]="project.userId" [disabled]="!isEditing" [ngClass]="{'black-bold': !isEditing}">
+      <mat-select name="userId" ngModel [(ngModel)]="project.userId" [disabled]="!isEditing" [ngClass]="{'black-bold': !isEditing}">
         <mat-option *ngFor="let user of users" [value]="user.id">
           {{user.username}} ({{user.firstName}} {{user.lastName}})
         </mat-option>
@@ -32,7 +42,7 @@
 
     <mat-form-field class="half-width-float-right" appearance="fill">
       <mat-label [ngClass]="{'black': !isEditing}">Business category</mat-label>
-      <mat-select name="category" ngModel [(ngModel)]="project.businessCategoryId" [disabled]="!isEditing"  [ngClass]="{'black-bold': !isEditing}">
+      <mat-select name="categoryId" ngModel [(ngModel)]="project.businessCategoryId" [disabled]="!isEditing"  [ngClass]="{'black-bold': !isEditing}">
         <mat-option *ngFor="let category of businessCategories" [value]="category.id">
           {{category.type}}
         </mat-option>
@@ -46,7 +56,7 @@
 
     <mat-form-field class="half-width-float-right" appearance="fill">
       <mat-label [ngClass]="{'black': !isEditing}">Region</mat-label>
-      <mat-select name="region" ngModel [(ngModel)]="project.regionId" [disabled]="!isEditing"  [ngClass]="{'black-bold': !isEditing}">
+      <mat-select name="regionId" ngModel [(ngModel)]="project.regionId" [disabled]="!isEditing"  [ngClass]="{'black-bold': !isEditing}">
         <mat-option *ngFor="let region of regions" [value]="region.id">
           {{region.name}} ({{region.abbrev}})
         </mat-option>

@@ -31,7 +31,7 @@ export class ProjectsService {
       businessCategoryId,
       projectLeadId,
       departmentId: this.departmentId
-    })
+    });
   }
 
   updateProjectStatus(projectId: number, projectStatusId: number) {
@@ -39,6 +39,24 @@ export class ProjectsService {
       projectId,
       projectStatusId
     })
+  }
+
+  updateProject(projectId: number, name: string, description: string, budget: number, isConfidential: boolean,
+    nda: string, currencyId: number, projectLeadId: number, businessCategoryId: number, country:string, regionId: number) {
+    return this.http.patch(`${environment.backend_url}/project`, {
+      projectId,
+      name,
+      description,
+      budget,
+      isConfidential,
+      nda,
+      country,
+      regionId,
+      currencyId,
+      businessCategoryId,
+      projectLeadId,
+      departmentId: this.departmentId
+    });
   }
 
   getProjects() {
