@@ -16,11 +16,17 @@ export class ProjectsComponent implements OnInit {
     'cdk-drop-list-0': 1, // draft
     'cdk-drop-list-1': 2, // deliberation
     'cdk-drop-list-2': 3, // accepted
+    'cdk-drop-list-3': 4, // rejected
+    'cdk-drop-list-4': 5, // dropped
+    'cdk-drop-list-5': 6, // completed
   }
 
   projectsDraft: Array<Project> = [];
   projectsDeliberation: Array<Project> = [];
   projectsAccepted: Array<Project> = [];
+  projectsRejected: Array<Project> = [];
+  projectsDropped: Array<Project> = [];
+  projectsCompleted: Array<Project> = [];
 
   constructor(private userService:UserService, private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) { }
 
@@ -29,6 +35,9 @@ export class ProjectsComponent implements OnInit {
       this.projectsDraft = projects.filter(project => project.projectStatusId == 1);
       this.projectsDeliberation = projects.filter(project => project.projectStatusId == 2);
       this.projectsAccepted = projects.filter(project => project.projectStatusId == 3);
+      this.projectsRejected = projects.filter(project => project.projectStatusId == 4);
+      this.projectsDropped = projects.filter(project => project.projectStatusId == 5);
+      this.projectsCompleted = projects.filter(project => project.projectStatusId == 6);
     });
   }
 
