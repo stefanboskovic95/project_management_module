@@ -6,6 +6,7 @@ import { Currency } from 'src/app/models/currency';
 import { Region } from 'src/app/models/region';
 import { User } from 'src/app/models/user';
 import { Project } from 'src/app/models/project';
+import { ProjectStatus } from 'src/app/models/projectStatus';
 
 @Component({
   selector: 'app-project-details',
@@ -19,6 +20,7 @@ export class ProjectDetailsComponent implements OnInit {
   isConfidential: boolean = false;
   currencies: Array<Currency> = [];
   project: Project | undefined;
+  statuses: Array<ProjectStatus> = [];
   isEditing: boolean = false;
   nda: string = ''
 
@@ -39,6 +41,9 @@ export class ProjectDetailsComponent implements OnInit {
     this.projectsService.getCurrencies().subscribe((currencies) => {
       this.currencies = currencies;
     });
+    this.projectsService.getProjectStatuses().subscribe((statuses) => {
+      this.statuses = statuses;
+    })
   }
 
   editProject(data: any) {
@@ -47,7 +52,7 @@ export class ProjectDetailsComponent implements OnInit {
     }
 
     this.projectsService.updateProject(this.project.id, data.name, data.description, data.budget, data.isConfidential, this.nda, 
-      data.currencyId, data.userId, data.categoryId, data.country, data.regionId)
+      data.currencyId, data.userId, data.categoryId, data.country, data.regionId, data.statusId)
     .subscribe({
       next: () => {
         this.getProject();
@@ -65,7 +70,7 @@ export class ProjectDetailsComponent implements OnInit {
       this.project = project;
       this.isConfidential = project.isConfidential;
       this.nda = this.project?.nda ? this.project.nda.text : '';
-    })
+    });
   }
 
   isNdaDisabled() {

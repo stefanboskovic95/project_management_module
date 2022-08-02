@@ -74,7 +74,7 @@ export const updateProject = async (req: Request, res: Response) => {
     const country: string = req.body.country;
     const budget: number = req.body.budget;
     const isConfidential: boolean = req.body.isConfidential;
-    const projectStatusId: number = req.body.projectStatus || 1; // draft
+    const projectStatusId: number = req.body.statusId;
     const businessCategoryId: number = req.body.businessCategoryId;
     const regionId: string = req.body.regionId;
     const userId: number = req.body.projectLeadId;

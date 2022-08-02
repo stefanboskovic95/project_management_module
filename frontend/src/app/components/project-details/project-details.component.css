@@ -25,7 +25,7 @@
 
 .black-bold {
   color: black;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .mat-selected {

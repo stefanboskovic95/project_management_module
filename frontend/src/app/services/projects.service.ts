@@ -42,7 +42,7 @@ export class ProjectsService {
   }
 
   updateProject(projectId: number, name: string, description: string, budget: number, isConfidential: boolean,
-    nda: string, currencyId: number, projectLeadId: number, businessCategoryId: number, country:string, regionId: number) {
+    nda: string, currencyId: number, projectLeadId: number, businessCategoryId: number, country:string, regionId: number, statusId: number) {
     return this.http.patch(`${environment.backend_url}/project`, {
       projectId,
       name,
@@ -55,6 +55,7 @@ export class ProjectsService {
       currencyId,
       businessCategoryId,
       projectLeadId,
+      statusId,
       departmentId: this.departmentId
     });
   }
@@ -92,10 +93,10 @@ export class ProjectsService {
   }
 
   setSelectedProjectId(projectId: number) {
-    this.selectedProjectId = projectId;
+    sessionStorage.setItem('selectedProjectId', projectId.toString());
   }
 
   getSelectedProjectId() {
-    return this.selectedProjectId;
+    return Number(sessionStorage.getItem('selectedProjectId'));
   }
 }
