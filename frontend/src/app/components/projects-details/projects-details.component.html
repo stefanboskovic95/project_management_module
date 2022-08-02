@@ -31,10 +31,10 @@
       <th>
         <div id="p-w-button">
           <p>Budget used</p>
-          <!-- <button mat-icon-button class="tittle-add-btn-btn" (click)="sortByBudget()">
-            <mat-icon *ngIf="sortBudgetAscending">arrow_drop_up</mat-icon>
-            <mat-icon *ngIf="!sortBudgetAscending">arrow_drop_down</mat-icon>
-          </button> -->
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortByBudgetUsed()">
+            <mat-icon *ngIf="sortBudgetUsedAscending">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="!sortBudgetUsedAscending">arrow_drop_down</mat-icon>
+          </button>
         </div>
       </th>
       <th>
@@ -75,6 +75,15 @@
       </th>
       <th>
         <div id="p-w-button">
+          <p>Country</p>
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortByCountry()">
+            <mat-icon *ngIf="sortCountryAscending">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="!sortCountryAscending">arrow_drop_down</mat-icon>
+          </button>
+        </div>
+      </th>
+      <th>
+        <div id="p-w-button">
           <p>Region</p>
           <button mat-icon-button class="tittle-add-btn-btn" (click)="sortByRegion()">
             <mat-icon *ngIf="sortRegionAscending">arrow_drop_up</mat-icon>
@@ -99,6 +108,7 @@
       <td>{{getProjectStatus(project.projectStatusId)}}</td>
       <td>{{getBusinessCategory(project.businessCategoryId)}}</td>
       <td>{{getProjectLead(project.userId)}}</td>
+      <td>{{project.country}}</td>
       <td>{{getRegion(project.regionId)}}</td>
     </tr>
   </table>

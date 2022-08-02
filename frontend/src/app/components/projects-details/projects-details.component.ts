@@ -23,10 +23,12 @@ export class ProjectsDetailsComponent implements OnInit {
   sortNameAscending: boolean = false;
   sortIdAscending: boolean = false;
   sortBudgetAscending: boolean = false;
+  sortBudgetUsedAscending: boolean = false;
   sortConfidentialAscending: boolean = false;
   sortStatusAscending: boolean = false;
   sortCategoryAscending: boolean = false;
   sortProjectLeadAscending: boolean = false;
+  sortCountryAscending: boolean = false;
   sortRegionAscending: boolean = false;
 
   constructor(private projectsService: ProjectsService) { }
@@ -78,6 +80,13 @@ export class ProjectsDetailsComponent implements OnInit {
     });
   }
 
+  sortByBudgetUsed() {
+    this.sortBudgetUsedAscending = !this.sortBudgetUsedAscending;
+    this.projectsService.getProjects('totalCost', this.sortBudgetUsedAscending).subscribe((projects) => {
+      this.projects = projects;
+    });
+  }
+
   sortByConfidentiality() {
     this.sortConfidentialAscending = !this.sortConfidentialAscending;
     this.projectsService.getProjects('isConfidential', this.sortConfidentialAscending).subscribe((projects) => {
@@ -102,6 +111,13 @@ export class ProjectsDetailsComponent implements OnInit {
   sortByProjectLead() {
     this.sortProjectLeadAscending = !this.sortProjectLeadAscending;
     this.projectsService.getProjects('userId', this.sortProjectLeadAscending).subscribe((projects) => {
+      this.projects = projects;
+    });
+  }
+
+  sortByCountry() {
+    this.sortCountryAscending = !this.sortCountryAscending;
+    this.projectsService.getProjects('country', this.sortCountryAscending).subscribe((projects) => {
       this.projects = projects;
     });
   }
