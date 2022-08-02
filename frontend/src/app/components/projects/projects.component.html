@@ -7,7 +7,7 @@
             </button>
         </div>
         <div cdkDropList #draftList="cdkDropList" [cdkDropListData]="projectsDraft"
-            [cdkDropListConnectedTo]="[deliberationList]" class="example-list"
+            [cdkDropListConnectedTo]="[deliberationList, acceptedList, rejectedList, completedList]" class="example-list"
             (cdkDropListDropped)="drop($event)">
             <div class="example-box" *ngFor="let item of projectsDraft" cdkDrag>
                 <p>{{item.name}}</p>
@@ -21,7 +21,7 @@
     <div class="example-container">
         <h3>Deliberation</h3>
         <div cdkDropList #deliberationList="cdkDropList" [cdkDropListData]="projectsDeliberation"
-            [cdkDropListConnectedTo]="[draftList, acceptedList]" class="example-list"
+            [cdkDropListConnectedTo]="[draftList, acceptedList, rejectedList, completedList]" class="example-list"
             (cdkDropListDropped)="drop($event)">
             <div class="example-box" *ngFor="let item of projectsDeliberation" cdkDrag>
                 <p>{{item.name}}</p>
@@ -35,7 +35,7 @@
     <div class="example-container">
         <h3>Accepted</h3>
         <div cdkDropList #acceptedList="cdkDropList" [cdkDropListData]="projectsAccepted"
-            [cdkDropListConnectedTo]="[rejectedList, droppedList, completedList]" class="example-list"
+            [cdkDropListConnectedTo]="[draftList, deliberationList, rejectedList, completedList]" class="example-list"
             (cdkDropListDropped)="drop($event)">
             <div class="example-box" *ngFor="let item of projectsAccepted" cdkDrag>
                 <p>{{item.name}}</p>
@@ -47,27 +47,12 @@
     </div>
 
     <div class="example-container">
-        <h3>Rejected</h3>
+        <h3>Rejected / Dropped</h3>
         <div cdkDropList #rejectedList="cdkDropList" [cdkDropListData]="projectsRejected"
-            [cdkDropListConnectedTo]="[]" class="example-list"
+            [cdkDropListConnectedTo]="[draftList, deliberationList, acceptedList, completedList]" class="example-list"
             (cdkDropListDropped)="drop($event)">
             <div class="example-box" *ngFor="let item of projectsRejected" cdkDrag>
-                <p>{{item.name}}</p>
-                <button class="details-btn" mat-menu-item (click)="goToProject(item.id)">
-                    <mat-icon class="details-mat-icon">fullscreen</mat-icon>
-                </button>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="example-container">
-        <h3>Dropped</h3>
-        <div cdkDropList #droppedList="cdkDropList" [cdkDropListData]="projectsDropped"
-            [cdkDropListConnectedTo]="[]" class="example-list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of projectsDropped" cdkDrag>
-                <p><s>{{item.name}}</s></p>
+                <p class="dropped-rejected">{{item.name}}</p>
                 <button class="details-btn" mat-menu-item (click)="goToProject(item.id)">
                     <mat-icon class="details-mat-icon">fullscreen</mat-icon>
                 </button>
@@ -78,10 +63,10 @@
     <div class="example-container">
         <h3>Completed</h3>
         <div cdkDropList #completedList="cdkDropList" [cdkDropListData]="projectsCompleted"
-            [cdkDropListConnectedTo]="[]" class="example-list"
+            [cdkDropListConnectedTo]="[draftList, deliberationList, acceptedList, rejectedList]" class="example-list"
             (cdkDropListDropped)="drop($event)">
             <div class="example-box" *ngFor="let item of projectsCompleted" cdkDrag>
-                <p>{{item.name}}</p>
+                <p class="completed">{{item.name}}</p>
                 <button class="details-btn" mat-menu-item (click)="goToProject(item.id)">
                     <mat-icon class="details-mat-icon">fullscreen</mat-icon>
                 </button>

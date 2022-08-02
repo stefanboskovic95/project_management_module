@@ -88,16 +88,11 @@ connection.sync().then(async () => {
 
     await ProjectStatus.create({
         id: 4,
-        status: 'rejected'
+        status: 'rejected' // rejected / dropped
     });
 
     await ProjectStatus.create({
         id: 5,
-        status: 'dropped'
-    });
-
-    await ProjectStatus.create({
-        id: 6,
         status: 'completed'
     });
 

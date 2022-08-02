@@ -50,6 +50,14 @@ button[disabled]{
   margin: auto;
 }
 
+.dropped-rejected {
+  text-decoration: line-through;
+}
+
+.completed {
+  color: #007904;
+}
+
 .details-btn {
   margin-top: auto;
   margin-bottom: auto;
