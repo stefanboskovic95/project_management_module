@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BusinessCategory } from 'src/app/models/businessCategory';
 import { Currency } from 'src/app/models/currency';
 import { Project } from 'src/app/models/project';
@@ -30,8 +31,10 @@ export class ProjectsDetailsComponent implements OnInit {
   sortProjectLeadAscending: boolean = false;
   sortCountryAscending: boolean = false;
   sortRegionAscending: boolean = false;
+  myProjects: boolean = false;
+  projectSize: '' | 'small' | 'medium' | 'large' = '';
 
-  constructor(private projectsService: ProjectsService) { }
+  constructor(private projectsService: ProjectsService, private router: Router) { }
 
   ngOnInit(): void {
     this.projectsService.getProjects().subscribe({
@@ -57,6 +60,20 @@ export class ProjectsDetailsComponent implements OnInit {
     this.projectsService.getProjectStatuses().subscribe((projectStatuses) => {
       this.projectsStatuses = projectStatuses
     })
+  }
+
+  filterMyProjects(event: any) {
+    event.stopPropagation();
+    
+    console.log(event.target.classList);
+    console.log(this.myProjects);
+    this.myProjects = !this.myProjects;
+  }
+
+  filterSize(event: any) {
+    event.stopPropagation();
+    console.log(event.target.classList);
+    console.log(this.projectSize);
   }
 
   sortById() {
@@ -127,6 +144,11 @@ export class ProjectsDetailsComponent implements OnInit {
     this.projectsService.getProjects('regionId', this.sortRegionAscending).subscribe((projects) => {
       this.projects = projects;
     });
+  }
+
+  goToProject(projectId: number) {
+    this.projectsService.setSelectedProjectId(projectId);
+    this.router.navigate(['project_details']);
   }
 
   getCurrency(currencyId: number) {

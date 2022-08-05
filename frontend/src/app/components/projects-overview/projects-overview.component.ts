@@ -8,10 +8,10 @@ import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css']
+  templateUrl: './projects-overview.component.html',
+  styleUrls: ['./projects-overview.component.css']
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsOverviewComponent implements OnInit {
   dropIdToStatusId: { [key: string]: number } = {
     'cdk-drop-list-0': 1, // draft
     'cdk-drop-list-1': 2, // deliberation

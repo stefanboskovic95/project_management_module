@@ -36,3 +36,7 @@
 .black {
   color: black;
 }
+
+.form-container {
+  width: 800px;
+}

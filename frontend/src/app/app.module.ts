@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProjectsComponent } from './components/projects/projects.component';
+import { ProjectsOverviewComponent } from './components/projects-overview/projects-overview.component';
 import { AddProjectComponent } from './components/add-project/add-project.component';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 // Auth Interceptor - to send token in authorization header
 import { AuthInterceptor } from './services/auth-interceptor';
@@ -28,7 +29,7 @@ import { ProjectsDetailsComponent } from './components/projects-details/projects
 @NgModule({
   declarations: [
     AppComponent,
-    ProjectsComponent,
+    ProjectsOverviewComponent,
     AddProjectComponent,
     LoginComponent,
     ProjectDetailsComponent,
@@ -47,7 +48,8 @@ import { ProjectsDetailsComponent } from './components/projects-details/projects
     MatMenuModule,
     MatIconModule,
     MatSnackBarModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    MatRadioModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

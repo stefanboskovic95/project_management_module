@@ -1,4 +1,17 @@
 <div class="table-container">
+  <mat-menu #menu="matMenu" xPosition="before">
+    <div class="small-padding" (click)="filterMyProjects($event)">
+      <!-- <mat-checkbox name="myProjects" [(ngModel)]="myProjects">My projects</mat-checkbox> -->
+      <input type="checkbox" [(ngModel)]="myProjects"/>My projects
+    </div>
+    <div>
+      <mat-radio-group [(ngModel)]="projectSize" (click)="filterSize($event)">
+        <mat-radio-button class="small-margin" value="small">Small projects</mat-radio-button>
+        <mat-radio-button class="small-margin" value="medium">Medium projects</mat-radio-button>
+        <mat-radio-button class="small-margin" value="large">Large projects</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </mat-menu>
   <table *ngIf="projects">
     <tr>
       <th>
@@ -93,7 +106,7 @@
       </th>
       <th>
         <div id="p-w-button">
-          <button mat-icon-button class="tittle-add-btn-btn">
+          <button mat-icon-button class="tittle-add-btn-btn" mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>filter_list</mat-icon>
           </button>
         </div>
@@ -110,6 +123,11 @@
       <td>{{getProjectLead(project.userId)}}</td>
       <td>{{project.country}}</td>
       <td>{{getRegion(project.regionId)}}</td>
+      <td>
+        <button mat-icon-button class="details-btn" (click)="goToProject(project.id)">
+          <mat-icon class="details-mat-icon">fullscreen</mat-icon>
+        </button>
+      </td>
     </tr>
   </table>
 </div>

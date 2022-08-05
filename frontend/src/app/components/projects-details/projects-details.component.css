@@ -30,6 +30,24 @@ button {
   cursor: pointer;
 }
 
+.details-btn {
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+}
+
 .details-mat-icon {
   margin: auto;
+}
+
+.small-padding {
+  padding: 10px;
+}
+
+.small-margin {
+  margin: 10px;
 }

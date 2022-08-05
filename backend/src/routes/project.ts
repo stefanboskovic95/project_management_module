@@ -167,7 +167,7 @@ export const getProjects = async (req: Request, res: Response) => {
       order = [[orderBy, ascending === 'true' ? 'ASC' : 'DESC']];
     }
     else {
-      order = [['id', 'ASC']];
+      order = [['id', 'DESC']];
     }
     console.log(order)
 
