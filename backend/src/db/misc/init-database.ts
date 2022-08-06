@@ -341,7 +341,7 @@ connection.sync().then(async () => {
         country: 'Serbia',
         projectStatusId: 1, // Draft
         currencyId: 1,
-        userId: 1,
+        userId: 5,
         businessCategoryId: 1,
         departmentId: 1,
         regionId: 3

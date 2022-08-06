@@ -19,13 +19,14 @@ export class ProjectsService {
   constructor(private http: HttpClient) { }
 
   addProject(name: string, description: string, budget: number, isConfidential: boolean, nda: string, currencyId: number,
-    projectLeadId: number, businessCategoryId: number, regionId: number) {
-    return this.http.post(`${environment.backend_url}/create_project`, {
+    projectLeadId: number, businessCategoryId: number, regionId: number, country: string) {
+    return this.http.post(`${environment.backend_url}/project`, {
       name,
       description,
       budget,
       isConfidential,
       nda,
+      country,
       regionId,
       currencyId,
       businessCategoryId,
@@ -60,9 +61,8 @@ export class ProjectsService {
     });
   }
 
-  getProjects(orderBy: string = '', ascending: boolean = true) {
-    console.log(`orderBy: ${orderBy}, ascending: ${ascending}`)
-    return this.http.get<Array<Project>>(`${environment.backend_url}/projects?orderBy=${orderBy}&ascending=${ascending}`);
+  getProjects(queryString: string = '?orderBy=id&ascending=false') {
+    return this.http.get<Array<Project>>(`${environment.backend_url}/projects${queryString}`);
   }
 
   getProject(projectId: number) {

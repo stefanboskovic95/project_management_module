@@ -29,7 +29,7 @@ router.route('/test').get(async (_: Request, res: Response) => {
 });
 
 router.route('/login').post(login);
-router.route('/project').put(checkAuth, createProject);
+router.route('/project').post(checkAuth, createProject);
 router.route('/project').get(checkAuth, getProject);
 router.route('/project').patch(checkAuth, updateProject);
 router.route('/projects').get(checkAuth, getProjects);

@@ -9,6 +9,7 @@ import DepartmentUsers from '../db/models/departmentUsers';
 import ProjectUsers from '../db/models/projectUsers';
 import User from '../db/models/user';
 import Nda from '../db/models/nda';
+import { getProjectLeads } from './department';
 
 export const createProject = async (req: Request, res: Response) => {
   try {
@@ -162,6 +163,7 @@ export const getProjects = async (req: Request, res: Response) => {
     const departmentId: number = departmentUser['departmentId'];
     const orderBy: string = req.query.orderBy;
     const ascending: string = req.query.ascending;
+    // Sorting
     let order = []
     if (orderBy != '') {
       order = [[orderBy, ascending === 'true' ? 'ASC' : 'DESC']];
@@ -169,9 +171,50 @@ export const getProjects = async (req: Request, res: Response) => {
     else {
       order = [['id', 'DESC']];
     }
-    console.log(order)
 
-    const where = {};
+    // Filtering
+    console.log(req.query)
+    let where = {};
+    if (req.query.isConfidential) {
+      where['isConfidential'] = true;
+    }
+    if (req.query.myProjects) {
+      where['userId'] = userId;
+    }
+    // Budget size
+    const filterOptions = {
+      'small': { [Op.lt]: 50000 },
+      'medium': { [Op.between]: [50000, 1000000] },
+      'large': { [Op.gt]: 1000000 }
+    }
+    const sizes = Object.keys(req.query).filter(item => Object.keys(filterOptions).includes(item));
+    if (sizes.length > 0 && sizes.length < 3) {
+      const operators = []
+      sizes.forEach((size) => {
+        operators.push(filterOptions[size]);
+      })
+
+      where['budget'] = { [Op.or]: operators };
+    }
+    // Project statuses
+    const projectStatuses = await ProjectStatus.findAll();
+    const projectStatusNames = projectStatuses.map(item => item['status']);
+    const requestedStatues = Object.keys(req.query).filter(item => projectStatusNames.includes(item));
+    if (requestedStatues.length > 0) {
+      where['projectStatusId'] = { [Op.or]: projectStatuses.filter(item => requestedStatues.includes(item['status'])).map(item => item['id']) }
+    }
+    // Project leads
+    const leads = await getProjectLeads(userId);
+    const queryUsers = leads.filter(user => Object.keys(req.query).includes(user.username));
+    if (queryUsers.length > 0) {
+      if (where['userId']) {
+        where['userId'] = { [Op.or]: [queryUsers.map(user => user.id), where['userId']] }
+      }
+      else {
+        where['userId'] = { [Op.or]: [queryUsers.map(user => user.id)] }
+      }
+    }
+
 
     // Regular user
     if (userTypeId == 1) {

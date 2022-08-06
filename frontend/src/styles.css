@@ -82,3 +82,8 @@ input[type="number"] {
     width: 35px;
     height: 35px;
 }
+
+.details-mat-icon {
+    margin: auto;
+    color: #007904;
+}

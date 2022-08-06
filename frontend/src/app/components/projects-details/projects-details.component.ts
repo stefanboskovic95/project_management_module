@@ -21,18 +21,12 @@ export class ProjectsDetailsComponent implements OnInit {
   currencies: Array<Currency> | undefined;
   businessCategories: Array<BusinessCategory> | undefined;
   projectsStatuses: Array<ProjectStatus> | undefined;
-  sortNameAscending: boolean = false;
-  sortIdAscending: boolean = false;
-  sortBudgetAscending: boolean = false;
-  sortBudgetUsedAscending: boolean = false;
-  sortConfidentialAscending: boolean = false;
-  sortStatusAscending: boolean = false;
-  sortCategoryAscending: boolean = false;
-  sortProjectLeadAscending: boolean = false;
-  sortCountryAscending: boolean = false;
-  sortRegionAscending: boolean = false;
-  myProjects: boolean = false;
-  projectSize: '' | 'small' | 'medium' | 'large' = '';
+
+  // Sorter
+  sortCriteria: { criteria: string, ascending: boolean } = { criteria: 'id', ascending: false };
+
+  // Filters
+  filters: Array<string> = [];
 
   constructor(private projectsService: ProjectsService, private router: Router) { }
 
@@ -62,88 +56,47 @@ export class ProjectsDetailsComponent implements OnInit {
     })
   }
 
-  filterMyProjects(event: any) {
+  getProjects() {
+    let queryString = `?orderBy=${this.sortCriteria.criteria}&ascending=${this.sortCriteria.ascending}`
+    if (this.filters.length > 0) {
+      
+      this.filters.map(filter => {
+        queryString = queryString + `&${filter}=true`;
+      })
+    }
+
+    this.projectsService.getProjects(queryString).subscribe((projects) => {
+      this.projects = projects;
+    });
+  }
+
+  sortBy(criteria: string) {
+    if (this.sortCriteria.criteria !== criteria) {
+      this.sortCriteria.criteria = criteria;
+      this.sortCriteria.ascending = true;
+    }
+    else {
+      this.sortCriteria.ascending = !this.sortCriteria.ascending;
+    }
+    this.getProjects();
+  }
+
+  isSortedAscendingBy(criteria: string) {
+    if (this.sortCriteria.criteria == criteria && this.sortCriteria.ascending == true) {
+      return true;
+    }
+    return false;
+  }
+
+  applyFilters(event: any, filter: string) {
     event.stopPropagation();
-    
-    console.log(event.target.classList);
-    console.log(this.myProjects);
-    this.myProjects = !this.myProjects;
-  }
-
-  filterSize(event: any) {
-    event.stopPropagation();
-    console.log(event.target.classList);
-    console.log(this.projectSize);
-  }
-
-  sortById() {
-    this.sortIdAscending = !this.sortIdAscending;
-    this.projectsService.getProjects('id', this.sortIdAscending).subscribe((projects) => {
-      this.projects = projects;
-    });
-  }
-
-  sortByName() {
-    this.sortNameAscending = !this.sortNameAscending;
-    this.projectsService.getProjects('name', this.sortNameAscending).subscribe((projects) => {
-      this.projects = projects;
-    });
-  }
-
-  sortByBudget() {
-    this.sortBudgetAscending = !this.sortBudgetAscending;
-    this.projectsService.getProjects('budget', this.sortBudgetAscending).subscribe((projects) => {
-      this.projects = projects;
-    });
-  }
-
-  sortByBudgetUsed() {
-    this.sortBudgetUsedAscending = !this.sortBudgetUsedAscending;
-    this.projectsService.getProjects('totalCost', this.sortBudgetUsedAscending).subscribe((projects) => {
-      this.projects = projects;
-    });
-  }
-
-  sortByConfidentiality() {
-    this.sortConfidentialAscending = !this.sortConfidentialAscending;
-    this.projectsService.getProjects('isConfidential', this.sortConfidentialAscending).subscribe((projects) => {
-      this.projects = projects;
-    });
-  }
-
-  sortByProjectStatus() {
-    this.sortStatusAscending = !this.sortStatusAscending;
-    this.projectsService.getProjects('projectStatusId', this.sortStatusAscending).subscribe((projects) => {
-      this.projects = projects;
-    });
-  }
-
-  sortByCategory() {
-    this.sortCategoryAscending = !this.sortCategoryAscending;
-    this.projectsService.getProjects('businessCategoryId', this.sortCategoryAscending).subscribe((projects) => {
-      this.projects = projects;
-    });
-  }
-
-  sortByProjectLead() {
-    this.sortProjectLeadAscending = !this.sortProjectLeadAscending;
-    this.projectsService.getProjects('userId', this.sortProjectLeadAscending).subscribe((projects) => {
-      this.projects = projects;
-    });
-  }
-
-  sortByCountry() {
-    this.sortCountryAscending = !this.sortCountryAscending;
-    this.projectsService.getProjects('country', this.sortCountryAscending).subscribe((projects) => {
-      this.projects = projects;
-    });
-  }
-
-  sortByRegion() {
-    this.sortRegionAscending = !this.sortRegionAscending;
-    this.projectsService.getProjects('regionId', this.sortRegionAscending).subscribe((projects) => {
-      this.projects = projects;
-    });
+    if (this.filters.includes(filter)) {
+      this.filters = this.filters.filter(item => item != filter);
+    }
+    else {
+      this.filters.push(filter);
+    }
+    this.getProjects();
   }
 
   goToProject(projectId: number) {

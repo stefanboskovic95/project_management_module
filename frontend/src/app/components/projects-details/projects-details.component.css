@@ -51,3 +51,12 @@ button {
 .small-margin {
   margin: 10px;
 }
+.mat-menu-btn {
+  /* margin: 10px; */
+  color:black;
+  font-size: 14px;
+}
+
+.mat-menu {
+  padding: 10px;
+}
