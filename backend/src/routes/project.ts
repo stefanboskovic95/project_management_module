@@ -165,7 +165,7 @@ export const getProjects = async (req: Request, res: Response) => {
     const ascending: string = req.query.ascending;
     // Sorting
     let order = []
-    if (orderBy != '') {
+    if (orderBy && ascending) {
       order = [[orderBy, ascending === 'true' ? 'ASC' : 'DESC']];
     }
     else {
@@ -197,24 +197,31 @@ export const getProjects = async (req: Request, res: Response) => {
       where['budget'] = { [Op.or]: operators };
     }
     // Project statuses
-    const projectStatuses = await ProjectStatus.findAll();
-    const projectStatusNames = projectStatuses.map(item => item['status']);
-    const requestedStatues = Object.keys(req.query).filter(item => projectStatusNames.includes(item));
-    if (requestedStatues.length > 0) {
-      where['projectStatusId'] = { [Op.or]: projectStatuses.filter(item => requestedStatues.includes(item['status'])).map(item => item['id']) }
+    const statuses = req.query.status;
+    if (statuses) {
+      where['projectStatusId'] = { [Op.or]: Array.isArray(statuses) ? statuses : [statuses] }
     }
     // Project leads
-    const leads = await getProjectLeads(userId);
-    const queryUsers = leads.filter(user => Object.keys(req.query).includes(user.username));
-    if (queryUsers.length > 0) {
+    const users = req.query.user
+    if (users) {
+      const userIds = Array.isArray(users) ? users : [users]
       if (where['userId']) {
-        where['userId'] = { [Op.or]: [queryUsers.map(user => user.id), where['userId']] }
+        where['userId'] = { [Op.or]: [...userIds, where['userId']] }
       }
       else {
-        where['userId'] = { [Op.or]: [queryUsers.map(user => user.id)] }
+        where['userId'] = { [Op.or]: userIds }
       }
     }
-
+    // Countries
+    const countries = req.query.country;
+    if (countries) {
+      where['country'] = { [Op.or]: Array.isArray(countries) ? countries : [countries] }
+    }
+    // Regions
+    const regions = req.query.region;
+    if (regions) {
+      where['regionId'] = { [Op.or]: Array.isArray(regions) ? regions : [regions] }
+    }
 
     // Regular user
     if (userTypeId == 1) {

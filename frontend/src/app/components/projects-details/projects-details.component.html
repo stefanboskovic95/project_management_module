@@ -1,39 +1,51 @@
 <div class="table-container">
   <mat-menu #menu="matMenu" xPosition="before" class="menu-width">
     <!-- <div class="small-margin"> -->
-      <button mat-menu-item [matMenuTriggerFor]="myProjects" class="mat-menu-btn">My projects</button>
-      <button mat-menu-item [matMenuTriggerFor]="budgetSize" class="mat-menu-btn">Budget size</button>
-      <button mat-menu-item [matMenuTriggerFor]="isConfidential" class="mat-menu-btn">Confidential</button>
-      <button mat-menu-item [matMenuTriggerFor]="projectStatuses" class="mat-menu-btn">Status</button>
-      <button mat-menu-item [matMenuTriggerFor]="projectLeads" class="mat-menu-btn">Project leads</button>
+      <button mat-menu-item [matMenuTriggerFor]="myProjectsMenu" class="mat-menu-btn">My projects</button>
+      <button mat-menu-item [matMenuTriggerFor]="budgetSizeMenu" class="mat-menu-btn">Budget size</button>
+      <button mat-menu-item [matMenuTriggerFor]="ConfidentialMenu" class="mat-menu-btn">Confidential</button>
+      <button mat-menu-item [matMenuTriggerFor]="projectStatusesMenu" class="mat-menu-btn">Status</button>
+      <button mat-menu-item [matMenuTriggerFor]="projectLeadsMenu" class="mat-menu-btn">Project leads</button>
+      <button mat-menu-item [matMenuTriggerFor]="countriesMenu" class="mat-menu-btn">Countries</button>
+      <button mat-menu-item [matMenuTriggerFor]="regionsMenu" class="mat-menu-btn">Regions</button>
     <!-- </div> -->
   </mat-menu> 
 
-  <mat-menu #budgetSize xPosition="before">
+  <mat-menu #budgetSizeMenu xPosition="before">
     <div class="small-padding">
       <mat-checkbox (click)="applyFilters($event, 'small')">Small projects</mat-checkbox>
       <mat-checkbox (click)="applyFilters($event, 'medium')">Medium projects</mat-checkbox>
       <mat-checkbox (click)="applyFilters($event, 'large')">Large projects</mat-checkbox>
     </div>
   </mat-menu>
-  <mat-menu #myProjects xPosition="before">
+  <mat-menu #myProjectsMenu xPosition="before">
     <div class="small-padding">
       <mat-checkbox (click)="applyFilters($event, 'myProjects')">Yes</mat-checkbox>
     </div>
   </mat-menu>
-  <mat-menu #isConfidential xPosition="before">
+  <mat-menu #ConfidentialMenu xPosition="before">
     <div class="small-padding">
       <mat-checkbox (click)="applyFilters($event, 'isConfidential')">Yes</mat-checkbox>
     </div>
   </mat-menu>
-  <mat-menu #projectStatuses xPosition="before">
+  <mat-menu #projectStatusesMenu xPosition="before">
     <div class="small-padding" *ngFor="let status of projectsStatuses">
-      <mat-checkbox (click)="applyFilters($event, status.status)">{{status.status}}</mat-checkbox>
+      <mat-checkbox (click)="applyFilters($event, 'status', status.id.toString())">{{status.status}}</mat-checkbox>
     </div>
   </mat-menu>
-  <mat-menu #projectLeads xPosition="before">
+  <mat-menu #projectLeadsMenu xPosition="before">
     <div class="small-padding" *ngFor="let user of users">
-      <mat-checkbox (click)="applyFilters($event, user.username)">{{user.username}}</mat-checkbox>
+      <mat-checkbox (click)="applyFilters($event, 'user', user.id.toString())">{{user.username}}</mat-checkbox>
+    </div>
+  </mat-menu>
+  <mat-menu #countriesMenu xPosition="before">
+    <div class="small-padding" *ngFor="let country of getCountries()">
+      <mat-checkbox (click)="applyFilters($event, 'country', country)">{{country}}</mat-checkbox>
+    </div>
+  </mat-menu>
+  <mat-menu #regionsMenu xPosition="before">
+    <div class="small-padding" *ngFor="let region of regions">
+      <mat-checkbox (click)="applyFilters($event, 'region', region.id.toString())">{{region.name}}</mat-checkbox>
     </div>
   </mat-menu>
 

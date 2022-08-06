@@ -21,12 +21,13 @@ export class ProjectsDetailsComponent implements OnInit {
   currencies: Array<Currency> | undefined;
   businessCategories: Array<BusinessCategory> | undefined;
   projectsStatuses: Array<ProjectStatus> | undefined;
+  distinctCountries: Array<string> = [];
 
   // Sorter
   sortCriteria: { criteria: string, ascending: boolean } = { criteria: 'id', ascending: false };
 
   // Filters
-  filters: Array<string> = [];
+  filters: Array<{ name: string, value: string }> = [];
 
   constructor(private projectsService: ProjectsService, private router: Router) { }
 
@@ -34,6 +35,11 @@ export class ProjectsDetailsComponent implements OnInit {
     this.projectsService.getProjects().subscribe({
       next: (projects) => {
         this.projects = projects;
+        this.projects.forEach(project => {
+          if (!this.distinctCountries.includes(project.country)) {
+            this.distinctCountries.push(project.country);
+          }
+        });
       },
       error: (err) => {
 
@@ -59,9 +65,9 @@ export class ProjectsDetailsComponent implements OnInit {
   getProjects() {
     let queryString = `?orderBy=${this.sortCriteria.criteria}&ascending=${this.sortCriteria.ascending}`
     if (this.filters.length > 0) {
-      
+
       this.filters.map(filter => {
-        queryString = queryString + `&${filter}=true`;
+        queryString = queryString + `&${filter.name}=${filter.value}`;
       })
     }
 
@@ -88,13 +94,21 @@ export class ProjectsDetailsComponent implements OnInit {
     return false;
   }
 
-  applyFilters(event: any, filter: string) {
+  applyFilters(event: any, filter: string, value = '') {
     event.stopPropagation();
-    if (this.filters.includes(filter)) {
-      this.filters = this.filters.filter(item => item != filter);
+    // Options for formatting query parameters to be sent in GET request.
+    // Option 1: filter = filter
+    if (this.filters.map(filter => filter.name).includes(filter) && this.filters.map(filter => filter.value).includes(filter)) {
+      // Filter all entries that do not exactly match option 1
+      this.filters = this.filters.filter(item => item.name != filter || item.value != filter);
+    }
+    // Option 2: filter = value
+    else if (this.filters.map(filter => filter.name).includes(filter) && this.filters.map(filter => filter.value).includes(value)) {
+      // Filter all entries that do not exactly match option 2
+      this.filters = this.filters.filter(item => item.name != filter || item.value != value);
     }
     else {
-      this.filters.push(filter);
+      this.filters.push({ name: filter, value: value != '' ? value : filter });
     }
     this.getProjects();
   }
@@ -118,6 +132,10 @@ export class ProjectsDetailsComponent implements OnInit {
 
   getRegion(regionId: number) {
     return this.regions?.find(item => item.id == regionId)?.name;
+  }
+
+  getCountries() {
+    return this.distinctCountries;
   }
 
   getProjectLead(userId: number) {
