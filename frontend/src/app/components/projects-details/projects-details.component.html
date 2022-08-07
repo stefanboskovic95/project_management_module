@@ -61,7 +61,7 @@
       <th>
         <div id="p-w-button">
           <p>Id</p>
-          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('id')">
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('id')" matTooltip="Sort by Id">
             <mat-icon *ngIf="isSortedAscendingBy('id')">arrow_drop_up</mat-icon>
             <mat-icon *ngIf="!isSortedAscendingBy('id')">arrow_drop_down</mat-icon>
           </button>
@@ -70,7 +70,7 @@
       <th>
         <div id="p-w-button">
           <p>Project name</p>
-          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('name')">
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('name')" matTooltip="Sort by name">
             <mat-icon *ngIf="isSortedAscendingBy('name')">arrow_drop_up</mat-icon>
             <mat-icon *ngIf="!isSortedAscendingBy('name')">arrow_drop_down</mat-icon>
           </button>
@@ -79,7 +79,7 @@
       <th>
         <div id="p-w-button">
           <p>Budget</p>
-          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('budget')">
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('budget')" matTooltip="Sort by Budget">
             <mat-icon *ngIf="isSortedAscendingBy('budget')">arrow_drop_up</mat-icon>
             <mat-icon *ngIf="!isSortedAscendingBy('budget')">arrow_drop_down</mat-icon>
           </button>
@@ -88,7 +88,7 @@
       <th>
         <div id="p-w-button">
           <p>Budget used</p>
-          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('totalCost')">
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('totalCost')" matTooltip="Sort by Budget used">
             <mat-icon *ngIf="isSortedAscendingBy('totalCost')">arrow_drop_up</mat-icon>
             <mat-icon *ngIf="!isSortedAscendingBy('totalCost')">arrow_drop_down</mat-icon>
           </button>
@@ -97,7 +97,7 @@
       <th>
         <div id="p-w-button">
           <p>Confidential</p>
-          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('isConfidential')">
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('isConfidential')" matTooltip="Sort by confidentiality">
             <mat-icon *ngIf="isSortedAscendingBy('isConfidential')">arrow_drop_up</mat-icon>
             <mat-icon *ngIf="!isSortedAscendingBy('isConfidential')">arrow_drop_down</mat-icon>
           </button>
@@ -106,7 +106,7 @@
       <th>
         <div id="p-w-button">
           <p>Project status</p>
-          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('projectStatusId')">
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('projectStatusId')" matTooltip="Sort by project status">
             <mat-icon *ngIf="isSortedAscendingBy('projectStatusId')">arrow_drop_up</mat-icon>
             <mat-icon *ngIf="!isSortedAscendingBy('projectStatusId')">arrow_drop_down</mat-icon>
           </button>
@@ -115,7 +115,7 @@
       <th>
         <div id="p-w-button">
           <p>Business category</p>
-          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('businessCategoryId')">
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('businessCategoryId')" matTooltip="Sort by category">
             <mat-icon *ngIf="isSortedAscendingBy('businessCategoryId')">arrow_drop_up</mat-icon>
             <mat-icon *ngIf="!isSortedAscendingBy('businessCategoryId')">arrow_drop_down</mat-icon>
           </button>
@@ -124,7 +124,7 @@
       <th>
         <div id="p-w-button">
           <p>Project lead</p>
-          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('userId')">
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('userId')" matTooltip="Sort by project lead">
             <mat-icon *ngIf="isSortedAscendingBy('userId')">arrow_drop_up</mat-icon>
             <mat-icon *ngIf="!isSortedAscendingBy('userId')">arrow_drop_down</mat-icon>
           </button>
@@ -133,7 +133,7 @@
       <th>
         <div id="p-w-button">
           <p>Country</p>
-          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('country')">
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('country')" matTooltip="Sort by country">
             <mat-icon *ngIf="isSortedAscendingBy('country')">arrow_drop_up</mat-icon>
             <mat-icon *ngIf="!isSortedAscendingBy('country')">arrow_drop_down</mat-icon>
           </button>
@@ -142,7 +142,7 @@
       <th>
         <div id="p-w-button">
           <p>Region</p>
-          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('regionId')">
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('regionId')" matTooltip="Sort by region">
             <mat-icon *ngIf="isSortedAscendingBy('regionId')">arrow_drop_up</mat-icon>
             <mat-icon *ngIf="!isSortedAscendingBy('regionId')">arrow_drop_down</mat-icon>
           </button>
@@ -150,7 +150,7 @@
       </th>
       <th>
         <div id="p-w-button">
-          <button mat-icon-button class="tittle-add-btn-btn" mat-icon-button [matMenuTriggerFor]="menu">
+          <button mat-icon-button class="tittle-add-btn-btn" mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Filters">
             <mat-icon>filter_list</mat-icon>
           </button>
         </div>
@@ -168,7 +168,7 @@
       <td>{{project.country}}</td>
       <td>{{getRegion(project.regionId)}}</td>
       <td>
-        <button mat-icon-button class="details-btn" (click)="goToProject(project.id)">
+        <button mat-icon-button class="details-btn" (click)="goToProject(project.id)" matTooltip="More details about this project">
           <mat-icon class="details-mat-icon">fullscreen</mat-icon>
         </button>
       </td>
