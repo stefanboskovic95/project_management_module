@@ -1,0 +1,46 @@
+<div class="form-container" *ngIf="project && item">
+  <div class="title-box">
+    <h1>Item Details</h1>
+    <button class="details-btn" mat-menu-item (click)="isEditing = !isEditing" matTooltip="Edit project">
+      <mat-icon class="details-mat-icon">edit</mat-icon>
+    </button>
+  </div>
+  <div class="vertical-spacer">
+    <label for="projectName">Project name</label>
+    <input id="projectName" class="value-cls" type="text" [value]="project.name" [disabled]="true">
+  </div>
+
+  <form #addItemForm="ngForm" (ngSubmit)="submitItem(addItemForm.value)">
+    <div class="vertical-spacer">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" [(ngModel)]="item.name" ngModel [disabled]="!isEditing">
+    </div>
+
+    <div class="vertical-spacer">
+      <label for="subject">Subject</label>
+      <textarea type="text" id="subject" name="subject" [(ngModel)]="item.subject" ngModel [disabled]="!isEditing"></textarea>
+    </div>
+
+    <div class="vertical-spacer">
+      <div class="align-horizontally">
+        <div class="align-vertically-75">
+          <label for="cost">Cost</label>
+          <input type="number" id="cost" name="cost" [(ngModel)]="item.cost" ngModel [disabled]="!isEditing">
+        </div>
+        <div class="align-vertically-20">
+          <label for="currency">Currency</label>
+          <select id="currency" name="currency" ngModel [disabled]="!isEditing">
+            <option *ngFor="let currency of currencies" [selected]="currency.id == 1" [value]="currency.id" >{{currency.name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="verical-spacer">
+      <input type="checkbox" id="isNdaSigned" name="isNdaSigned" [(ngModel)]="item.isNdaSigned" ngModel [disabled]="!isEditing">
+      <label for="isNdaSigned" [ngClass]="{'label-disabled': !isEditing}" >NDA signed</label>
+    </div>
+
+    <button type="submit" [disabled]="!isEditing">Submit</button>
+  </form>
+</div>

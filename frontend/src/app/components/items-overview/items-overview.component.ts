@@ -27,7 +27,7 @@ export class ItemsOverviewComponent implements OnInit {
       error: (err) => {
 
       }
-    })
+    });
   }
 
   drop(event: CdkDragDrop<ProjectItem[]>) {
@@ -53,8 +53,7 @@ export class ItemsOverviewComponent implements OnInit {
   }
 
   goToProjectItem(itemId: number) {
-    
+    this.projectsService.setSelectedItemId(itemId);
+    this.router.navigate(['/editItem'])
   }
-
-
 }

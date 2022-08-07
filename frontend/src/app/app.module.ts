@@ -27,6 +27,7 @@ import { EditProjectComponent } from './components/edit-project/edit-project.com
 import { ProjectsDetailsComponent } from './components/projects-details/projects-details.component';
 import { ItemsOverviewComponent } from './components/items-overview/items-overview.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
+import { EditItemComponent } from './components/edit-item/edit-item.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { AddItemComponent } from './components/add-item/add-item.component';
     ProjectsDetailsComponent,
     ItemsOverviewComponent,
     AddItemComponent,
+    EditItemComponent,
   ],
   imports: [
     BrowserModule,

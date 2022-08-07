@@ -37,7 +37,7 @@ export class ProjectsService {
   }
 
   updateProjectStatus(projectId: number, projectStatusId: number) {
-    return this.http.post(`${environment.backend_url}/update_project_status`, {
+    return this.http.patch(`${environment.backend_url}/update_project_status`, {
       projectId,
       projectStatusId
     })
@@ -45,7 +45,7 @@ export class ProjectsService {
 
   updateProject(projectId: number, name: string, description: string, budget: number, isConfidential: boolean,
     nda: string, currencyId: number, projectLeadId: number, businessCategoryId: number, country:string, regionId: number, statusId: number) {
-    return this.http.patch(`${environment.backend_url}/project`, {
+    return this.http.put(`${environment.backend_url}/project`, {
       projectId,
       name,
       description,
@@ -63,7 +63,7 @@ export class ProjectsService {
   }
 
   addProjectItem(projectId: number, name: string, subject: string, cost: number, isNdaSigned: boolean, currencyId: number) {
-    return this.http.post(`${environment.backend_url}/project/items`, {
+    return this.http.post(`${environment.backend_url}/project/item`, {
       projectId,
       name,
       subject,
@@ -71,6 +71,21 @@ export class ProjectsService {
       isNdaSigned,
       currencyId
     });
+  }
+
+  updateProjectItem(itemId: number, name: string, subject: string, cost: number, isNdaSigned: boolean, procurementStatusId: number) {
+    return this.http.put(`${environment.backend_url}/project/item`, {
+      itemId,
+      name,
+      subject,
+      cost,
+      isNdaSigned,
+      procurementStatusId
+    });
+  }
+
+  getProjectItem(itemId: number) {
+    return this.http.get<ProjectItem>(`${environment.backend_url}/project/item?itemId=${itemId}`);
   }
 
   getProjects(queryString: string = '?orderBy=id&ascending=false') {
@@ -115,5 +130,13 @@ export class ProjectsService {
 
   getSelectedProjectId() {
     return Number(sessionStorage.getItem('selectedProjectId'));
+  }
+
+  setSelectedItemId(itemId: number) {
+    sessionStorage.setItem('selectedItemId', itemId.toString());
+  }
+
+  getSelectedItemId() {
+    return Number(sessionStorage.getItem('selectedItemId'));
   }
 }

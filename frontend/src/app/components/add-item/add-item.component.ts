@@ -31,13 +31,12 @@ export class AddItemComponent implements OnInit {
     });
   }
 
-  submitItem(form: any) {
+  submitItem(formData: any) {
     if (!this.project) {
       return;
     }
-    console.log(this.project.id, form.name, form.subject, form.cost, form.isNdaSigned, form.currency);
-    this.projectsService.addProjectItem(this.project.id, form.name, form.subject, form.cost, form.isNdaSigned, form.currency).subscribe(() => {
-      this._snackBar.open(`Added: "${form.name}".`, 'Dismiss');
+    this.projectsService.addProjectItem(this.project.id, formData.name, formData.subject, formData.cost, formData.isNdaSigned, formData.currency).subscribe(() => {
+      this._snackBar.open(`Added: "${formData.name}".`, 'Dismiss');
       this.router.navigate(['/editProject']);
     });
   }

@@ -6,6 +6,7 @@ import { EditProjectComponent } from './components/edit-project/edit-project.com
 import { ProjectsDetailsComponent } from './components/projects-details/projects-details.component';
 import { ProjectsOverviewComponent } from './components/projects-overview/projects-overview.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
+import { EditItemComponent } from './components/edit-item/edit-item.component';
 
 import { AuthGuard } from './services/auth-guard';
 
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'addProject', component: AddProjectComponent, canActivate: [AuthGuard] },
   { path: 'editProject', component: EditProjectComponent, canActivate: [AuthGuard] },
   { path: 'projectsDetails', component: ProjectsDetailsComponent, canActivate: [AuthGuard] },
-  { path: 'addItem', component: AddItemComponent, canActivate: [AuthGuard] }
+  { path: 'addItem', component: AddItemComponent, canActivate: [AuthGuard] },
+  { path: 'editItem', component: EditItemComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
