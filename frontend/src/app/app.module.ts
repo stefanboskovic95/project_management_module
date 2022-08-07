@@ -17,13 +17,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
-import { MatRadioModule } from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 // Auth Interceptor - to send token in authorization header
 import { AuthInterceptor } from './services/auth-interceptor';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 import { ProjectsDetailsComponent } from './components/projects-details/projects-details.component';
+import { ProjectItemsComponent } from './components/project-items/project-items.component';
 
 
 @NgModule({
@@ -34,6 +36,7 @@ import { ProjectsDetailsComponent } from './components/projects-details/projects
     LoginComponent,
     ProjectDetailsComponent,
     ProjectsDetailsComponent,
+    ProjectItemsComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,7 @@ import { ProjectsDetailsComponent } from './components/projects-details/projects
     MatIconModule,
     MatSnackBarModule,
     NoopAnimationsModule,
-    MatRadioModule
+    MatTooltipModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

@@ -1,0 +1,30 @@
+.dropdown-list {
+  width: 250px;
+}
+
+.dropdown-list-container {
+  width: 250px;
+}
+
+button {
+  padding: 0px 0px;
+  margin-top: 16px;
+  background-color: transparent;
+  color: #007904;
+  cursor: pointer;
+}
+
+.more-info-btn {
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+}
+
+.more-info-mat-icon {
+  color: #007904;
+  margin: auto;
+}

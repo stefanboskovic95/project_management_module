@@ -7,6 +7,7 @@ import { Project } from '../models/project';
 import { Region } from '../models/region';
 import { Currency } from '../models/currency';
 import { ProjectStatus } from '../models/projectStatus';
+import { ProjectItem } from '../models/ProjectItem';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,10 @@ export class ProjectsService {
 
   getProject(projectId: number) {
     return this.http.get<any>(`${environment.backend_url}/project?projectId=${projectId}`);
+  }
+
+  getProjectItems(projectId: number) {
+    return this.http.get<Array<ProjectItem>>(`${environment.backend_url}/project/items?projectId=${projectId}`);
   }
 
   getBusinessCategories() {

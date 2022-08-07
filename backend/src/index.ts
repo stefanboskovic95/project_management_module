@@ -15,6 +15,7 @@ import {
     updateProjectStatus,
     updateProject
 } from './routes/project';
+import { getProjectItems } from './routes/items';
 
 const port = process.env.NODE_DOCKER_PORT || 8000
 
@@ -32,6 +33,7 @@ router.route('/login').post(login);
 router.route('/project').post(checkAuth, createProject);
 router.route('/project').get(checkAuth, getProject);
 router.route('/project').patch(checkAuth, updateProject);
+router.route('/project/items').get(checkAuth, getProjectItems);
 router.route('/projects').get(checkAuth, getProjects);
 router.route('/project_statuses').get(checkAuth, getProjectStatuses);
 router.route('/business_categories').get(checkAuth, getBusinessCategories);

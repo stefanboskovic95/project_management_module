@@ -428,6 +428,37 @@ connection.sync().then(async () => {
         regionId: 3
     });
 
+    // ==================== ProjectItems ====================
+    await ProjectItem.create({
+        id: 1,
+        name: 'Prilagodjavanje kanalizacione mreze',
+        subject: 'Prilagoditi kanalizacionu mrezu na trasi buduceg puta',
+        cost: 1000000,
+        isNdaSigned: false,
+        procurementStatusId: 3,
+        projectId: 1
+    });
+
+    await ProjectItem.create({
+        id: 2,
+        name: 'Proširenje bulevara Patrijarha Pavla u dužini od 2 km',
+        subject: 'Izvršiti konverziju postojećeg puta u put sa 4 trake od sportskog centra Rakovica do ulaza u topčiderski park.',
+        cost: 5000000,
+        isNdaSigned: false,
+        procurementStatusId: 2,
+        projectId: 1
+    });
+
+    await ProjectItem.create({
+        id: 3,
+        name: 'Izgradnja puta kroz topčiderski park do mosta.',
+        subject: 'Izgradnja puta kroz topčiderski park do mosta.',
+        cost: 8500000,
+        isNdaSigned: false,
+        procurementStatusId: 1,
+        projectId: 1
+    });
+
     // ==================== ProjectUsers ====================
     await ProjectUsers.create({
         id: 1,

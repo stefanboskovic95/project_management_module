@@ -14,7 +14,6 @@ ProjectItem.init({
   },
   name: DataTypes.STRING,
   subject: DataTypes.STRING,
-  description: DataTypes.STRING,
   cost: DataTypes.DOUBLE,
   isNdaSigned: DataTypes.BOOLEAN
 }, {
