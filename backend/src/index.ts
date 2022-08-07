@@ -15,7 +15,7 @@ import {
     updateProjectStatus,
     updateProject
 } from './routes/project';
-import { getProjectItems } from './routes/items';
+import { getProjectItems, createProjectItem } from './routes/items';
 
 const port = process.env.NODE_DOCKER_PORT || 8000
 
@@ -30,10 +30,14 @@ router.route('/test').get(async (_: Request, res: Response) => {
 });
 
 router.route('/login').post(login);
+
 router.route('/project').post(checkAuth, createProject);
 router.route('/project').get(checkAuth, getProject);
 router.route('/project').patch(checkAuth, updateProject);
+
 router.route('/project/items').get(checkAuth, getProjectItems);
+router.route('/project/items').post(checkAuth, createProjectItem);
+
 router.route('/projects').get(checkAuth, getProjects);
 router.route('/project_statuses').get(checkAuth, getProjectStatuses);
 router.route('/business_categories').get(checkAuth, getBusinessCategories);

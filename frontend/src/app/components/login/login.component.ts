@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
           this.message = this.userService.getErrorMsg();
           return
         }
-        this.router.navigate(['/projects_overview']);
+        this.router.navigate(['/projectsOverview']);
       },
       error: (err) => {
         this.message = err.message;
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     })
 
     if (this.userService.isAuthenticated() != '')
-      this.router.navigate(['/projects_overview']);
+      this.router.navigate(['/projectsOverview']);
   }
 
   login(form: NgForm) {

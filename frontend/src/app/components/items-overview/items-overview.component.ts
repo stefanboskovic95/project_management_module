@@ -1,5 +1,6 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProjectItem } from 'src/app/models/ProjectItem';
 import { ProjectsService } from 'src/app/services/projects.service';
 
@@ -13,7 +14,7 @@ export class ItemsOverviewComponent implements OnInit {
   inProgressProjectItems: Array<ProjectItem> = [];
   completedProjectItems: Array<ProjectItem> = []
 
-  constructor(private projectsService: ProjectsService) { }
+  constructor(private projectsService: ProjectsService, private router: Router) { }
 
   ngOnInit(): void {
     this.projectsService.getProjectItems(this.projectsService.getSelectedProjectId()).subscribe({
@@ -46,9 +47,14 @@ export class ItemsOverviewComponent implements OnInit {
     // // To avoid flickering this is not done in next part of subscribe.
     // this.updateSwimLanes(event);
   }
+  
+  goToAddItem() {
+    this.router.navigate(['/addItem']);
+  }
 
   goToProjectItem(itemId: number) {
     
   }
+
 
 }

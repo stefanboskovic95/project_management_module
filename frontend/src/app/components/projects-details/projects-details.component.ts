@@ -125,7 +125,7 @@ export class ProjectsDetailsComponent implements OnInit {
 
   goToProject(projectId: number) {
     this.projectsService.setSelectedProjectId(projectId);
-    this.router.navigate(['project_details']);
+    this.router.navigate(['editProject']);
   }
 
   getCurrency(currencyId: number) {

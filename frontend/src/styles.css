@@ -1,5 +1,6 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+/* (=============== Expanding built in components ===============) */
 button {
     background-color: #4CAF50;
     color: white;
@@ -21,18 +22,8 @@ button[disabled] {
     color: #666666;
 }
 
-.form-container {
-    border-radius: 5px;
-    box-shadow: 3px 3px 3px 3px #c9c9c9;
-    background-color: #fafafa;
-    padding: 20px;
-    width: 500px;
-    margin: auto;
-    margin-top: 5px;
-}
-
 textarea,
-input[type=text],
+input[type="text"],
 input[type="password"],
 input[type="date"],
 input[type="tel"],
@@ -47,8 +38,35 @@ input[type="number"] {
     box-sizing: border-box;
 }
 
+select {
+    width: 100%;
+    padding: 11px 20px;
+    margin: 3px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+/* (=============== Positioning ===============) */
+.form-container {
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px 3px #c9c9c9;
+    background-color: #fafafa;
+    padding: 20px;
+    width: 500px;
+    margin: auto;
+    margin-top: 5px;
+}
+
 .error-msg {
     color: red;
+}
+
+.vertical-spacer {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .full-width {
@@ -96,6 +114,8 @@ input[type="number"] {
     float: right;
 }
 
+
+/* (=============== Dropdown stuff ===============) */
 .drop-downs-container {
     border-radius: 5px;
     padding: 20px;
@@ -104,7 +124,7 @@ input[type="number"] {
 
 .dropdown-list {
     width: 255px;
-    min-height: 60px;
+    min-height: 50px;
     border: solid 1px #ccc;
     background: white;
     border-radius: 4px;

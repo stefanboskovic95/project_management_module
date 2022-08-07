@@ -74,12 +74,12 @@ export class ProjectsOverviewComponent implements OnInit {
   }
 
   goToAddProject() {
-    this.router.navigate(['add_project']);
+    this.router.navigate(['addProject']);
   }
 
   goToProject(projectId: number) {
     this.projectsService.setSelectedProjectId(projectId);
-    this.router.navigate(['project_details']);
+    this.router.navigate(['editProject']);
   }
 
   isAddProjectDisabled() {

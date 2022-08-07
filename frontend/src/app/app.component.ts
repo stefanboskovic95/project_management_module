@@ -31,11 +31,11 @@ export class AppComponent {
   }
 
   goToProjects() {
-    this.router.navigate(['projects_overview']);
+    this.router.navigate(['projectsOverview']);
   }
 
   goToProjectsDetails() {
-    this.router.navigate(['projects_details']);
+    this.router.navigate(['projectsDetails']);
   }
 
   onLogout() {
@@ -43,6 +43,6 @@ export class AppComponent {
   }
 
   goToAddProject() {
-    this.router.navigate(['add_project']);
+    this.router.navigate(['addProject']);
   }
 }

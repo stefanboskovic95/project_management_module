@@ -1,6 +1,6 @@
 <div class="form-container">
     <h1>Create new project</h1>
-    <form #addProject="ngForm" (ngSubmit)="submitProduct(addProject.value)">
+    <form #addProjectForm="ngForm" (ngSubmit)="submitProject(addProjectForm.value)">
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Project name</mat-label>
             <input matInput name="name" ngModel>

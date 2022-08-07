@@ -36,13 +36,13 @@ export class AddProjectComponent implements OnInit {
     });
   }
 
-  submitProduct(data: any) {
+  submitProject(data: any) {
     this.projectsService.addProject(data.name, data.description, data.budget, data.isConfidential, data.nda, data.currency,
       data.projectLead, data.category, data.region, data.country)
       .subscribe({
         next: () => {
           this._snackBar.open(`Added: "${data.name}".`, 'Dismiss');
-          this.router.navigate(['/projects_overview']);
+          this.router.navigate(['/projectsOverview']);
         },
         error: (err) => {
           this.openSnackBar(err.error.message);

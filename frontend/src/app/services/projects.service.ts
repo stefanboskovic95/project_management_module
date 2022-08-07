@@ -62,6 +62,17 @@ export class ProjectsService {
     });
   }
 
+  addProjectItem(projectId: number, name: string, subject: string, cost: number, isNdaSigned: boolean, currencyId: number) {
+    return this.http.post(`${environment.backend_url}/project/items`, {
+      projectId,
+      name,
+      subject,
+      cost,
+      isNdaSigned,
+      currencyId
+    });
+  }
+
   getProjects(queryString: string = '?orderBy=id&ascending=false') {
     return this.http.get<Array<Project>>(`${environment.backend_url}/projects${queryString}`);
   }

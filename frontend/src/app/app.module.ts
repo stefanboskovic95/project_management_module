@@ -26,6 +26,7 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 import { EditProjectComponent } from './components/edit-project/edit-project.component';
 import { ProjectsDetailsComponent } from './components/projects-details/projects-details.component';
 import { ItemsOverviewComponent } from './components/items-overview/items-overview.component';
+import { AddItemComponent } from './components/add-item/add-item.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { ItemsOverviewComponent } from './components/items-overview/items-overvi
     EditProjectComponent,
     ProjectsDetailsComponent,
     ItemsOverviewComponent,
+    AddItemComponent,
   ],
   imports: [
     BrowserModule,
