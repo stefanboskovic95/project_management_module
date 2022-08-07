@@ -222,6 +222,18 @@ export const getProjects = async (req: Request, res: Response) => {
     if (regions) {
       where['regionId'] = { [Op.or]: Array.isArray(regions) ? regions : [regions] }
     }
+    // Finding
+    const findWhat = req.query.find;
+    console.log(`Number.isInteger(findWhat): ${Number.isInteger(findWhat)}`)
+    if (findWhat) {
+      const potentialId = Number(findWhat);
+      if (Number.isInteger(potentialId)) {
+        where['id'] = potentialId;
+      }
+      else {
+        where['name'] = { [Op.like]: `%${findWhat}%` };
+      }
+    }
 
     // Regular user
     if (userTypeId == 1) {

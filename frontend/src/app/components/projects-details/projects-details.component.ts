@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BusinessCategory } from 'src/app/models/businessCategory';
 import { Currency } from 'src/app/models/currency';
@@ -22,6 +23,7 @@ export class ProjectsDetailsComponent implements OnInit {
   businessCategories: Array<BusinessCategory> | undefined;
   projectsStatuses: Array<ProjectStatus> | undefined;
   distinctCountries: Array<string> = [];
+  findWhat: string = '';
 
   // Sorter
   sortCriteria: { criteria: string, ascending: boolean } = { criteria: 'id', ascending: false };
@@ -70,6 +72,9 @@ export class ProjectsDetailsComponent implements OnInit {
         queryString = queryString + `&${filter.name}=${filter.value}`;
       })
     }
+    if (this.findWhat !== '') {
+      queryString = queryString + `&find=${this.findWhat}`;
+    }
 
     this.projectsService.getProjects(queryString).subscribe((projects) => {
       this.projects = projects;
@@ -110,6 +115,11 @@ export class ProjectsDetailsComponent implements OnInit {
     else {
       this.filters.push({ name: filter, value: value != '' ? value : filter });
     }
+    this.getProjects();
+  }
+
+  findIdOrName(form: NgForm) {
+    this.findWhat = form.value.find;
     this.getProjects();
   }
 

@@ -30,6 +30,14 @@ button {
   cursor: pointer;
 }
 
+.find-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 13px 20px;
+  margin: 8px;
+  width: auto;
+}
+
 .details-btn {
   margin-top: auto;
   margin-bottom: auto;
@@ -59,4 +67,8 @@ button {
 
 .mat-menu {
   padding: 10px;
+}
+
+input[type=text] {
+  width: 40%;
 }

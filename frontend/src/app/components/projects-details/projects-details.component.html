@@ -49,6 +49,13 @@
     </div>
   </mat-menu>
 
+  <div>
+    <form (submit)="findIdOrName(findForm)" #findForm="ngForm">
+      <input type="text" id="find" name="find" ngModel placeholder="Find project by id or name">
+      <button class="find-btn" type="submit">Find</button>
+    </form>
+  </div>
+
   <table *ngIf="projects">
     <tr>
       <th>
