@@ -9,11 +9,11 @@ import { Project } from 'src/app/models/project';
 import { ProjectStatus } from 'src/app/models/projectStatus';
 
 @Component({
-  selector: 'app-project-details',
-  templateUrl: './project-details.component.html',
-  styleUrls: ['./project-details.component.css']
+  selector: 'app-edit-project',
+  templateUrl: './edit-project.component.html',
+  styleUrls: ['./edit-project.component.css']
 })
-export class ProjectDetailsComponent implements OnInit {
+export class EditProjectComponent implements OnInit {
   businessCategories: Array<BusinessCategory> = [];
   users: Array<User> = [];
   regions: Array<Region> = [];

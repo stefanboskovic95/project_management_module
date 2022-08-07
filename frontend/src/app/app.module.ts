@@ -23,9 +23,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 // Auth Interceptor - to send token in authorization header
 import { AuthInterceptor } from './services/auth-interceptor';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-import { ProjectDetailsComponent } from './components/project-details/project-details.component';
+import { EditProjectComponent } from './components/edit-project/edit-project.component';
 import { ProjectsDetailsComponent } from './components/projects-details/projects-details.component';
-import { ProjectItemsComponent } from './components/project-items/project-items.component';
+import { ItemsOverviewComponent } from './components/items-overview/items-overview.component';
 
 
 @NgModule({
@@ -34,9 +34,9 @@ import { ProjectItemsComponent } from './components/project-items/project-items.
     ProjectsOverviewComponent,
     AddProjectComponent,
     LoginComponent,
-    ProjectDetailsComponent,
+    EditProjectComponent,
     ProjectsDetailsComponent,
-    ProjectItemsComponent,
+    ItemsOverviewComponent,
   ],
   imports: [
     BrowserModule,

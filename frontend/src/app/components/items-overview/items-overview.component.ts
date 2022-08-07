@@ -5,10 +5,10 @@ import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
   selector: 'app-project-items',
-  templateUrl: './project-items.component.html',
-  styleUrls: ['./project-items.component.css']
+  templateUrl: './items-overview.component.html',
+  styleUrls: ['./items-overview.component.css']
 })
-export class ProjectItemsComponent implements OnInit {
+export class ItemsOverviewComponent implements OnInit {
   draftProjectItems: Array<ProjectItem> = [];
   inProgressProjectItems: Array<ProjectItem> = [];
   completedProjectItems: Array<ProjectItem> = []
