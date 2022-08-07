@@ -72,3 +72,15 @@ button {
 input[type=text] {
   width: 40%;
 }
+
+.table-border {
+  box-shadow: 3px 3px 3px 3px #c9c9c9;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+tr {
+  border-bottom: 1pt solid #c9c9c9;
+}
