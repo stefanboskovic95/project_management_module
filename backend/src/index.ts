@@ -15,7 +15,7 @@ import {
     updateProjectStatus,
     updateProject
 } from './routes/project';
-import { getProjectItems, createProjectItem } from './routes/items';
+import { getProjectItem, createProjectItem, updateProjectItem, getProjectItems  } from './routes/items';
 
 const port = process.env.NODE_DOCKER_PORT || 8000
 
@@ -33,19 +33,21 @@ router.route('/login').post(login);
 
 router.route('/project').post(checkAuth, createProject);
 router.route('/project').get(checkAuth, getProject);
-router.route('/project').patch(checkAuth, updateProject);
-
-router.route('/project/items').get(checkAuth, getProjectItems);
-router.route('/project/items').post(checkAuth, createProjectItem);
-
+router.route('/project').put(checkAuth, updateProject);
 router.route('/projects').get(checkAuth, getProjects);
+
+router.route('/project/item').get(checkAuth, getProjectItem);
+router.route('/project/item').post(checkAuth, createProjectItem);
+router.route('/project/item').put(checkAuth, updateProjectItem);
+router.route('/project/items').get(checkAuth, getProjectItems);
+
 router.route('/project_statuses').get(checkAuth, getProjectStatuses);
 router.route('/business_categories').get(checkAuth, getBusinessCategories);
 router.route('/departments').get(checkAuth, getDepartments);
 router.route('/department_officials').get(checkAuth, getDepartmentOfficials);
 router.route('/currencies').get(checkAuth, getCurrencies);
 router.route('/regions').get(checkAuth, getRegions);
-router.route('/update_project_status').post(checkAuth, updateProjectStatus);
+router.route('/update_project_status').patch(checkAuth, updateProjectStatus);
 
 app.use('/', router);
 app.listen(port, () => {
