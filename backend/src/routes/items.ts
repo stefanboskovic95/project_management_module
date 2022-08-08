@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import ProcurementStatus from "../db/models/procurementStatus";
 import ProjectItem from "../db/models/projectItem";
 
 export const getProjectItem = async (req: Request, res: Response) => {
@@ -56,6 +57,7 @@ export const updateProjectItem = async (req: Request, res: Response) => {
       },
       { where: { id } }
     );
+    res.status(200).json({ message: "ok" });
   } catch (err) {
     console.error(err);
     res.status(400).json({ message: err.message });
@@ -83,6 +85,16 @@ export const getProjectItems = async (req: Request, res: Response) => {
     const projectId = req.query.projectId;
     const items = await ProjectItem.findAll({ where: { projectId } });
     res.status(200).send(items);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ message: err.message });
+  }
+};
+
+export const getProcurementStatuses = async (req: Request, res: Response) => {
+  try {
+    const procurementStatuses = await ProcurementStatus.findAll();
+    res.status(200).send(procurementStatuses);
   } catch (err) {
     console.error(err);
     res.status(400).json({ message: err.message });

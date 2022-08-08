@@ -2,24 +2,24 @@
 
 /* (=============== Expanding built in components ===============) */
 button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 button[type="submit"] {
-    width: 100%;
+  width: 100%;
 }
 
 button:disabled,
 button[disabled] {
-    /* border: 1px solid #999999; */
-    background-color: #cccccc;
-    color: #666666;
+  /* border: 1px solid #999999; */
+  background-color: #cccccc;
+  color: #666666;
 }
 
 textarea,
@@ -29,160 +29,181 @@ input[type="date"],
 input[type="tel"],
 input[type="email"],
 input[type="number"] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 select {
-    width: 100%;
-    padding: 11px 20px;
-    margin: 3px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 11px 20px;
+  margin: 3px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 label {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .label-disabled {
-    cursor: default;
+  cursor: default;
 }
-
 
 /* (=============== Positioning ===============) */
 .form-container {
-    border-radius: 5px;
-    box-shadow: 3px 3px 3px 3px #c9c9c9;
-    background-color: #fafafa;
-    padding: 20px;
-    width: 500px;
-    margin: auto;
-    margin-top: 5px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px 3px #c9c9c9;
+  background-color: #fafafa;
+  padding: 20px;
+  width: 500px;
+  margin: auto;
+  margin-top: 5px;
 }
 
 .error-msg {
-    color: red;
+  color: red;
 }
 
 .vertical-spacer {
-    margin-top: 5px;
-    margin-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .full-width {
-    width: 100%;
+  width: 100%;
 }
 
 .half-width-float-left {
-    width: 48%;
-    float: left;
+  width: 48%;
+  float: left;
 }
 
 .half-width-float-right {
-    width: 48%;
-    float: right;
+  width: 48%;
+  float: right;
 }
 
 .checkbox-section {
-    margin: 12px 0;
+  margin: 12px 0;
 }
 
 .text-area-tall {
-    height: 60px;
+  height: 60px;
 }
 
 .details-btn {
-    margin-top: auto;
-    margin-bottom: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 35px;
-    height: 35px;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 35px;
+  height: 35px;
 }
 
 .details-mat-icon {
-    margin: auto;
-    color: #007904;
+  margin: auto;
+  color: #007904;
 }
 
 .h3-w-button h3 {
-    display: inline-block;
+  display: inline-block;
 }
 
 .h3-w-button button {
-    float: right;
+  float: right;
 }
-
 
 /* (=============== Dropdown stuff ===============) */
 .drop-downs-container {
-    border-radius: 5px;
-    padding: 20px;
-    margin-top: 5px;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 5px;
 }
 
 .dropdown-list {
-    width: 255px;
-    min-height: 50px;
-    border: solid 1px #ccc;
-    background: white;
-    border-radius: 4px;
-    overflow: hidden;
-    display: block;
+  width: 255px;
+  min-height: 50px;
+  border: solid 1px #ccc;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
 }
 
 .dropdown-list-container {
-    width: 255px;
-    max-width: 100%;
-    margin: 0 25px 25px 0;
-    display: inline-block;
-    vertical-align: top;
+  width: 255px;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .dropdown-box {
-    padding: 5px 10px;
-    border-bottom: solid 1px #ccc;
-    color: rgba(0, 0, 0, 0.87);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    cursor: move;
-    background: white;
-    font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
+  padding: 5px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .cdk-drag-preview {
-    box-sizing: border-box;
-    border-radius: 4px;
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-        0 8px 10px 1px rgba(0, 0, 0, 0.14),
-        0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {
-    opacity: 0;
+  opacity: 0;
 }
 
 .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .example-box:last-child {
-    border: none;
+  border: none;
 }
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.value-cls {
+  color: black;
+}
+
+.align-vertically-75 {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid black; */
+  width: 78%;
+}
+
+.align-vertically-20 {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  /* border: 1px solid black; */
+  width: 20%;
+}
+
+.align-horizontally {
+  display: flex;
+  flex-direction: row;
 }

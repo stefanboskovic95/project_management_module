@@ -29,11 +29,18 @@
         </div>
         <div class="align-vertically-20">
           <label for="currency">Currency</label>
-          <select id="currency" name="currency" ngModel [disabled]="!isEditing">
-            <option *ngFor="let currency of currencies" [selected]="currency.id == 1" [value]="currency.id" >{{currency.name}}</option>
+          <select id="currency" name="currency" ngModel [disabled]="!isEditing" [(ngModel)]="selectedCurrencyId">
+            <option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</option>
           </select>
         </div>
       </div>
+    </div>
+
+    <div class="vertical-spacer">
+      <label for="status">Status</label>
+      <select id="status" name="status" ngModel [(ngModel)]="item.id" [disabled]="!isEditing">
+        <option *ngFor="let status of statuses" [value]="status.id">{{status.status}}</option>
+      </select>
     </div>
 
     <div class="verical-spacer">

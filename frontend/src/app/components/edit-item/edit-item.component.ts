@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Currency } from 'src/app/models/currency';
+import { ProcurementStatus } from 'src/app/models/procurementStatus';
 import { Project } from 'src/app/models/project';
 import { ProjectItem } from 'src/app/models/ProjectItem';
 import { ProjectsService } from 'src/app/services/projects.service';
@@ -14,6 +15,8 @@ export class EditItemComponent implements OnInit {
   currencies: Array<Currency> = [];
   isEditing: boolean = false;
   item: ProjectItem | undefined;
+  statuses: Array<ProcurementStatus> = [];
+  selectedCurrencyId: number = 1;
 
   constructor(private projectsService: ProjectsService) { }
 
@@ -37,9 +40,13 @@ export class EditItemComponent implements OnInit {
     this.projectsService.getCurrencies().subscribe((currencies) => {
       this.currencies = currencies;
     });
+    this.projectsService.getProcurementStatuses().subscribe(statuses => {
+      this.statuses = statuses;
+    })
   }
 
   submitItem(formData: any) {
+    console.log(formData)
     if (!this.item) {
       return;
     }
@@ -49,7 +56,7 @@ export class EditItemComponent implements OnInit {
       formData.subject,
       formData.cost,
       formData.isNdaSigned,
-      formData.procurementStatusId).subscribe(() => {
+      formData.status).subscribe(() => {
         this.isEditing = false;
       })
   }
