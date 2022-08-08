@@ -7,30 +7,29 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   private authSubscription: Subscription | undefined;
   message: string = '';
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.userService.getAuthStatusListener().subscribe({
-      next: (isAuthenticated) => { 
+      next: (isAuthenticated) => {
         if (!isAuthenticated) {
           this.message = this.userService.getErrorMsg();
-          return
+          return;
         }
         this.router.navigate(['/projectsOverview']);
       },
       error: (err) => {
         this.message = err.message;
-      }
-    })
+      },
+    });
 
-    if (this.userService.isAuthenticated() != '')
-      this.router.navigate(['/projectsOverview']);
+    if (this.userService.isAuthenticated() != '') this.router.navigate(['/projectsOverview']);
   }
 
   login(form: NgForm) {

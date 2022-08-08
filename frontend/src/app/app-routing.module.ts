@@ -17,12 +17,12 @@ const routes: Routes = [
   { path: 'editProject', component: EditProjectComponent, canActivate: [AuthGuard] },
   { path: 'projectsDetails', component: ProjectsDetailsComponent, canActivate: [AuthGuard] },
   { path: 'addItem', component: AddItemComponent, canActivate: [AuthGuard] },
-  { path: 'editItem', component: EditItemComponent, canActivate: [AuthGuard] }
+  { path: 'editItem', component: EditItemComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  providers: [AuthGuard],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

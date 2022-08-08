@@ -10,7 +10,7 @@ import { ProjectsService } from 'src/app/services/projects.service';
 @Component({
   selector: 'app-add-project',
   templateUrl: './add-project.component.html',
-  styleUrls: ['./add-project.component.css']
+  styleUrls: ['./add-project.component.css'],
 })
 export class AddProjectComponent implements OnInit {
   businessCategories: Array<BusinessCategory> = [];
@@ -19,7 +19,7 @@ export class AddProjectComponent implements OnInit {
   isConfidential: boolean = false;
   currencies: Array<Currency> = [];
 
-  constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar, private router: Router) { }
+  constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar, private router: Router) {}
 
   ngOnInit(): void {
     this.projectsService.getBusinessCategories().subscribe((businessCategories) => {
@@ -37,8 +37,19 @@ export class AddProjectComponent implements OnInit {
   }
 
   submitProject(data: any) {
-    this.projectsService.addProject(data.name, data.description, data.budget, data.isConfidential, data.nda, data.currency,
-      data.projectLead, data.category, data.region, data.country)
+    this.projectsService
+      .addProject(
+        data.name,
+        data.description,
+        data.budget,
+        data.isConfidential,
+        data.nda,
+        data.currency,
+        data.projectLead,
+        data.category,
+        data.region,
+        data.country
+      )
       .subscribe({
         next: () => {
           this._snackBar.open(`Added: "${data.name}".`, 'Dismiss');
@@ -46,7 +57,7 @@ export class AddProjectComponent implements OnInit {
         },
         error: (err) => {
           this.openSnackBar(err.error.message);
-        }
+        },
       });
   }
 

@@ -1,82 +1,132 @@
 <div class="flex-row">
-    <div class="dropdown-list-container">
-        <div id="h3-w-button">
-            <h3 class="tittle-add-btn">Draft</h3>
-            <button mat-icon-button (click)="goToAddProject()" class="tittle-add-btn-btn"
-                [disabled]="isAddProjectDisabled()" matTooltip="Add new project">
-                <mat-icon>add_circle_outline</mat-icon>
-            </button>
-        </div>
-        <div cdkDropList #draftList="cdkDropList" [cdkDropListData]="projectsDraft"
-            [cdkDropListConnectedTo]="[deliberationList, acceptedList, rejectedList, completedList]"
-            class="dropdown-list" (cdkDropListDropped)="drop($event)">
-            <div class="dropdown-box" *ngFor="let item of projectsDraft" cdkDrag>
-                <p>{{item.name}}</p>
-                <button class="details-btn" mat-menu-item (click)="goToProject(item.id)"
-                    matTooltip="More details about this project">
-                    <mat-icon class="details-mat-icon">fullscreen</mat-icon>
-                </button>
-            </div>
-        </div>
+  <div class="dropdown-list-container">
+    <div id="h3-w-button">
+      <h3 class="tittle-add-btn">Draft</h3>
+      <button
+        mat-icon-button
+        (click)="goToAddProject()"
+        class="tittle-add-btn-btn"
+        [disabled]="isAddProjectDisabled()"
+        matTooltip="Add new project"
+      >
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
     </div>
+    <div
+      cdkDropList
+      #draftList="cdkDropList"
+      [cdkDropListData]="projectsDraft"
+      [cdkDropListConnectedTo]="[deliberationList, acceptedList, rejectedList, completedList]"
+      class="dropdown-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="dropdown-box" *ngFor="let item of projectsDraft" cdkDrag>
+        <p>{{ item.name }}</p>
+        <button
+          class="details-btn"
+          mat-menu-item
+          (click)="goToProject(item.id)"
+          matTooltip="More details about this project"
+        >
+          <mat-icon class="details-mat-icon">fullscreen</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
 
-    <div class="dropdown-list-container">
-        <h3>Deliberation</h3>
-        <div cdkDropList #deliberationList="cdkDropList" [cdkDropListData]="projectsDeliberation"
-            [cdkDropListConnectedTo]="[draftList, acceptedList, rejectedList, completedList]" class="dropdown-list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="dropdown-box" *ngFor="let item of projectsDeliberation">
-                <p>{{item.name}}</p>
-                <button class="details-btn" mat-menu-item (click)="goToProject(item.id)"
-                    matTooltip="More details about this project">
-                    <mat-icon class="details-mat-icon">fullscreen</mat-icon>
-                </button>
-            </div>
-        </div>
+  <div class="dropdown-list-container">
+    <h3>Deliberation</h3>
+    <div
+      cdkDropList
+      #deliberationList="cdkDropList"
+      [cdkDropListData]="projectsDeliberation"
+      [cdkDropListConnectedTo]="[draftList, acceptedList, rejectedList, completedList]"
+      class="dropdown-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="dropdown-box" *ngFor="let item of projectsDeliberation">
+        <p>{{ item.name }}</p>
+        <button
+          class="details-btn"
+          mat-menu-item
+          (click)="goToProject(item.id)"
+          matTooltip="More details about this project"
+        >
+          <mat-icon class="details-mat-icon">fullscreen</mat-icon>
+        </button>
+      </div>
     </div>
+  </div>
 
-    <div class="dropdown-list-container">
-        <h3>Accepted</h3>
-        <div cdkDropList #acceptedList="cdkDropList" [cdkDropListData]="projectsAccepted"
-            [cdkDropListConnectedTo]="[draftList, deliberationList, rejectedList, completedList]" class="dropdown-list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="dropdown-box" *ngFor="let item of projectsAccepted" cdkDrag>
-                <p>{{item.name}}</p>
-                <button class="details-btn" mat-menu-item (click)="goToProject(item.id)"
-                    matTooltip="More details about this project">
-                    <mat-icon class="details-mat-icon">fullscreen</mat-icon>
-                </button>
-            </div>
-        </div>
+  <div class="dropdown-list-container">
+    <h3>Accepted</h3>
+    <div
+      cdkDropList
+      #acceptedList="cdkDropList"
+      [cdkDropListData]="projectsAccepted"
+      [cdkDropListConnectedTo]="[draftList, deliberationList, rejectedList, completedList]"
+      class="dropdown-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="dropdown-box" *ngFor="let item of projectsAccepted" cdkDrag>
+        <p>{{ item.name }}</p>
+        <button
+          class="details-btn"
+          mat-menu-item
+          (click)="goToProject(item.id)"
+          matTooltip="More details about this project"
+        >
+          <mat-icon class="details-mat-icon">fullscreen</mat-icon>
+        </button>
+      </div>
     </div>
+  </div>
 
-    <div class="dropdown-list-container">
-        <h3>Rejected / Dropped</h3>
-        <div cdkDropList #rejectedList="cdkDropList" [cdkDropListData]="projectsRejected"
-            [cdkDropListConnectedTo]="[draftList, deliberationList, acceptedList, completedList]" class="dropdown-list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="dropdown-box" *ngFor="let item of projectsRejected" cdkDrag>
-                <p class="dropped-rejected">{{item.name}}</p>
-                <button class="details-btn" mat-menu-item (click)="goToProject(item.id)"
-                    matTooltip="More details about this project">
-                    <mat-icon class="details-mat-icon">fullscreen</mat-icon>
-                </button>
-            </div>
-        </div>
+  <div class="dropdown-list-container">
+    <h3>Rejected / Dropped</h3>
+    <div
+      cdkDropList
+      #rejectedList="cdkDropList"
+      [cdkDropListData]="projectsRejected"
+      [cdkDropListConnectedTo]="[draftList, deliberationList, acceptedList, completedList]"
+      class="dropdown-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="dropdown-box" *ngFor="let item of projectsRejected" cdkDrag>
+        <p class="dropped-rejected">{{ item.name }}</p>
+        <button
+          class="details-btn"
+          mat-menu-item
+          (click)="goToProject(item.id)"
+          matTooltip="More details about this project"
+        >
+          <mat-icon class="details-mat-icon">fullscreen</mat-icon>
+        </button>
+      </div>
     </div>
+  </div>
 
-    <div class="dropdown-list-container">
-        <h3>Completed</h3>
-        <div cdkDropList #completedList="cdkDropList" [cdkDropListData]="projectsCompleted"
-            [cdkDropListConnectedTo]="[draftList, deliberationList, acceptedList, rejectedList]" class="dropdown-list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="dropdown-box" *ngFor="let item of projectsCompleted" cdkDrag>
-                <p class="completed">{{item.name}}</p>
-                <button class="details-btn" mat-menu-item (click)="goToProject(item.id)"
-                    matTooltip="More details about this project">
-                    <mat-icon class="details-mat-icon">fullscreen</mat-icon>
-                </button>
-            </div>
-        </div>
+  <div class="dropdown-list-container">
+    <h3>Completed</h3>
+    <div
+      cdkDropList
+      #completedList="cdkDropList"
+      [cdkDropListData]="projectsCompleted"
+      [cdkDropListConnectedTo]="[draftList, deliberationList, acceptedList, rejectedList]"
+      class="dropdown-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="dropdown-box" *ngFor="let item of projectsCompleted" cdkDrag>
+        <p class="completed">{{ item.name }}</p>
+        <button
+          class="details-btn"
+          mat-menu-item
+          (click)="goToProject(item.id)"
+          matTooltip="More details about this project"
+        >
+          <mat-icon class="details-mat-icon">fullscreen</mat-icon>
+        </button>
+      </div>
     </div>
+  </div>
 </div>

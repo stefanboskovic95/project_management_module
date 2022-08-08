@@ -19,7 +19,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-
 // Auth Interceptor - to send token in authorization header
 import { AuthInterceptor } from './services/auth-interceptor';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
@@ -28,7 +27,6 @@ import { ProjectsDetailsComponent } from './components/projects-details/projects
 import { ItemsOverviewComponent } from './components/items-overview/items-overview.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
-
 
 @NgModule({
   declarations: [
@@ -56,12 +54,12 @@ import { EditItemComponent } from './components/edit-item/edit-item.component';
     MatIconModule,
     MatSnackBarModule,
     NoopAnimationsModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

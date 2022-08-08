@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects-overview.component.html',
-  styleUrls: ['./projects-overview.component.css']
+  styleUrls: ['./projects-overview.component.css'],
 })
 export class ProjectsOverviewComponent implements OnInit {
   dropIdToStatusId: { [key: string]: number } = {
@@ -18,7 +18,7 @@ export class ProjectsOverviewComponent implements OnInit {
     'cdk-drop-list-2': 3, // accepted
     'cdk-drop-list-3': 4, // rejected
     'cdk-drop-list-4': 5, // completed
-  }
+  };
 
   projectsDraft: Array<Project> = [];
   projectsDeliberation: Array<Project> = [];
@@ -26,15 +26,20 @@ export class ProjectsOverviewComponent implements OnInit {
   projectsRejected: Array<Project> = [];
   projectsCompleted: Array<Project> = [];
 
-  constructor(private userService:UserService, private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) { }
+  constructor(
+    private userService: UserService,
+    private projectsService: ProjectsService,
+    private router: Router,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.projectsService.getProjects().subscribe((projects) => {
-      this.projectsDraft = projects.filter(project => project.projectStatusId == 1);
-      this.projectsDeliberation = projects.filter(project => project.projectStatusId == 2);
-      this.projectsAccepted = projects.filter(project => project.projectStatusId == 3);
-      this.projectsRejected = projects.filter(project => project.projectStatusId == 4);
-      this.projectsCompleted = projects.filter(project => project.projectStatusId == 5);
+      this.projectsDraft = projects.filter((project) => project.projectStatusId == 1);
+      this.projectsDeliberation = projects.filter((project) => project.projectStatusId == 2);
+      this.projectsAccepted = projects.filter((project) => project.projectStatusId == 3);
+      this.projectsRejected = projects.filter((project) => project.projectStatusId == 4);
+      this.projectsCompleted = projects.filter((project) => project.projectStatusId == 5);
     });
   }
 
@@ -42,15 +47,15 @@ export class ProjectsOverviewComponent implements OnInit {
     const item = event.previousContainer.data[event.previousIndex];
     item.projectStatusId = this.dropIdToStatusId[event.container.id];
     this.projectsService.updateProjectStatus(item.id, this.dropIdToStatusId[event.container.id]).subscribe({
-      next: () => { },
+      next: () => {},
       error: (err) => {
         // Revert update
         this.swap(event, 'previousContainer', 'container');
         this.updateSwimLanes(event);
 
-        console.log(err)
-        this.openSnackBar(err.error.message, 'Dismiss')
-      }
+        console.log(err);
+        this.openSnackBar(err.error.message, 'Dismiss');
+      },
     });
     // To avoid flickering this is not done in next part of subscribe.
     this.updateSwimLanes(event);
@@ -60,12 +65,7 @@ export class ProjectsOverviewComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
   }
 

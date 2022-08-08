@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private token: string = '';
@@ -16,39 +16,39 @@ export class UserService {
   private tokenTimer: any;
   private errorMsg: string = '';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
-  login(user: { username: string, password: string }) {
+  login(user: { username: string; password: string }) {
     this.http.post<User>(`${environment.backend_url}/login`, user).subscribe({
       next: (user: User) => {
         this.token = user.token;
         this.username = user.username;
         this.setTimer(user.expiresIn);
         const expireDate = new Date().getTime() + user.expiresIn * 1000;
-        this.saveAuthData(this.token, new Date(expireDate), this.username, user.userTypeId)
-        this.authStatusListener.next(true)
+        this.saveAuthData(this.token, new Date(expireDate), this.username, user.userTypeId);
+        this.authStatusListener.next(true);
       },
       error: (err) => {
-        this.errorMsg = err.error.message
-        this.authStatusListener.next(false)
-      }
-    })
+        this.errorMsg = err.error.message;
+        this.authStatusListener.next(false);
+      },
+    });
   }
 
   logout() {
-    sessionStorage.clear()
-    this.clearAuthData()
-    this.token = ''
-    this.username = ''
-    clearTimeout(this.tokenTimer)
-    // Notify all listeners 
-    this.authStatusListener.next(false)
-    this.router.navigate(['/'])
+    sessionStorage.clear();
+    this.clearAuthData();
+    this.token = '';
+    this.username = '';
+    clearTimeout(this.tokenTimer);
+    // Notify all listeners
+    this.authStatusListener.next(false);
+    this.router.navigate(['/']);
   }
 
   private setTimer(duration: number) {
     this.tokenTimer = setTimeout(() => {
-      this.logout()
+      this.logout();
     }, duration * 1000);
     this.authStatusListener.next(true);
   }
@@ -72,7 +72,7 @@ export class UserService {
     if (!authData) {
       return;
     }
-    const now = new Date()
+    const now = new Date();
     const expiresIn = authData.expirationDate.getTime() - now.getTime();
 
     if (expiresIn > 0) {
@@ -80,8 +80,7 @@ export class UserService {
       this.username = `${authData.username}`;
       this.setTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
-    }
-    else {
+    } else {
       console.log('Expired token');
     }
   }
@@ -89,10 +88,9 @@ export class UserService {
   private getAuthData() {
     let expirationDate = new Date();
     const dateStr = sessionStorage.getItem('expirationDate');
-    if (dateStr)
-      expirationDate = new Date(dateStr);
+    if (dateStr) expirationDate = new Date(dateStr);
     return {
-      token: localStorage.getItem("token"),
+      token: localStorage.getItem('token'),
       expirationDate,
       username: localStorage.getItem('username'),
     };
@@ -107,7 +105,7 @@ export class UserService {
   }
 
   getToken() {
-    return this.token = sessionStorage.getItem('token') || '';
+    return (this.token = sessionStorage.getItem('token') || '');
   }
 
   getUsername() {
@@ -121,5 +119,4 @@ export class UserService {
   getUserTypeId() {
     return Number(sessionStorage.getItem('userTypeId'));
   }
-
 }

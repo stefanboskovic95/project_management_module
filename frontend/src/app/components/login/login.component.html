@@ -1,10 +1,10 @@
 <div class="form-container">
   <form (submit)="login(loginForm)" #loginForm="ngForm">
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" ngModel required #username="ngModel">
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" ngModel required #password="ngModel">
-      <button type="submit">Login</button>
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" ngModel required #username="ngModel" />
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" ngModel required #password="ngModel" />
+    <button type="submit">Login</button>
   </form>
-  <div class="error-msg">{{message}}</div>
+  <div class="error-msg">{{ message }}</div>
 </div>

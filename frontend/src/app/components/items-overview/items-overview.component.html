@@ -6,12 +6,22 @@
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </div>
-    <div cdkDropList #draftList="cdkDropList" [cdkDropListData]="draftProjectItems"
-      [cdkDropListConnectedTo]="[inProgressList, completedList]" class="dropdown-list"
-      (cdkDropListDropped)="drop($event)">
+    <div
+      cdkDropList
+      #draftList="cdkDropList"
+      [cdkDropListData]="draftProjectItems"
+      [cdkDropListConnectedTo]="[inProgressList, completedList]"
+      class="dropdown-list"
+      (cdkDropListDropped)="drop($event)"
+    >
       <div class="dropdown-box" *ngFor="let item of draftProjectItems" cdkDrag>
-        <p>{{item.name}}</p>
-        <button class="more-info-btn" mat-menu-item (click)="goToProjectItem(item.id)" matTooltip="More details about this item">
+        <p>{{ item.name }}</p>
+        <button
+          class="more-info-btn"
+          mat-menu-item
+          (click)="goToProjectItem(item.id)"
+          matTooltip="More details about this item"
+        >
           <mat-icon class="more-info-mat-icon">fullscreen</mat-icon>
         </button>
       </div>
@@ -21,11 +31,22 @@
     <div class="h3-w-button">
       <h3 class="tittle-add-btn">In progress</h3>
     </div>
-    <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="inProgressProjectItems"
-      [cdkDropListConnectedTo]="[draftList, completedList]" class="dropdown-list" (cdkDropListDropped)="drop($event)">
+    <div
+      cdkDropList
+      #inProgressList="cdkDropList"
+      [cdkDropListData]="inProgressProjectItems"
+      [cdkDropListConnectedTo]="[draftList, completedList]"
+      class="dropdown-list"
+      (cdkDropListDropped)="drop($event)"
+    >
       <div class="dropdown-box" *ngFor="let item of inProgressProjectItems" cdkDrag>
-        <p>{{item.name}}</p>
-        <button class="more-info-btn" mat-menu-item (click)="goToProjectItem(item.id)" matTooltip="More details about this item">
+        <p>{{ item.name }}</p>
+        <button
+          class="more-info-btn"
+          mat-menu-item
+          (click)="goToProjectItem(item.id)"
+          matTooltip="More details about this item"
+        >
           <mat-icon class="more-info-mat-icon">fullscreen</mat-icon>
         </button>
       </div>
@@ -35,11 +56,22 @@
     <div class="h3-w-button">
       <h3 class="tittle-add-btn">Completed</h3>
     </div>
-    <div cdkDropList #completedList="cdkDropList" [cdkDropListData]="completedProjectItems"
-      [cdkDropListConnectedTo]="[draftList, inProgressList]" class="dropdown-list" (cdkDropListDropped)="drop($event)">
+    <div
+      cdkDropList
+      #completedList="cdkDropList"
+      [cdkDropListData]="completedProjectItems"
+      [cdkDropListConnectedTo]="[draftList, inProgressList]"
+      class="dropdown-list"
+      (cdkDropListDropped)="drop($event)"
+    >
       <div class="dropdown-box" *ngFor="let item of completedProjectItems" cdkDrag>
-        <p>{{item.name}}</p>
-        <button class="more-info-btn" mat-menu-item (click)="goToProjectItem(item.id)" matTooltip="More details about this item">
+        <p>{{ item.name }}</p>
+        <button
+          class="more-info-btn"
+          mat-menu-item
+          (click)="goToProjectItem(item.id)"
+          matTooltip="More details about this item"
+        >
           <mat-icon class="more-info-mat-icon">fullscreen</mat-icon>
         </button>
       </div>

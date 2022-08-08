@@ -11,17 +11,27 @@ import { ProjectItem } from '../models/ProjectItem';
 import { ProcurementStatus } from '../models/procurementStatus';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProjectsService {
   // TODO: User's department
   private departmentId = 1;
   private selectedProjectId: number = 0;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  addProject(name: string, description: string, budget: number, isConfidential: boolean, nda: string, currencyId: number,
-    projectLeadId: number, businessCategoryId: number, regionId: number, country: string) {
+  addProject(
+    name: string,
+    description: string,
+    budget: number,
+    isConfidential: boolean,
+    nda: string,
+    currencyId: number,
+    projectLeadId: number,
+    businessCategoryId: number,
+    regionId: number,
+    country: string
+  ) {
     return this.http.post(`${environment.backend_url}/project`, {
       name,
       description,
@@ -33,19 +43,31 @@ export class ProjectsService {
       currencyId,
       businessCategoryId,
       projectLeadId,
-      departmentId: this.departmentId
+      departmentId: this.departmentId,
     });
   }
 
   updateProjectStatus(projectId: number, projectStatusId: number) {
     return this.http.patch(`${environment.backend_url}/update_project_status`, {
       projectId,
-      projectStatusId
-    })
+      projectStatusId,
+    });
   }
 
-  updateProject(projectId: number, name: string, description: string, budget: number, isConfidential: boolean,
-    nda: string, currencyId: number, projectLeadId: number, businessCategoryId: number, country:string, regionId: number, statusId: number) {
+  updateProject(
+    projectId: number,
+    name: string,
+    description: string,
+    budget: number,
+    isConfidential: boolean,
+    nda: string,
+    currencyId: number,
+    projectLeadId: number,
+    businessCategoryId: number,
+    country: string,
+    regionId: number,
+    statusId: number
+  ) {
     return this.http.put(`${environment.backend_url}/project`, {
       projectId,
       name,
@@ -59,29 +81,43 @@ export class ProjectsService {
       businessCategoryId,
       projectLeadId,
       statusId,
-      departmentId: this.departmentId
+      departmentId: this.departmentId,
     });
   }
 
-  addProjectItem(projectId: number, name: string, subject: string, cost: number, isNdaSigned: boolean, currencyId: number) {
+  addProjectItem(
+    projectId: number,
+    name: string,
+    subject: string,
+    cost: number,
+    isNdaSigned: boolean,
+    currencyId: number
+  ) {
     return this.http.post(`${environment.backend_url}/project/item`, {
       projectId,
       name,
       subject,
       cost,
       isNdaSigned,
-      currencyId
+      currencyId,
     });
   }
 
-  updateProjectItem(itemId: number, name: string, subject: string, cost: number, isNdaSigned: boolean, procurementStatusId: number) {
+  updateProjectItem(
+    itemId: number,
+    name: string,
+    subject: string,
+    cost: number,
+    isNdaSigned: boolean,
+    procurementStatusId: number
+  ) {
     return this.http.put(`${environment.backend_url}/project/item`, {
       itemId,
       name,
       subject,
       cost,
       isNdaSigned,
-      procurementStatusId
+      procurementStatusId,
     });
   }
 

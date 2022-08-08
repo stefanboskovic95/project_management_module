@@ -8,7 +8,7 @@ import { ProjectsService } from 'src/app/services/projects.service';
 @Component({
   selector: 'app-project-items',
   templateUrl: './items-overview.component.html',
-  styleUrls: ['./items-overview.component.css']
+  styleUrls: ['./items-overview.component.css'],
 })
 export class ItemsOverviewComponent implements OnInit {
   draftProjectItems: Array<ProjectItem> = [];
@@ -18,21 +18,19 @@ export class ItemsOverviewComponent implements OnInit {
     'cdk-drop-list-0': 1, // draft
     'cdk-drop-list-1': 2, // inProgress
     'cdk-drop-list-2': 3, // complete
-  }
+  };
 
-  constructor(private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) { }
+  constructor(private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.projectsService.getProjectItems(this.projectsService.getSelectedProjectId()).subscribe({
       next: (projectItems) => {
-        console.log(projectItems)
-        this.draftProjectItems = projectItems.filter(item => item.procurementStatusId == 1);
-        this.inProgressProjectItems = projectItems.filter(item => item.procurementStatusId == 2);
-        this.completedProjectItems = projectItems.filter(item => item.procurementStatusId == 3);
+        console.log(projectItems);
+        this.draftProjectItems = projectItems.filter((item) => item.procurementStatusId == 1);
+        this.inProgressProjectItems = projectItems.filter((item) => item.procurementStatusId == 2);
+        this.completedProjectItems = projectItems.filter((item) => item.procurementStatusId == 3);
       },
-      error: (err) => {
-
-      }
+      error: (err) => {},
     });
   }
 
@@ -40,15 +38,15 @@ export class ItemsOverviewComponent implements OnInit {
     const item = event.previousContainer.data[event.previousIndex];
     item.procurementStatusId = this.dropIdToStatusId[event.container.id];
     this.projectsService.updateProjectItemStatus(item.id, this.dropIdToStatusId[event.container.id]).subscribe({
-      next: () => { },
+      next: () => {},
       error: (err) => {
         // Revert update
         this.swap(event, 'previousContainer', 'container');
         this.updateSwimLanes(event);
 
-        console.log(err)
-        this.openSnackBar(err.error.message, 'Dismiss')
-      }
+        console.log(err);
+        this.openSnackBar(err.error.message, 'Dismiss');
+      },
     });
     // To avoid flickering this is not done in next part of subscribe.
     this.updateSwimLanes(event);
@@ -58,26 +56,21 @@ export class ItemsOverviewComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
   }
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
   }
-  
+
   goToAddItem() {
     this.router.navigate(['/addItem']);
   }
 
   goToProjectItem(itemId: number) {
     this.projectsService.setSelectedItemId(itemId);
-    this.router.navigate(['/editItem'])
+    this.router.navigate(['/editItem']);
   }
 
   swap(obj: any, key1: string, key2: string) {

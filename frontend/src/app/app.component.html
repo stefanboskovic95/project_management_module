@@ -1,14 +1,24 @@
 <!-- Toolbar -->
 <div class="header" role="banner">
-  <img routerLink="/" height="60" alt="Project Management Icon" src="assets/images/project_management.png"
-    class="img-head" />
-  <h2 style="margin-left:15px;" (click)="goToProjects()">Project Management Module</h2>
+  <img
+    routerLink="/"
+    height="60"
+    alt="Project Management Icon"
+    src="assets/images/project_management.png"
+    class="img-head"
+  />
+  <h2 style="margin-left: 15px" (click)="goToProjects()">Project Management Module</h2>
   <span class="spacer"></span>
   <button *ngIf="isAuthenticated" mat-icon-button class="navbar-btn" (click)="goToProjects()">
     <mat-icon aria-hidden="false" aria-label="Home icon">home</mat-icon>
   </button>
-  <button *ngIf="isAuthenticated" mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu"
-    class="navbar-btn">
+  <button
+    *ngIf="isAuthenticated"
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    aria-label="icon-button with a menu"
+    class="navbar-btn"
+  >
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
@@ -25,12 +35,11 @@
       <span>Add project</span>
     </button>
     <button mat-menu-item (click)="onLogout()">
-      <mat-icon style="color:red;">power_settings_new</mat-icon>
-      <span style="color:red; font-weight: bold;">Logout</span>
+      <mat-icon style="color: red">power_settings_new</mat-icon>
+      <span style="color: red; font-weight: bold">Logout</span>
     </button>
   </mat-menu>
 </div>
-<div class="content" role="main">
-</div>
+<div class="content" role="main"></div>
 
 <router-outlet></router-outlet>

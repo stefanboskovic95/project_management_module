@@ -11,7 +11,7 @@ import { ProjectStatus } from 'src/app/models/projectStatus';
 @Component({
   selector: 'app-edit-project',
   templateUrl: './edit-project.component.html',
-  styleUrls: ['./edit-project.component.css']
+  styleUrls: ['./edit-project.component.css'],
 })
 export class EditProjectComponent implements OnInit {
   businessCategories: Array<BusinessCategory> = [];
@@ -22,10 +22,9 @@ export class EditProjectComponent implements OnInit {
   project: Project | undefined;
   statuses: Array<ProjectStatus> = [];
   isEditing: boolean = false;
-  nda: string = ''
+  nda: string = '';
 
-
-  constructor(private projectsService: ProjectsService) { }
+  constructor(private projectsService: ProjectsService) {}
 
   ngOnInit(): void {
     this.getProject();
@@ -43,7 +42,7 @@ export class EditProjectComponent implements OnInit {
     });
     this.projectsService.getProjectStatuses().subscribe((statuses) => {
       this.statuses = statuses;
-    })
+    });
   }
 
   editProject(data: any) {
@@ -51,18 +50,31 @@ export class EditProjectComponent implements OnInit {
       return;
     }
 
-    this.projectsService.updateProject(this.project.id, data.name, data.description, data.budget, data.isConfidential, this.nda, 
-      data.currencyId, data.userId, data.categoryId, data.country, data.regionId, data.statusId)
-    .subscribe({
-      next: () => {
-        this.getProject();
-        this.isEditing = false;
-      },
-      error: (err) => {
-        console.log(err);
-        // this.openSnackBar(err.error.message);
-      }
-    });
+    this.projectsService
+      .updateProject(
+        this.project.id,
+        data.name,
+        data.description,
+        data.budget,
+        data.isConfidential,
+        this.nda,
+        data.currencyId,
+        data.userId,
+        data.categoryId,
+        data.country,
+        data.regionId,
+        data.statusId
+      )
+      .subscribe({
+        next: () => {
+          this.getProject();
+          this.isEditing = false;
+        },
+        error: (err) => {
+          console.log(err);
+          // this.openSnackBar(err.error.message);
+        },
+      });
   }
 
   getProject() {
@@ -74,15 +86,12 @@ export class EditProjectComponent implements OnInit {
   }
 
   isNdaDisabled() {
-    if (this.isEditing && !this.isConfidential)
-      return true;
-    else if (!this.isEditing)
-      return true;
-    return false
+    if (this.isEditing && !this.isConfidential) return true;
+    else if (!this.isEditing) return true;
+    return false;
   }
 
   getCurrency(currencyId: number = 1) {
-    return this.currencies?.find(item => item.id == currencyId)?.name
+    return this.currencies?.find((item) => item.id == currencyId)?.name;
   }
-
 }
