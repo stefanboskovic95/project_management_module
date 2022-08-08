@@ -84,6 +84,13 @@ export class ProjectsService {
     });
   }
 
+  updateProjectItemStatus(itemId: number, procurementStatusId: number) {
+    return this.http.patch(`${environment.backend_url}/project/item`, {
+      itemId,
+      procurementStatusId,
+    });
+  }
+
   getProjectItem(itemId: number) {
     return this.http.get<ProjectItem>(`${environment.backend_url}/project/item?itemId=${itemId}`);
   }
