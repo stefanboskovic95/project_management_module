@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import ProcurementStatus from "../db/models/procurementStatus";
-import ProjectItem from "../db/models/projectItem";
+import { Request, Response } from 'express';
+import ProcurementStatus from '../db/models/procurementStatus';
+import ProjectItem from '../db/models/projectItem';
 
 export const getProjectItem = async (req: Request, res: Response) => {
   try {
@@ -31,7 +31,7 @@ export const createProjectItem = async (req: Request, res: Response) => {
       projectId,
     });
 
-    res.status(200).json({ message: "ok" });
+    res.status(200).json({ message: 'ok' });
   } catch (err) {
     console.error(err);
     res.status(400).json({ message: err.message });
@@ -57,7 +57,7 @@ export const updateProjectItem = async (req: Request, res: Response) => {
       },
       { where: { id } }
     );
-    res.status(200).json({ message: "ok" });
+    res.status(200).json({ message: 'ok' });
   } catch (err) {
     console.error(err);
     res.status(400).json({ message: err.message });
@@ -73,7 +73,7 @@ export const updateProjectItemStatus = async (req: Request, res: Response) => {
 
     await ProjectItem.update({ procurementStatusId }, { where: { id } });
 
-    res.status(200).json({ message: "ok" });
+    res.status(200).json({ message: 'ok' });
   } catch (err) {
     console.error(err);
     res.status(400).json({ message: err.message });

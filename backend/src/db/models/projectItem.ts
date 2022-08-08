@@ -4,24 +4,27 @@ import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
 import ProcurementStatus from './procurementStatus';
 
-export default class ProjectItem extends Model { }
+export default class ProjectItem extends Model {}
 
-ProjectItem.init({
-  id: {
-    primaryKey: true,
-    autoIncrement: true,
-    type: DataTypes.INTEGER
+ProjectItem.init(
+  {
+    id: {
+      primaryKey: true,
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+    },
+    name: DataTypes.STRING,
+    subject: DataTypes.STRING,
+    cost: DataTypes.DOUBLE,
+    isNdaSigned: DataTypes.BOOLEAN,
   },
-  name: DataTypes.STRING,
-  subject: DataTypes.STRING,
-  cost: DataTypes.DOUBLE,
-  isNdaSigned: DataTypes.BOOLEAN
-}, {
-  sequelize: connection,
-  modelName: 'item'
-});
+  {
+    sequelize: connection,
+    modelName: 'item',
+  }
+);
 
 ProjectItem.belongsTo(ProcurementStatus, {
   onUpdate: 'SET NULL',
-  onDelete: 'SET NULL'
+  onDelete: 'SET NULL',
 });

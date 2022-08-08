@@ -1,5 +1,5 @@
 'use strict';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 dotenv.config({ path: __dirname + './../../../.env' });
 
 export default {
@@ -10,7 +10,7 @@ export default {
     host: process.env.DB_HOSTNAME,
     port: process.env.DB_PORT,
     dialect: 'mysql',
-    operatorsAliases: false
+    operatorsAliases: false,
   },
   test: {
     username: process.env.DB_USERNAME,
@@ -19,7 +19,7 @@ export default {
     host: process.env.DB_HOSTNAME,
     port: process.env.DB_PORT,
     dialect: 'mysql',
-    operatorsAliases: false
+    operatorsAliases: false,
   },
   production: {
     username: process.env.DB_USERNAME,
@@ -28,6 +28,6 @@ export default {
     host: process.env.DB_HOSTNAME,
     port: process.env.DB_PORT,
     dialect: 'mysql',
-    operatorsAliases: false
-  }
+    operatorsAliases: false,
+  },
 };

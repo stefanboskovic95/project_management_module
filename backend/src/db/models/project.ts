@@ -11,44 +11,47 @@ import ProjectStatus from './projectStatus';
 import Region from './regions';
 import User from './user';
 
-export default class Project extends Model { }
+export default class Project extends Model {}
 
-Project.init({
-  id: {
-    primaryKey: true,
-    autoIncrement: true,
-    type: DataTypes.INTEGER
+Project.init(
+  {
+    id: {
+      primaryKey: true,
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+    },
+    name: {
+      unique: true,
+      type: DataTypes.STRING,
+    },
+    description: DataTypes.STRING,
+    budget: DataTypes.DOUBLE,
+    totalCost: DataTypes.DOUBLE,
+    isConfidential: DataTypes.BOOLEAN,
+    country: DataTypes.STRING,
   },
-  name: {
-    unique: true,
-    type: DataTypes.STRING
-  },
-  description: DataTypes.STRING,
-  budget: DataTypes.DOUBLE,
-  totalCost: DataTypes.DOUBLE,
-  isConfidential: DataTypes.BOOLEAN,
-  country: DataTypes.STRING
-}, {
-  sequelize: connection,
-  modelName: 'project'
-});
+  {
+    sequelize: connection,
+    modelName: 'project',
+  }
+);
 
 Project.hasMany(ProjectItem, {
   onUpdate: 'SET NULL',
-  onDelete: 'SET NULL'
+  onDelete: 'SET NULL',
 });
 
 Project.belongsTo(ProjectStatus, {
   foreignKey: {
-    field: 'projectStatusId'
+    field: 'projectStatusId',
   },
   onUpdate: 'SET NULL',
-  onDelete: 'SET NULL'
+  onDelete: 'SET NULL',
 });
 
 Project.belongsTo(BusinessCategory, {
   onUpdate: 'SET NULL',
-  onDelete: 'SET NULL'
+  onDelete: 'SET NULL',
 });
 
 Project.belongsTo(User, {
@@ -57,30 +60,30 @@ Project.belongsTo(User, {
   //   field: 'projectLeadId'
   // },
   onUpdate: 'SET NULL',
-  onDelete: 'SET NULL'
+  onDelete: 'SET NULL',
 });
 
 Department.hasMany(Project, {
   onUpdate: 'SET NULL',
-  onDelete: 'SET NULL'
+  onDelete: 'SET NULL',
 });
 
 Project.hasOne(Nda, {
   onUpdate: 'SET NULL',
-  onDelete: 'SET NULL'
+  onDelete: 'SET NULL',
 });
 
 Project.belongsTo(Currency, {
   onUpdate: 'SET NULL',
-  onDelete: 'SET NULL'
+  onDelete: 'SET NULL',
 });
 
 Project.belongsTo(Region, {
   onUpdate: 'SET NULL',
-  onDelete: 'SET NULL'
+  onDelete: 'SET NULL',
 });
 
 Project.hasOne(Nda, {
   onUpdate: 'SET NULL',
-  onDelete: 'SET NULL'
+  onDelete: 'SET NULL',
 });

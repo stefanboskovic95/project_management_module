@@ -5,27 +5,30 @@ import connection from '../connection/connection';
 import Department from './department';
 import UserType from './userType';
 
-export default class User extends Model { };
+export default class User extends Model {}
 
-User.init({
-  id: {
-    primaryKey: true,
-    autoIncrement: true,
-    type: DataTypes.INTEGER
+User.init(
+  {
+    id: {
+      primaryKey: true,
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+    },
+    username: {
+      unique: true,
+      type: DataTypes.STRING,
+    },
+    password: DataTypes.STRING,
+    firstName: DataTypes.STRING,
+    lastName: DataTypes.STRING,
   },
-  username: {
-    unique: true,
-    type: DataTypes.STRING
-  },
-  password: DataTypes.STRING,
-  firstName: DataTypes.STRING,
-  lastName: DataTypes.STRING
-}, {
-  sequelize: connection,
-  modelName: 'user'
-});
+  {
+    sequelize: connection,
+    modelName: 'user',
+  }
+);
 
 User.belongsTo(UserType, {
   onUpdate: 'SET NULL',
-  onDelete: 'SET NULL'
+  onDelete: 'SET NULL',
 });

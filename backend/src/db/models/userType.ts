@@ -3,16 +3,19 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
 
-export default class UserType extends Model { }
+export default class UserType extends Model {}
 
-UserType.init({
-  id: {
-    primaryKey: true,
-    autoIncrement: true,
-    type: DataTypes.INTEGER
+UserType.init(
+  {
+    id: {
+      primaryKey: true,
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+    },
+    type: DataTypes.STRING,
   },
-  type: DataTypes.STRING
-}, {
-  sequelize: connection,
-  modelName: 'user_type'
-});
+  {
+    sequelize: connection,
+    modelName: 'user_type',
+  }
+);

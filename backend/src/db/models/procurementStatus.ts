@@ -3,19 +3,22 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
 
-export default class ProcurementStatus extends Model { }
+export default class ProcurementStatus extends Model {}
 
-ProcurementStatus.init({
-  id: {
-    primaryKey: true,
-    autoIncrement: true,
-    type: DataTypes.INTEGER
+ProcurementStatus.init(
+  {
+    id: {
+      primaryKey: true,
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+    },
+    status: {
+      unique: true,
+      type: DataTypes.STRING,
+    },
   },
-  status: {
-    unique: true,
-    type: DataTypes.STRING
-  },
-}, {
-  sequelize: connection,
-  modelName: 'procurement_status'
-});
+  {
+    sequelize: connection,
+    modelName: 'procurement_status',
+  }
+);

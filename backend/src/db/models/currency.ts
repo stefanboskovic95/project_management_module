@@ -3,17 +3,20 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
 
-export default class Currency extends Model { }
+export default class Currency extends Model {}
 
-Currency.init({
-  id: {
-    primaryKey: true,
-    autoIncrement: true,
-    type: DataTypes.INTEGER
+Currency.init(
+  {
+    id: {
+      primaryKey: true,
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+    },
+    name: DataTypes.STRING,
+    ratioToEur: DataTypes.DOUBLE,
   },
-  name: DataTypes.STRING,
-  ratioToEur: DataTypes.DOUBLE
-}, {
-  sequelize: connection,
-  modelName: 'currency'
-});
+  {
+    sequelize: connection,
+    modelName: 'currency',
+  }
+);
