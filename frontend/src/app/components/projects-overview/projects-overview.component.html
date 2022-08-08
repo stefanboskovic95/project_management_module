@@ -55,7 +55,7 @@
         <div cdkDropList #rejectedList="cdkDropList" [cdkDropListData]="projectsRejected"
             [cdkDropListConnectedTo]="[draftList, deliberationList, acceptedList, completedList]" class="dropdown-list"
             (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of projectsRejected" cdkDrag>
+            <div class="dropdown-box" *ngFor="let item of projectsRejected" cdkDrag>
                 <p class="dropped-rejected">{{item.name}}</p>
                 <button class="details-btn" mat-menu-item (click)="goToProject(item.id)"
                     matTooltip="More details about this project">
@@ -70,7 +70,7 @@
         <div cdkDropList #completedList="cdkDropList" [cdkDropListData]="projectsCompleted"
             [cdkDropListConnectedTo]="[draftList, deliberationList, acceptedList, rejectedList]" class="dropdown-list"
             (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of projectsCompleted" cdkDrag>
+            <div class="dropdown-box" *ngFor="let item of projectsCompleted" cdkDrag>
                 <p class="completed">{{item.name}}</p>
                 <button class="details-btn" mat-menu-item (click)="goToProject(item.id)"
                     matTooltip="More details about this project">

@@ -158,7 +158,7 @@
     </tr>
     <tr *ngFor="let project of projects">
       <td>{{project.id}}</td>
-      <td style="width: 300px;">{{project.name}}</td>
+      <td style="width: 260px;">{{project.name}}</td>
       <td *ngIf="currencies">{{project.budget | currency:getCurrency(project.currencyId)}}</td>
       <td>{{0 | currency:getCurrency(project.currencyId)}}</td>
       <td>{{project.isConfidential ? 'YES' : 'NO'}}</td>
