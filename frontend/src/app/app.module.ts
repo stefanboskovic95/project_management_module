@@ -27,6 +27,7 @@ import { ProjectsDetailsComponent } from './components/projects-details/projects
 import { ItemsOverviewComponent } from './components/items-overview/items-overview.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
+import { ItemsDetailsComponent } from './components/items-details/items-details.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { EditItemComponent } from './components/edit-item/edit-item.component';
     ItemsOverviewComponent,
     AddItemComponent,
     EditItemComponent,
+    ItemsDetailsComponent,
   ],
   imports: [
     BrowserModule,

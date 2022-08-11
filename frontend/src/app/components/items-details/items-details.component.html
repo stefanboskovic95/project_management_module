@@ -1,0 +1,18 @@
+<div>
+  <div class="items-table-rows">
+    <div class="items-table-column">
+      <div class="table-header">Id</div>
+      <div class="table-header">Name</div>
+      <div class="table-header">Cost</div>
+      <div class="table-header">NDA Signed</div>
+      <div class="table-header">Status</div>
+    </div>
+    <div *ngFor="let item of projectItems" class="items-table-column">
+      <div>{{item.id}}</div>
+      <div>{{item.name}}</div>
+      <div>{{item.cost | currency: 'EUR' }}</div>
+      <div>{{item.isNdaSigned ? 'Yes': 'No'}}</div>
+      <div>{{getItemStatus(item.procurementStatusId)}}</div>
+    </div>
+  </div>
+</div>

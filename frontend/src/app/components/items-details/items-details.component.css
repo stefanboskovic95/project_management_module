@@ -1,0 +1,19 @@
+.items-table-column {
+  display: grid;
+  grid-template-columns: 50px 2fr 1fr 1fr 1fr;
+  margin: 10px;
+}
+
+.items-table-rows {
+  grid-template-rows: auto;
+  margin: 10px;
+}
+
+.item-row {
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+
+.table-header {
+  font-weight: bold;
+}

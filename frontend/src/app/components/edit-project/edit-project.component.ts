@@ -23,6 +23,8 @@ export class EditProjectComponent implements OnInit {
   statuses: Array<ProjectStatus> = [];
   isEditing: boolean = false;
   nda: string = '';
+  itemsOverview: boolean = true;
+  private itemsOverviewName = 'itemsOverview';
 
   constructor(private projectsService: ProjectsService) {}
 
@@ -93,5 +95,17 @@ export class EditProjectComponent implements OnInit {
 
   getCurrency(currencyId: number = 1) {
     return this.currencies?.find((item) => item.id == currencyId)?.name;
+  }
+
+  toggleItemsOverview() {
+    this.itemsOverview = !(sessionStorage.getItem(this.itemsOverviewName) == "true");
+    // this.itemsOverview = !this.itemsOverview;
+    console.log(this.itemsOverview)
+    sessionStorage.setItem(this.itemsOverviewName, String(this.itemsOverview));
+    return this.itemsOverview;
+  }
+
+  getItemsOverview() {
+    return (sessionStorage.getItem(this.itemsOverviewName) == "true");
   }
 }

@@ -157,7 +157,11 @@
   <div class="drop-downs-container">
     <div class="title-box">
       <h1>Project Items</h1>
+      <button class="details-btn" mat-menu-item (click)="toggleItemsOverview()" matTooltip="Switch view">
+        <mat-icon class="details-mat-icon">loop</mat-icon>
+      </button>
     </div>
-    <app-project-items></app-project-items>
+    <app-project-items *ngIf="getItemsOverview()"></app-project-items>
+    <app-items-details *ngIf="!getItemsOverview()"></app-items-details>
   </div>
 </div>

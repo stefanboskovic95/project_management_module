@@ -25,7 +25,6 @@ export class ItemsOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.projectsService.getProjectItems(this.projectsService.getSelectedProjectId()).subscribe({
       next: (projectItems) => {
-        console.log(projectItems);
         this.draftProjectItems = projectItems.filter((item) => item.procurementStatusId == 1);
         this.inProgressProjectItems = projectItems.filter((item) => item.procurementStatusId == 2);
         this.completedProjectItems = projectItems.filter((item) => item.procurementStatusId == 3);
