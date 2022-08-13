@@ -46,8 +46,8 @@
 
     <div class="vertical-spacer">
       <label for="assignee">Assignee</label>
-      <input id="assignee" name="assignee" class="value-cls" type="text" ngModel placeholder="Search for user"
-        [disabled]="!isEditing" [formControl]="control" [matAutocomplete]="auto" [(ngModel)]="searchUserString"/>
+      <input id="assignee" name="assignee" class="value-cls" type="text" placeholder="Search for user"
+        [formControl]="control" [matAutocomplete]="auto"/>
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let user of filteredUsers | async" [value]="user.username">
           {{user.username}}

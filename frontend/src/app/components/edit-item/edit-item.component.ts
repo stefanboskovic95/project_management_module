@@ -25,7 +25,6 @@ export class EditItemComponent implements OnInit {
   control: FormControl = new FormControl();
   departmentUsers: Array<User> = [];
   filteredUsers: Observable<Array<User>> | undefined;
-  searchUserString: string = ''
 
   constructor(private projectsService: ProjectsService) { }
 
@@ -68,7 +67,7 @@ export class EditItemComponent implements OnInit {
     if (this.item && this.departmentUsers) {
       const user = this.departmentUsers.find((item) => item.id == this.item?.userId);
       if (user) {
-        this.searchUserString = user.username;
+        this.control.setValue(user.username);
       }
     }
   }
@@ -83,7 +82,7 @@ export class EditItemComponent implements OnInit {
   }
 
   submitItem(formData: any) {
-    console.log(this.searchUserString)
+    console.log(this.control.getRawValue())
     if (!this.item) {
       return;
     }
@@ -93,7 +92,7 @@ export class EditItemComponent implements OnInit {
         formData.name,
         formData.subject,
         formData.cost,
-        this.searchUserString,
+        this.control.getRawValue(),
         formData.isNdaSigned,
         formData.status
       )
