@@ -43,3 +43,36 @@ export const getDepartmentOfficials = async (req: Request, res: Response) => {
     res.status(400).send({ message: err });
   }
 };
+
+const getAllExceptAdmin = async (userId: number) => {
+  const departmentUser = await DepartmentUsers.findOne({ where: { userId } });
+  const departmentId = departmentUser['departmentId'];
+  const departmentUsers: any = await DepartmentUsers.findAll({
+    where: {
+      departmentId,
+    },
+    include: [User],
+  });
+  const users: any = departmentUsers
+    .filter((depUser) => [1, 2, 3].includes(depUser.user.userTypeId))
+    .map((depUser) => ({
+      id: depUser.user.id,
+      username: depUser.user.username,
+      firstName: depUser.user.firstName,
+      lastName: depUser.user.lastName,
+    }));
+  return users;
+}
+
+export const getDepartmentUsers = async (req: Request, res: Response) => {
+  try {
+    const userId: number = res.locals.userId;
+    const users = await getAllExceptAdmin(userId);
+
+    res.status(200).send(users);
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).send({ message: err });
+  }
+};

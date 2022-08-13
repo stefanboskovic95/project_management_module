@@ -23,7 +23,8 @@ export class ItemsOverviewComponent implements OnInit {
   constructor(private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
-    this.projectsService.getProjectItems(this.projectsService.getSelectedProjectId()).subscribe({
+    const projectId = this.projectsService.getSelectedProjectId();
+    this.projectsService.getProjectItems(`?projectId=${projectId}`).subscribe({
       next: (projectItems) => {
         this.draftProjectItems = projectItems.filter((item) => item.procurementStatusId == 1);
         this.inProgressProjectItems = projectItems.filter((item) => item.procurementStatusId == 2);

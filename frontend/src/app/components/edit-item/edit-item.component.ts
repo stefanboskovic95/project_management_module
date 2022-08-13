@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 import { Currency } from 'src/app/models/currency';
 import { ProcurementStatus } from 'src/app/models/procurementStatus';
 import { Project } from 'src/app/models/project';
 import { ProjectItem } from 'src/app/models/ProjectItem';
+import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
@@ -18,7 +22,12 @@ export class EditItemComponent implements OnInit {
   statuses: Array<ProcurementStatus> = [];
   selectedCurrencyId: number = 1;
 
-  constructor(private projectsService: ProjectsService) {}
+  control: FormControl = new FormControl();
+  departmentUsers: Array<User> = [];
+  filteredUsers: Observable<Array<User>> | undefined;
+  searchUserString: string = ''
+
+  constructor(private projectsService: ProjectsService) { }
 
   ngOnInit(): void {
     this.projectsService.getProject(this.projectsService.getSelectedProjectId()).subscribe({
@@ -32,6 +41,7 @@ export class EditItemComponent implements OnInit {
     this.projectsService.getProjectItem(this.projectsService.getSelectedItemId()).subscribe({
       next: (item: ProjectItem) => {
         this.item = item;
+        this.setDefaultUser();
       },
       error: (err: any) => {
         console.log(err);
@@ -43,10 +53,37 @@ export class EditItemComponent implements OnInit {
     this.projectsService.getProcurementStatuses().subscribe((statuses) => {
       this.statuses = statuses;
     });
+    this.projectsService.getUsersInDepartment().subscribe((users) => {
+      this.departmentUsers = users;
+      this.setDefaultUser();
+    });
+    this.filteredUsers = this.control.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+    this.control.disable();
+  }
+
+  setDefaultUser() {
+    if (this.item && this.departmentUsers) {
+      const user = this.departmentUsers.find((item) => item.id == this.item?.userId);
+      if (user) {
+        this.searchUserString = user.username;
+      }
+    }
+  }
+
+  private _filter(value: string): Array<User> {
+    const filterValue = this._normalizeValue(value);
+    return this.departmentUsers.filter(user => this._normalizeValue(user.username).includes(filterValue));
+  }
+
+  private _normalizeValue(value: string): string {
+    return value.toLowerCase().replace(/\s/g, '');
   }
 
   submitItem(formData: any) {
-    console.log(formData);
+    console.log(this.searchUserString)
     if (!this.item) {
       return;
     }
@@ -56,11 +93,17 @@ export class EditItemComponent implements OnInit {
         formData.name,
         formData.subject,
         formData.cost,
+        this.searchUserString,
         formData.isNdaSigned,
         formData.status
       )
       .subscribe(() => {
-        this.isEditing = false;
+        this.toggleEditing();
       });
+  }
+
+  toggleEditing() {
+    this.isEditing = !this.isEditing;
+    this.control.disabled ? this.control.enable() : this.control.disable();
   }
 }

@@ -45,7 +45,7 @@ export class ProjectsDetailsComponent implements OnInit {
       },
       error: (err) => {},
     });
-    this.projectsService.getUsersInDepartment(this.projectsService.getDepartmentId()).subscribe((users) => {
+    this.projectsService.getDepartmentOfficials().subscribe((users) => {
       this.users = users;
     });
     this.projectsService.getRegions().subscribe((regions) => {

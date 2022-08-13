@@ -18,7 +18,7 @@ export class ProjectsService {
   private departmentId = 1;
   private selectedProjectId: number = 0;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   addProject(
     name: string,
@@ -108,6 +108,7 @@ export class ProjectsService {
     name: string,
     subject: string,
     cost: number,
+    username: string,
     isNdaSigned: boolean,
     procurementStatusId: number
   ) {
@@ -116,6 +117,7 @@ export class ProjectsService {
       name,
       subject,
       cost,
+      username,
       isNdaSigned,
       procurementStatusId,
     });
@@ -140,16 +142,20 @@ export class ProjectsService {
     return this.http.get<any>(`${environment.backend_url}/project?projectId=${projectId}`);
   }
 
-  getProjectItems(projectId: number) {
-    return this.http.get<Array<ProjectItem>>(`${environment.backend_url}/project/items?projectId=${projectId}`);
+  getProjectItems(queryString: string) {
+    return this.http.get<Array<ProjectItem>>(`${environment.backend_url}/project/items${queryString}`);
   }
 
   getBusinessCategories() {
     return this.http.get<Array<BusinessCategory>>(`${environment.backend_url}/business_categories`);
   }
 
-  getUsersInDepartment(departmentId: number) {
-    return this.http.get<Array<User>>(`${environment.backend_url}/department_officials?departmentId=${departmentId}`);
+  getDepartmentOfficials() {
+    return this.http.get<Array<User>>(`${environment.backend_url}/department_officials`);
+  }
+
+  getUsersInDepartment() {
+    return this.http.get<Array<User>>(`${environment.backend_url}/department_users`);
   }
 
   getRegions() {
@@ -166,10 +172,6 @@ export class ProjectsService {
 
   getProcurementStatuses() {
     return this.http.get<Array<ProcurementStatus>>(`${environment.backend_url}/project/items/status`);
-  }
-
-  getDepartmentId() {
-    return this.departmentId;
   }
 
   setSelectedProjectId(projectId: number) {

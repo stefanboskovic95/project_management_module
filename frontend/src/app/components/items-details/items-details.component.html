@@ -1,18 +1,68 @@
-<div>
+<div class="table-border">
+  <mat-menu #menu="matMenu" xPosition="before" class="menu-width">
+    <button mat-menu-item [matMenuTriggerFor]="myProjectItemsMenu" class="mat-menu-btn">My projects</button>
+  </mat-menu>
+  <mat-menu #myProjectItemsMenu xPosition="before">
+    <div class="small-padding">
+      <mat-checkbox (click)="applyFilters($event, 'myItems')">Yes</mat-checkbox>
+    </div>
+  </mat-menu>
   <div class="items-table-rows">
     <div class="items-table-column">
-      <div class="table-header">Id</div>
-      <div class="table-header">Name</div>
-      <div class="table-header">Cost</div>
-      <div class="table-header">NDA Signed</div>
-      <div class="table-header">Status</div>
+      <div class="p-w-button">
+        <p>Id</p>
+        <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('id')" matTooltip="Sort by Id">
+          <mat-icon *ngIf="isSortedAscendingBy('id')">arrow_drop_up</mat-icon>
+          <mat-icon *ngIf="!isSortedAscendingBy('id')">arrow_drop_down</mat-icon>
+        </button>
+      </div>
+      <div class="p-w-button">
+        <p>Name</p>
+        <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('name')" matTooltip="Sort by Id">
+          <mat-icon *ngIf="isSortedAscendingBy('name')">arrow_drop_up</mat-icon>
+          <mat-icon *ngIf="!isSortedAscendingBy('name')">arrow_drop_down</mat-icon>
+        </button>
+      </div>
+      <div class="p-w-button">
+        <p>Cost</p>
+        <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('cost')" matTooltip="Sort by Id">
+          <mat-icon *ngIf="isSortedAscendingBy('cost')">arrow_drop_up</mat-icon>
+          <mat-icon *ngIf="!isSortedAscendingBy('cost')">arrow_drop_down</mat-icon>
+        </button>
+      </div>
+      <div class="p-w-button">
+        <p>Confidential</p>
+        <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('isNdaSigned')" matTooltip="Sort by Id">
+          <mat-icon *ngIf="isSortedAscendingBy('isNdaSigned')">arrow_drop_up</mat-icon>
+          <mat-icon *ngIf="!isSortedAscendingBy('isNdaSigned')">arrow_drop_down</mat-icon>
+        </button>
+      </div>
+      <div class="p-w-button">
+        <p>Status</p>
+        <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('procurementStatusId')"
+          matTooltip="Sort by Id">
+          <mat-icon *ngIf="isSortedAscendingBy('procurementStatusId')">arrow_drop_up</mat-icon>
+          <mat-icon *ngIf="!isSortedAscendingBy('procurementStatusId')">arrow_drop_down</mat-icon>
+        </button>
+      </div>
+      <div class="p-w-button">
+        <button mat-icon-button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Filters">
+          <mat-icon>filter_list</mat-icon>
+        </button>
+      </div>
     </div>
     <div *ngFor="let item of projectItems" class="items-table-column">
-      <div>{{item.id}}</div>
-      <div>{{item.name}}</div>
-      <div>{{item.cost | currency: 'EUR' }}</div>
-      <div>{{item.isNdaSigned ? 'Yes': 'No'}}</div>
-      <div>{{getItemStatus(item.procurementStatusId)}}</div>
+      <div class="table-td">{{item.id}}</div>
+      <div class="table-td">{{item.name}}</div>
+      <div class="table-td">{{item.cost | currency: 'EUR' }}</div>
+      <div class="table-td">{{item.isNdaSigned ? 'Yes': 'No'}}</div>
+      <div class="table-td">{{getItemStatus(item.procurementStatusId)}}</div>
+      <div class="table-td">
+        <button mat-icon-button class="details-btn" (click)="goToProjectItem(item.id)"
+          matTooltip="More details about this item">
+          <mat-icon class="details-mat-icon">fullscreen</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>

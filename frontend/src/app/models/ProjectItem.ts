@@ -6,4 +6,5 @@ export interface ProjectItem {
   isNdaSigned: boolean;
   procurementStatusId: number;
   projectId: number;
+  userId: number;
 }

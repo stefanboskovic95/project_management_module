@@ -206,3 +206,7 @@ label {
   display: flex;
   flex-direction: row;
 }
+
+.small-padding {
+  padding: 10px;
+}

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import User from '../db/models/user';
 import ProcurementStatus from '../db/models/procurementStatus';
 import ProjectItem from '../db/models/projectItem';
 
@@ -46,12 +47,17 @@ export const updateProjectItem = async (req: Request, res: Response) => {
     const cost = req.body.cost;
     const isNdaSigned = req.body.isNdaSigned;
     const procurementStatusId = req.body.procurementStatusId;
+    const username = req.body.username;
+    console.log(`user: ${username}`);
+
+    const user = await User.findOne({ where: { username }});
 
     await ProjectItem.update(
       {
         name,
         subject,
         cost,
+        userId: user['id'],
         isNdaSigned,
         procurementStatusId,
       },
@@ -83,7 +89,25 @@ export const updateProjectItemStatus = async (req: Request, res: Response) => {
 export const getProjectItems = async (req: Request, res: Response) => {
   try {
     const projectId = req.query.projectId;
-    const items = await ProjectItem.findAll({ where: { projectId } });
+    const orderBy: string = req.query.orderBy;
+    const ascending: string = req.query.ascending;
+    console.log(orderBy)
+
+    // Sorting
+    let order = [];
+    if (orderBy && ascending) {
+      order = [[orderBy, ascending === 'true' ? 'ASC' : 'DESC']];
+    } else {
+      order = [['id', 'DESC']];
+    }
+    console.log(order);
+
+    let where = { projectId }
+
+    const items = await ProjectItem.findAll({ 
+      where,
+      order
+    });
     res.status(200).send(items);
   } catch (err) {
     console.error(err);

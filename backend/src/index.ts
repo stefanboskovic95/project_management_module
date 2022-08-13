@@ -3,7 +3,7 @@ import cors from 'cors';
 
 import checkAuth from './middleware/check-auth';
 import { login } from './routes/user';
-import { getDepartments, getDepartmentOfficials } from './routes/department';
+import { getDepartments, getDepartmentOfficials, getDepartmentUsers } from './routes/department';
 import {
   createProject,
   getProjectStatuses,
@@ -54,6 +54,7 @@ router.route('/project_statuses').get(checkAuth, getProjectStatuses);
 router.route('/business_categories').get(checkAuth, getBusinessCategories);
 router.route('/departments').get(checkAuth, getDepartments);
 router.route('/department_officials').get(checkAuth, getDepartmentOfficials);
+router.route('/department_users').get(checkAuth, getDepartmentUsers);
 router.route('/currencies').get(checkAuth, getCurrencies);
 router.route('/regions').get(checkAuth, getRegions);
 router.route('/update_project_status').patch(checkAuth, updateProjectStatus);

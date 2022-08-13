@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -46,6 +48,8 @@ import { ItemsDetailsComponent } from './components/items-details/items-details.
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
     HttpClientModule,
     DragDropModule,
     BrowserAnimationsModule,
@@ -64,4 +68,4 @@ import { ItemsDetailsComponent } from './components/items-details/items-details.
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

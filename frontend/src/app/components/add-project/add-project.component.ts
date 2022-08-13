@@ -25,7 +25,7 @@ export class AddProjectComponent implements OnInit {
     this.projectsService.getBusinessCategories().subscribe((businessCategories) => {
       this.businessCategories = businessCategories;
     });
-    this.projectsService.getUsersInDepartment(this.projectsService.getDepartmentId()).subscribe((users) => {
+    this.projectsService.getDepartmentOfficials().subscribe((users) => {
       this.users = users;
     });
     this.projectsService.getRegions().subscribe((regions) => {

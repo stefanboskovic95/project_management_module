@@ -3,8 +3,9 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
 import ProcurementStatus from './procurementStatus';
+import User from './user';
 
-export default class ProjectItem extends Model {}
+export default class ProjectItem extends Model { }
 
 ProjectItem.init(
   {
@@ -25,6 +26,11 @@ ProjectItem.init(
 );
 
 ProjectItem.belongsTo(ProcurementStatus, {
+  onUpdate: 'SET NULL',
+  onDelete: 'SET NULL',
+});
+
+ProjectItem.belongsTo(User, {
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL',
 });
