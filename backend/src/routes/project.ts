@@ -223,7 +223,6 @@ export const getProjects = async (req: Request, res: Response) => {
     }
     // Finding
     const findWhat = req.query.find;
-    console.log(`Number.isInteger(findWhat): ${Number.isInteger(findWhat)}`);
     if (findWhat) {
       const potentialId = Number(findWhat);
       if (Number.isInteger(potentialId)) {

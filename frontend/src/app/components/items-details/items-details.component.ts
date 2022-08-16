@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProcurementStatus } from 'src/app/models/procurementStatus';
 import { ProjectItem } from 'src/app/models/ProjectItem';
@@ -12,6 +13,8 @@ import { ProjectsService } from 'src/app/services/projects.service';
 export class ItemsDetailsComponent implements OnInit {
   projectItems: Array<ProjectItem> = [];
   statuses: Array<ProcurementStatus> = [];
+  findFormControl: FormControl = new FormControl();
+  findWhat: string = '';
 
   // Sorter
   sortCriteria: { criteria: string; ascending: boolean } = { criteria: 'id', ascending: false };
@@ -32,6 +35,10 @@ export class ItemsDetailsComponent implements OnInit {
     this.projectsService.getProcurementStatuses().subscribe((statuses) => {
       this.statuses = statuses;
     });
+    this.findFormControl.valueChanges.subscribe((val) => {
+      this.findWhat = val;
+      this.getProjectItems();
+    })
   }
 
   getProjectItems() {
@@ -42,9 +49,9 @@ export class ItemsDetailsComponent implements OnInit {
         queryString = queryString + `&${filter.name}=${filter.value}`;
       });
     }
-    // if (this.findWhat !== '') {
-    //   queryString = queryString + `&find=${this.findWhat}`;
-    // }
+    if (this.findWhat !== '') {
+      queryString = queryString + `&find=${this.findWhat}`;
+    }
 
     this.projectsService.getProjectItems(queryString).subscribe((projectItems) => {
       this.projectItems = projectItems;
@@ -83,6 +90,10 @@ export class ItemsDetailsComponent implements OnInit {
       this.filters.push({ name: filter, value: value != '' ? value : filter });
     }
     this.getProjectItems();
+  }
+
+  findIdOrName() {
+    // this.findWhat = form.value.find;
   }
 
   isSortedAscendingBy(criteria: string) {

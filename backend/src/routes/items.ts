@@ -118,6 +118,17 @@ export const getProjectItems = async (req: Request, res: Response) => {
         [Op.or]: Array.isArray(statuses) ? statuses : [statuses],
       };
     }
+    // Finding
+    const findWhat = req.query.find;
+    if (findWhat) {
+      const potentialId = Number(findWhat);
+      if (Number.isInteger(potentialId)) {
+        where['id'] = potentialId;
+      } else {
+        where['name'] = { [Op.like]: `%${findWhat}%` };
+      }
+    }
+    console.log(where);
 
     const items = await ProjectItem.findAll({ 
       where,
