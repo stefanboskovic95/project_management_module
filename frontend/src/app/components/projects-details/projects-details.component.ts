@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BusinessCategory } from 'src/app/models/businessCategory';
 import { Currency } from 'src/app/models/currency';
@@ -23,6 +23,7 @@ export class ProjectsDetailsComponent implements OnInit {
   businessCategories: Array<BusinessCategory> | undefined;
   projectsStatuses: Array<ProjectStatus> | undefined;
   distinctCountries: Array<string> = [];
+  findFormControl: FormControl = new FormControl();
   findWhat: string = '';
 
   // Sorter
@@ -59,6 +60,10 @@ export class ProjectsDetailsComponent implements OnInit {
     });
     this.projectsService.getProjectStatuses().subscribe((projectStatuses) => {
       this.projectsStatuses = projectStatuses;
+    });
+    this.findFormControl.valueChanges.subscribe((val) => {
+      this.findWhat = val;
+      this.getProjects();
     });
   }
 
@@ -116,11 +121,6 @@ export class ProjectsDetailsComponent implements OnInit {
     } else {
       this.filters.push({ name: filter, value: value != '' ? value : filter });
     }
-    this.getProjects();
-  }
-
-  findIdOrName(form: NgForm) {
-    this.findWhat = form.value.find;
     this.getProjects();
   }
 

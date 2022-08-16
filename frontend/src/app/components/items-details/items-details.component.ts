@@ -8,7 +8,7 @@ import { ProjectsService } from 'src/app/services/projects.service';
 @Component({
   selector: 'app-items-details',
   templateUrl: './items-details.component.html',
-  styleUrls: ['./items-details.component.css']
+  styleUrls: ['./items-details.component.css'],
 })
 export class ItemsDetailsComponent implements OnInit {
   projectItems: Array<ProjectItem> = [];
@@ -22,7 +22,7 @@ export class ItemsDetailsComponent implements OnInit {
   // Filters
   filters: Array<{ name: string; value: string }> = [];
 
-  constructor(private projectsService: ProjectsService, private router: Router) { }
+  constructor(private projectsService: ProjectsService, private router: Router) {}
 
   ngOnInit(): void {
     const projectId = this.projectsService.getSelectedProjectId();
@@ -38,7 +38,7 @@ export class ItemsDetailsComponent implements OnInit {
     this.findFormControl.valueChanges.subscribe((val) => {
       this.findWhat = val;
       this.getProjectItems();
-    })
+    });
   }
 
   getProjectItems() {
@@ -111,5 +111,4 @@ export class ItemsDetailsComponent implements OnInit {
   getItemStatus(statusId: number) {
     return this.statuses?.find((item) => item.id == statusId)?.status;
   }
-
 }
