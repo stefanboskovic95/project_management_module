@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import User from '../db/models/user';
 import ProcurementStatus from '../db/models/procurementStatus';
 import ProjectItem from '../db/models/projectItem';
+import { Op } from 'sequelize';
 
 export const getProjectItem = async (req: Request, res: Response) => {
   try {
@@ -88,10 +89,10 @@ export const updateProjectItemStatus = async (req: Request, res: Response) => {
 
 export const getProjectItems = async (req: Request, res: Response) => {
   try {
+    const userId: number = res.locals.userId;
     const projectId = req.query.projectId;
     const orderBy: string = req.query.orderBy;
     const ascending: string = req.query.ascending;
-    console.log(orderBy)
 
     // Sorting
     let order = [];
@@ -100,9 +101,23 @@ export const getProjectItems = async (req: Request, res: Response) => {
     } else {
       order = [['id', 'DESC']];
     }
-    console.log(order);
 
     let where = { projectId }
+    
+    // Filtering
+    if (req.query.myItems) {
+      where['userId'] = userId;
+    }
+    if (req.query.isConfidential) {
+      where['isNdaSigned'] = true;
+    }
+    // Item statuses
+    const statuses = req.query.status;
+    if (statuses) {
+      where['procurementStatusId'] = {
+        [Op.or]: Array.isArray(statuses) ? statuses : [statuses],
+      };
+    }
 
     const items = await ProjectItem.findAll({ 
       where,

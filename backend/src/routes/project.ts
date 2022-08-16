@@ -168,7 +168,6 @@ export const getProjects = async (req: Request, res: Response) => {
     }
 
     // Filtering
-    console.log(req.query);
     let where = {};
     if (req.query.isConfidential) {
       where['isConfidential'] = true;

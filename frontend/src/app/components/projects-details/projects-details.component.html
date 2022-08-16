@@ -3,7 +3,7 @@
     <!-- <div class="small-margin"> -->
     <button mat-menu-item [matMenuTriggerFor]="myProjectsMenu" class="mat-menu-btn">My projects</button>
     <button mat-menu-item [matMenuTriggerFor]="budgetSizeMenu" class="mat-menu-btn">Budget size</button>
-    <button mat-menu-item [matMenuTriggerFor]="ConfidentialMenu" class="mat-menu-btn">Confidential</button>
+    <button mat-menu-item [matMenuTriggerFor]="confidentialMenu" class="mat-menu-btn">Confidential</button>
     <button mat-menu-item [matMenuTriggerFor]="projectStatusesMenu" class="mat-menu-btn">Status</button>
     <button mat-menu-item [matMenuTriggerFor]="projectLeadsMenu" class="mat-menu-btn">Project leads</button>
     <button mat-menu-item [matMenuTriggerFor]="countriesMenu" class="mat-menu-btn">Countries</button>
@@ -23,7 +23,7 @@
       <mat-checkbox (click)="applyFilters($event, 'myProjects')">Yes</mat-checkbox>
     </div>
   </mat-menu>
-  <mat-menu #ConfidentialMenu xPosition="before">
+  <mat-menu #confidentialMenu xPosition="before">
     <div class="small-padding">
       <mat-checkbox (click)="applyFilters($event, 'isConfidential')">Yes</mat-checkbox>
     </div>

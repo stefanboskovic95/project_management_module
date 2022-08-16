@@ -1,12 +1,25 @@
 <div class="table-border">
   <mat-menu #menu="matMenu" xPosition="before" class="menu-width">
-    <button mat-menu-item [matMenuTriggerFor]="myProjectItemsMenu" class="mat-menu-btn">My projects</button>
+    <button mat-menu-item [matMenuTriggerFor]="myProjectItemsMenu" class="mat-menu-btn">My items</button>
+    <button mat-menu-item [matMenuTriggerFor]="confidentialMenu" class="mat-menu-btn">Confidential</button>
+    <button mat-menu-item [matMenuTriggerFor]="itemStatusesMenu" class="mat-menu-btn">Status</button>
   </mat-menu>
   <mat-menu #myProjectItemsMenu xPosition="before">
     <div class="small-padding">
       <mat-checkbox (click)="applyFilters($event, 'myItems')">Yes</mat-checkbox>
     </div>
   </mat-menu>
+  <mat-menu #confidentialMenu xPosition="before">
+    <div class="small-padding">
+      <mat-checkbox (click)="applyFilters($event, 'isConfidential')">Yes</mat-checkbox>
+    </div>
+  </mat-menu>
+  <mat-menu #itemStatusesMenu xPosition="before">
+    <div class="small-padding" *ngFor="let status of statuses">
+      <mat-checkbox (click)="applyFilters($event, 'status', status.id.toString())">{{ status.status }}</mat-checkbox>
+    </div>
+  </mat-menu>
+
   <div class="items-table-rows">
     <div class="items-table-column">
       <div class="p-w-button">
