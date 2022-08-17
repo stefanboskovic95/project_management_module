@@ -80,15 +80,15 @@ const _updateProjectStatus = async (projectId, projectStatusId, userTypeId) => {
     throw new Error('When project is accepted it cannot be sent back to draft / deliberation');
   }
 
-  // Project budget must be set before project is accepted
+  // Project budget must be set before project is sent to deliberation
   console.log(`projectStatusId: ${projectStatusId}`)
-  if (projectStatusId == 3 && project['budget'] == 0) {
-    throw new Error('Project budget must be set before project is accepted');
+  if (projectStatusId > 2 && project['budget'] == 0) {
+    throw new Error('Project budget must be set before project is sent to deliberation');
   }
 
-  // Project lead must be set before project is accepted
-  if (projectStatusId == 3 && !project['userId']) {
-    throw new Error('Project lead must be set before project is accepted');
+  // Project lead must be set before project is sent to deliberation
+  if (projectStatusId == 2 && !project['userId']) {
+    throw new Error('Project lead must be set before project is sent to deliberation');
   }
 
   await Project.update({ projectStatusId }, { where: { id: projectId } });
