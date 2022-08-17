@@ -2,155 +2,99 @@
   <div class="form-container">
     <div class="title-box">
       <h1>Project Details</h1>
-      <button class="details-btn" mat-menu-item (click)="isEditing = !isEditing" matTooltip="Edit project">
+      <button class="details-btn" mat-menu-item (click)="toggleEditing()" matTooltip="Edit project">
         <mat-icon class="details-mat-icon">edit</mat-icon>
       </button>
     </div>
     <form #addProject="ngForm" (ngSubmit)="editProject(addProject.value)" *ngIf="project">
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label [ngClass]="{ black: !isEditing }">Project name</mat-label>
-        <input
-          matInput
-          name="name"
-          ngModel
-          [(ngModel)]="project.name"
-          [disabled]="!isEditing"
-          [ngClass]="{ 'black-bold': !isEditing }"
-        />
-      </mat-form-field>
-
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label [ngClass]="{ black: !isEditing }">Project description</mat-label>
-        <textarea
-          class="text-area-tall"
-          matInput
-          name="description"
-          ngModel
-          [(ngModel)]="project.description"
-          [disabled]="!isEditing"
-          [ngClass]="{ 'black-bold': !isEditing }"
-        ></textarea>
-      </mat-form-field>
-
-      <mat-form-field style="width: 78%" appearance="fill">
-        <mat-label [ngClass]="{ black: !isEditing }">Budget</mat-label>
-        <!-- [value]="project.budget | currency:getCurrency()" -->
-        <input
-          matInput
-          name="budget"
-          ngModel
-          [(ngModel)]="project.budget"
-          [value]="project.budget"
-          [disabled]="!isEditing"
-          [ngClass]="{ 'black-bold': !isEditing }"
-        />
-      </mat-form-field>
-
-      <mat-form-field style="width: 20%; float: right" appearance="fill">
-        <!-- <mat-label>Currency</mat-label> -->
-        <mat-select
-          name="currencyId"
-          ngModel
-          [(ngModel)]="project.currencyId"
-          [disabled]="!isEditing"
-          [ngClass]="{ 'black-bold': !isEditing }"
-        >
-          <mat-option *ngFor="let currency of currencies" [value]="currency.id">
-            {{ currency.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field class="half-width-float-left" appearance="fill">
-        <mat-label [ngClass]="{ black: !isEditing }">Country</mat-label>
-        <input
-          matInput
-          name="country"
-          ngModel
-          [(ngModel)]="project.country"
-          [disabled]="!isEditing"
-          [ngClass]="{ black: !isEditing }"
-        />
-      </mat-form-field>
-
-      <mat-form-field class="half-width-float-right" appearance="fill">
-        <mat-label [ngClass]="{ black: !isEditing }">Region</mat-label>
-        <mat-select
-          name="regionId"
-          ngModel
-          [(ngModel)]="project.regionId"
-          [disabled]="!isEditing"
-          [ngClass]="{ 'black-bold': !isEditing }"
-        >
-          <mat-option *ngFor="let region of regions" [value]="region.id">
-            {{ region.name }} ({{ region.abbrev }})
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field class="half-width-float-left" appearance="fill">
-        <mat-label [ngClass]="{ black: !isEditing }">Project lead</mat-label>
-        <mat-select
-          name="userId"
-          ngModel
-          [(ngModel)]="project.userId"
-          [disabled]="!isEditing"
-          [ngClass]="{ 'black-bold': !isEditing }"
-        >
-          <mat-option *ngFor="let user of users" [value]="user.id">
-            {{ user.username }} ({{ user.firstName }} {{ user.lastName }})
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field class="half-width-float-right" appearance="fill">
-        <mat-label [ngClass]="{ black: !isEditing }">Business category</mat-label>
-        <mat-select
-          name="categoryId"
-          ngModel
-          [(ngModel)]="project.businessCategoryId"
-          [disabled]="!isEditing"
-          [ngClass]="{ 'black-bold': !isEditing }"
-        >
-          <mat-option *ngFor="let category of businessCategories" [value]="category.id">
-            {{ category.type }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field class="half-width-float-left" appearance="fill">
-        <mat-label>Status</mat-label>
-        <mat-select
-          name="statusId"
-          ngModel
-          [(ngModel)]="project.projectStatusId"
-          [disabled]="!isEditing"
-          [ngClass]="{ 'black-bold': !isEditing }"
-        >
-          <mat-option *ngFor="let status of statuses" [value]="status.id">
-            {{ status.status }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <div class="half-width-float-right">
-        <section class="checkbox-section">
-          <mat-checkbox name="isConfidential" ngModel color="warn" [(ngModel)]="isConfidential" [disabled]="!isEditing">
-            Is confidential
-          </mat-checkbox>
-        </section>
+      <div class="vertical-spacer">
+        <label for="name">Name</label>
+        <input type="text" class="value-cls" id="name" name="name" [(ngModel)]="project.name" ngModel [disabled]="!isEditing" />
       </div>
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label [ngClass]="{ black: !isEditing }">NDA</mat-label>
-        <textarea
-          class="text-area-tall"
-          matInput
-          name="nda"
-          ngModel
-          [(ngModel)]="nda"
-          [disabled]="isNdaDisabled()"
-        ></textarea>
-      </mat-form-field>
+
+      <div class="vertical-spacer">
+        <label for="description">Project description</label>
+        <textarea type="text" class="value-cls" id="description" name="description" [(ngModel)]="project.description" ngModel
+          [disabled]="!isEditing"></textarea>
+      </div>
+
+      <div class="vertical-spacer">
+        <div class="align-horizontally">
+          <div class="align-vertically-40">
+            <label for="budget">Budget</label>
+            <input type="number" class="value-cls" id="budget" name="budget" [(ngModel)]="project.budget" ngModel [disabled]="!isEditing" />
+          </div>
+          <div class="align-vertically-20">
+            <label for="currency">Currency</label>
+            <select id="currency" name="currency" ngModel [disabled]="!isEditing" [(ngModel)]="project.currencyId">
+              <option *ngFor="let currency of currencies" [value]="currency.id">{{ currency.name }}</option>
+            </select>
+          </div>
+          <div class="align-vertically-40">
+            <label for="budgetEur">Budget in Eur</label>
+            <input type="text" class="value-cls" id="budgetEur" name="budgetEur" [value]="project.budget | currency:'EUR'" [disabled]="true" />
+          </div>
+        </div>
+      </div>
+
+
+      <div class="vertical-spacer">
+        <div class="align-horizontally">
+          <div class="align-vertically-50">
+            <label for="country">Country</label>
+            <input type="text" class="value-cls" id="country" name="country" [(ngModel)]="project.country" ngModel [disabled]="!isEditing" />
+          </div>
+          <div class="align-vertically-50-right">
+            <label for="region">Region</label>
+            <select id="region" name="region" ngModel [(ngModel)]="project.regionId" [disabled]="!isEditing">
+              <option *ngFor="let region of regions" [value]="region.id">{{ region.name }} ({{ region.abbrev }})</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="vertical-spacer">
+        <div class="align-horizontally">
+          <div class="align-vertically-50">
+            <label for="userId">Project lead</label>
+            <select id="userId" name="userId" ngModel [(ngModel)]="project.userId" [disabled]="!isEditing">
+              <option *ngFor="let user of users" [value]="user.id">{{ user.username }} ({{ user.firstName }} {{ user.lastName }})</option>
+            </select>
+          </div>
+          <div class="align-vertically-50-right">
+            <label for="categoryId">Business category</label>
+            <select id="categoryId" name="categoryId" ngModel [(ngModel)]="project.businessCategoryId" [disabled]="!isEditing">
+              <option *ngFor="let category of businessCategories" [value]="category.id">{{ category.type }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="vertical-spacer">
+        <div class="align-horizontally">
+          <div class="align-vertically-50">
+            <label for="statusId">Status</label>
+            <select id="statusId" name="statusId" ngModel [(ngModel)]="project.projectStatusId" [disabled]="!isEditing">
+              <option *ngFor="let status of statuses" [value]="status.id">{{ status.status }}</option>
+            </select>
+          </div>
+          <div class="align-vertically-50-right">
+            <!-- <label for="categoryId">Business category</label>
+            <select id="categoryId" name="categoryId" ngModel [(ngModel)]="project.businessCategoryId" [disabled]="!isEditing">
+              <option *ngFor="let category of businessCategories" [value]="category.id">{{ category.type }}</option>
+            </select> -->
+            <input type="checkbox" id="isConfidential" name="isConfidential" [(ngModel)]="isConfidential" ngModel
+              [disabled]="!isEditing" />
+            <label for="isConfidential" [ngClass]="{ 'label-disabled': !isEditing }">Is confidential</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="vertical-spacer">
+        <label for="description">NDA</label>
+        <textarea type="text" class="value-cls" id="nda" name="nda" [(ngModel)]="nda" ngModel
+          [disabled]="isNdaDisabled()"></textarea>
+      </div>
       <button type="submit" [disabled]="!isEditing">Update</button>
     </form>
   </div>

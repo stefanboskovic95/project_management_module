@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { BusinessCategory } from 'src/app/models/businessCategory';
 import { Currency } from 'src/app/models/currency';
@@ -26,6 +26,8 @@ export class EditProjectComponent implements OnInit {
   nda: string = '';
   itemsOverview: boolean = true;
   private itemsOverviewName = 'itemsOverview';
+  selectedCurrencyId: number = 1;
+  budgetFormControl: FormControl = new FormControl();
 
   constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar) {}
 
@@ -58,7 +60,7 @@ export class EditProjectComponent implements OnInit {
         this.project.id,
         data.name,
         data.description,
-        data.budget,
+        this.budgetFormControl.getRawValue(),
         data.isConfidential,
         this.nda,
         data.currencyId,
@@ -76,6 +78,7 @@ export class EditProjectComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.openSnackBar(err.error.message);
+          this.budgetFormControl.markAsTouched();
         },
       });
   }
@@ -112,5 +115,10 @@ export class EditProjectComponent implements OnInit {
 
   openSnackBar(message: string, action: string = 'Dismiss') {
     this._snackBar.open(message, action);
+  }
+
+  toggleEditing() {
+    this.isEditing = !this.isEditing;
+    this.budgetFormControl.disabled ? this.budgetFormControl.enable() : this.budgetFormControl.disable();
   }
 }
