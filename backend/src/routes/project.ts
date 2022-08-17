@@ -28,7 +28,7 @@ export const createProject = async (req: Request, res: Response) => {
     const regionId: string = req.body.regionId;
     const userId: number = req.body.projectLeadId;
     const departmentId: number = req.body.departmentId;
-    const currencyId: number = req.body.currencyId;
+    const currencyId: number = req.body.currencyId | 1;
     const ndaText: string = req.body.nda;
 
     const project = await Project.create({
@@ -42,7 +42,7 @@ export const createProject = async (req: Request, res: Response) => {
       currencyId,
       projectStatusId,
       businessCategoryId,
-      userId,
+      userId: userId ? userId : null,
       departmentId,
     });
 
@@ -135,9 +135,25 @@ export const updateProjectStatus = async (req: Request, res: Response) => {
 
     // Only department chief can approve or reject the project. High official can update other states.
     if (userTypeId == 2 && ![3, 4].includes(projectStatusId)) {
-      return res.status(403).send({
+      return res.status(403).json({
         message: 'Only Department Chief can accept or reject the project.',
       });
+    }
+
+    // When project is accepted it cannot be sent back to draft / deliberation
+    if ([3, 4, 5].includes(project['projectStatusId']) && [1, 2].includes(projectStatusId)) {
+      return res.status(403).json({ message: 'When project is accepted it cannot be sent back to draft / deliberation'});
+    }
+
+    // Project budget must be set before project is accepted
+    console.log(`projectStatusId: ${projectStatusId}`)
+    if (projectStatusId == 3 && project['budget'] == 0) {
+      return res.status(403).json({ message: 'Project budget must be set before project is accepted'});
+    }
+
+    // Project lead must be set before project is accepted
+    if (projectStatusId == 3 && !project['userId']) {
+      return res.status(403).json({ message: 'Project lead must be set before project is accepted'});
     }
 
     await Project.update({ projectStatusId }, { where: { id: projectId } });

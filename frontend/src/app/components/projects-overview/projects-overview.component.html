@@ -13,6 +13,7 @@
       </button>
     </div>
     <div
+      id="list-0"
       cdkDropList
       #draftList="cdkDropList"
       [cdkDropListData]="projectsDraft"
@@ -37,6 +38,7 @@
   <div class="dropdown-list-container">
     <h3>Deliberation</h3>
     <div
+      id="list-1"
       cdkDropList
       #deliberationList="cdkDropList"
       [cdkDropListData]="projectsDeliberation"
@@ -44,7 +46,7 @@
       class="dropdown-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div class="dropdown-box" *ngFor="let item of projectsDeliberation">
+      <div class="dropdown-box" *ngFor="let item of projectsDeliberation" cdkDrag>
         <p>{{ item.name }}</p>
         <button
           class="details-btn"
@@ -61,6 +63,7 @@
   <div class="dropdown-list-container">
     <h3>Accepted</h3>
     <div
+      id="list-2"
       cdkDropList
       #acceptedList="cdkDropList"
       [cdkDropListData]="projectsAccepted"
@@ -85,6 +88,7 @@
   <div class="dropdown-list-container">
     <h3>Rejected / Dropped</h3>
     <div
+      id="list-3"
       cdkDropList
       #rejectedList="cdkDropList"
       [cdkDropListData]="projectsRejected"
@@ -109,6 +113,7 @@
   <div class="dropdown-list-container">
     <h3>Completed</h3>
     <div
+      id="list-4"
       cdkDropList
       #completedList="cdkDropList"
       [cdkDropListData]="projectsCompleted"

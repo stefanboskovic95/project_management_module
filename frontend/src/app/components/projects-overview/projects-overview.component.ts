@@ -13,11 +13,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProjectsOverviewComponent implements OnInit {
   dropIdToStatusId: { [key: string]: number } = {
-    'cdk-drop-list-0': 1, // draft
-    'cdk-drop-list-1': 2, // deliberation
-    'cdk-drop-list-2': 3, // accepted
-    'cdk-drop-list-3': 4, // rejected
-    'cdk-drop-list-4': 5, // completed
+    'list-0': 1, // draft
+    'list-1': 2, // deliberation
+    'list-2': 3, // accepted
+    'list-3': 4, // rejected
+    'list-4': 5, // completed
   };
 
   projectsDraft: Array<Project> = [];
@@ -46,6 +46,8 @@ export class ProjectsOverviewComponent implements OnInit {
   drop(event: CdkDragDrop<Project[]>) {
     const item = event.previousContainer.data[event.previousIndex];
     item.projectStatusId = this.dropIdToStatusId[event.container.id];
+    console.log(item.projectStatusId)
+    console.log(`event.container.id: ${event.container.id}`)
     this.projectsService.updateProjectStatus(item.id, this.dropIdToStatusId[event.container.id]).subscribe({
       next: () => {},
       error: (err) => {

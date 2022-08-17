@@ -55,7 +55,7 @@
       </mat-autocomplete>
     </div>
 
-    <div class="verical-spacer">
+    <div class="verical-spacer" *ngIf="project.isConfidential">
       <input type="checkbox" id="isNdaSigned" name="isNdaSigned" [(ngModel)]="item.isNdaSigned" ngModel
         [disabled]="!isEditing" />
       <label for="isNdaSigned" [ngClass]="{ 'label-disabled': !isEditing }">NDA signed</label>

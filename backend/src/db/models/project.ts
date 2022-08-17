@@ -25,7 +25,10 @@ Project.init(
       type: DataTypes.STRING,
     },
     description: DataTypes.STRING,
-    budget: DataTypes.DOUBLE,
+    budget: {
+      type: DataTypes.DOUBLE,
+      defaultValue: 0,
+    },
     totalCost: DataTypes.DOUBLE,
     isConfidential: DataTypes.BOOLEAN,
     country: DataTypes.STRING,

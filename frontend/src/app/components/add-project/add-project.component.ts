@@ -37,14 +37,15 @@ export class AddProjectComponent implements OnInit {
   }
 
   submitProject(data: any) {
+    console.log(data);
     this.projectsService
       .addProject(
         data.name,
         data.description,
-        data.budget,
+        data.budget ? data.budget : 0,
         data.isConfidential,
         data.nda,
-        data.currency,
+        data.currency ? data.currency : 1,
         data.projectLead,
         data.category,
         data.region,
