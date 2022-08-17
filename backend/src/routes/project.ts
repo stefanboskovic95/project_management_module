@@ -82,12 +82,12 @@ const _updateProjectStatus = async (projectId, projectStatusId, userTypeId) => {
 
   // Project budget must be set before project is sent to deliberation
   console.log(`projectStatusId: ${projectStatusId}`)
-  if (projectStatusId > 2 && project['budget'] == 0) {
+  if (projectStatusId >= 2 && project['budget'] == 0) {
     throw new Error('Project budget must be set before project is sent to deliberation');
   }
 
   // Project lead must be set before project is sent to deliberation
-  if (projectStatusId == 2 && !project['userId']) {
+  if (projectStatusId >= 2 && !project['userId']) {
     throw new Error('Project lead must be set before project is sent to deliberation');
   }
 
