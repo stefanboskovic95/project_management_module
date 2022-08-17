@@ -7,6 +7,7 @@ import { Region } from 'src/app/models/region';
 import { User } from 'src/app/models/user';
 import { Project } from 'src/app/models/project';
 import { ProjectStatus } from 'src/app/models/projectStatus';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-project',
@@ -26,7 +27,7 @@ export class EditProjectComponent implements OnInit {
   itemsOverview: boolean = true;
   private itemsOverviewName = 'itemsOverview';
 
-  constructor(private projectsService: ProjectsService) {}
+  constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.getProject();
@@ -74,7 +75,7 @@ export class EditProjectComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
-          // this.openSnackBar(err.error.message);
+          this.openSnackBar(err.error.message);
         },
       });
   }
@@ -107,5 +108,9 @@ export class EditProjectComponent implements OnInit {
 
   getItemsOverview() {
     return (sessionStorage.getItem(this.itemsOverviewName) == "true");
+  }
+
+  openSnackBar(message: string, action: string = 'Dismiss') {
+    this._snackBar.open(message, action);
   }
 }

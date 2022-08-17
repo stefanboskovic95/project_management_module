@@ -60,10 +60,45 @@ export const createProject = async (req: Request, res: Response) => {
   }
 };
 
+const _updateProjectStatus = async (projectId, projectStatusId, userTypeId) => {
+  // Regular user cannot update projects
+  if (userTypeId == 1) {
+    throw new Error('You are not authorized to preform this action.');
+  }
+
+  const project: Project = await Project.findOne({
+    where: { id: projectId },
+  });
+
+  // Only department chief can approve or reject the project. High official can update other states.
+  if (userTypeId == 2 && ![3, 4].includes(projectStatusId)) {
+    throw new Error('Only Department Chief can accept or reject the project.');
+  }
+
+  // When project is accepted it cannot be sent back to draft / deliberation
+  if ([3, 4, 5].includes(project['projectStatusId']) && [1, 2].includes(projectStatusId)) {
+    throw new Error('When project is accepted it cannot be sent back to draft / deliberation');
+  }
+
+  // Project budget must be set before project is accepted
+  console.log(`projectStatusId: ${projectStatusId}`)
+  if (projectStatusId == 3 && project['budget'] == 0) {
+    throw new Error('Project budget must be set before project is accepted');
+  }
+
+  // Project lead must be set before project is accepted
+  if (projectStatusId == 3 && !project['userId']) {
+    throw new Error('Project lead must be set before project is accepted');
+  }
+
+  await Project.update({ projectStatusId }, { where: { id: projectId } });
+}
+
 export const updateProject = async (req: Request, res: Response) => {
   try {
-    if (res.locals.userTypeId == 1) {
-      return res.status(403).send({ message: 'You are not authorized to preform this action.' });
+    const userTypeId: number = res.locals.userTypeId;
+    if (userTypeId == 1) {
+      return res.status(403).json({ message: 'You are not authorized to preform this action.' });
     }
 
     console.log(req.body);
@@ -84,6 +119,9 @@ export const updateProject = async (req: Request, res: Response) => {
 
     const existingProject = await Project.findOne({ where: { id: projectId } });
 
+    
+    await _updateProjectStatus(projectId, projectStatusId, userTypeId);
+
     if (isConfidential && !existingProject['isConfidential']) {
       Nda.create({
         text: ndaText,
@@ -102,7 +140,6 @@ export const updateProject = async (req: Request, res: Response) => {
         country,
         budget,
         isConfidential,
-        projectStatusId,
         businessCategoryId,
         regionId,
         userId,
@@ -111,10 +148,10 @@ export const updateProject = async (req: Request, res: Response) => {
       },
       { where: { id: projectId } }
     );
-    res.status(200).send({ message: 'ok' });
+    res.status(200).json({ message: 'ok' });
   } catch (err) {
     console.log(err);
-    res.status(400).send({ message: err });
+    res.status(400).json({ message: err.message });
   }
 };
 
@@ -124,43 +161,12 @@ export const updateProjectStatus = async (req: Request, res: Response) => {
     const projectStatusId: number = req.body.projectStatusId;
     const userTypeId: number = res.locals.userTypeId;
 
-    // Regular user cannot update projects
-    if (userTypeId == 1) {
-      return res.status(403).send({ message: 'You are not authorized to preform this action.' });
-    }
+    await _updateProjectStatus(projectId, projectStatusId, userTypeId);
 
-    const project: Project = await Project.findOne({
-      where: { id: projectId },
-    });
-
-    // Only department chief can approve or reject the project. High official can update other states.
-    if (userTypeId == 2 && ![3, 4].includes(projectStatusId)) {
-      return res.status(403).json({
-        message: 'Only Department Chief can accept or reject the project.',
-      });
-    }
-
-    // When project is accepted it cannot be sent back to draft / deliberation
-    if ([3, 4, 5].includes(project['projectStatusId']) && [1, 2].includes(projectStatusId)) {
-      return res.status(403).json({ message: 'When project is accepted it cannot be sent back to draft / deliberation'});
-    }
-
-    // Project budget must be set before project is accepted
-    console.log(`projectStatusId: ${projectStatusId}`)
-    if (projectStatusId == 3 && project['budget'] == 0) {
-      return res.status(403).json({ message: 'Project budget must be set before project is accepted'});
-    }
-
-    // Project lead must be set before project is accepted
-    if (projectStatusId == 3 && !project['userId']) {
-      return res.status(403).json({ message: 'Project lead must be set before project is accepted'});
-    }
-
-    await Project.update({ projectStatusId }, { where: { id: projectId } });
-    res.status(200).send({ message: 'Updated!' });
+    res.status(200).json({ message: 'Updated!' });
   } catch (err) {
     console.log(err);
-    res.status(400).send({ message: err });
+    res.status(400).json({ message: err.message });
   }
 };
 
