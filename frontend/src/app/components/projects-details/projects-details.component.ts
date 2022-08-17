@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BusinessCategory } from 'src/app/models/businessCategory';
 import { Currency } from 'src/app/models/currency';
 import { Project } from 'src/app/models/project';
 import { ProjectStatus } from 'src/app/models/projectStatus';
 import { Region } from 'src/app/models/region';
-import { SortOption } from 'src/app/models/sortOption';
 import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
 
@@ -32,7 +32,7 @@ export class ProjectsDetailsComponent implements OnInit {
   // Filters
   filters: Array<{ name: string; value: string }> = [];
 
-  constructor(private projectsService: ProjectsService, private router: Router) {}
+  constructor(private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.projectsService.getProjects().subscribe({
@@ -129,6 +129,18 @@ export class ProjectsDetailsComponent implements OnInit {
     this.router.navigate(['editProject']);
   }
 
+  deleteProject(projectId: number) {
+    this.projectsService.deleteProject(projectId).subscribe({
+      next: (resp: any) => {
+        this.openSnackBar(resp.message);
+        this.getProjects();
+      },
+      error: (err: any) => {
+        this.openSnackBar(err.error.message);
+      }
+    })
+  }
+
   getCurrency(currencyId: number) {
     return this.currencies?.find((item) => item.id == currencyId)?.name;
   }
@@ -151,5 +163,9 @@ export class ProjectsDetailsComponent implements OnInit {
 
   getProjectLead(userId: number) {
     return this.users?.find((item) => item.id == userId)?.username;
+  }
+
+  openSnackBar(message: string, action: string = 'Dismiss') {
+    this._snackBar.open(message, action);
   }
 }

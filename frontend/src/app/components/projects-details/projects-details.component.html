@@ -170,18 +170,16 @@
           </button>
         </div>
       </th>
-      <th>
-        <div id="p-w-button">
-          <button
-            mat-icon-button
-            class="tittle-add-btn-btn"
-            mat-icon-button
-            [matMenuTriggerFor]="menu"
-            matTooltip="Filters"
-          >
-            <mat-icon>filter_list</mat-icon>
-          </button>
-        </div>
+      <th colspan="2">
+        <button
+          mat-icon-button
+          class="filters-btn"
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          matTooltip="Filters"
+        >
+          <mat-icon>filter_list</mat-icon>
+        </button>
       </th>
     </tr>
     <tr *ngFor="let project of projects">
@@ -203,6 +201,16 @@
           matTooltip="More details about this project"
         >
           <mat-icon class="details-mat-icon">fullscreen</mat-icon>
+        </button>
+      </td>
+      <td>
+        <button
+          mat-icon-button
+          class="details-btn"
+          (click)="deleteProject(project.id)"
+          matTooltip="Delete this project"
+        >
+          <mat-icon class="delete-mat-icon">delete_outline</mat-icon>
         </button>
       </td>
     </tr>

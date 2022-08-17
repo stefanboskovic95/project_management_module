@@ -5,11 +5,11 @@ import Project from '../db/models/project';
 import BusinessCategory from '../db/models/businessCategories';
 import Currency from '../db/models/currency';
 import Region from '../db/models/regions';
-import DepartmentUsers from '../db/models/departmentUsers';
 import ProjectUsers from '../db/models/projectUsers';
 import User from '../db/models/user';
 import Nda from '../db/models/nda';
 import { getProjectLeads } from './department';
+import ProjectItem from '../db/models/projectItem';
 
 export const createProject = async (req: Request, res: Response) => {
   try {
@@ -153,10 +153,8 @@ export const getProjects = async (req: Request, res: Response) => {
     const userId: number = res.locals.userId;
     const userTypeId: number = res.locals.userTypeId;
 
-    const departmentUser: DepartmentUsers = await DepartmentUsers.findOne({
-      where: { userId },
-    });
-    const departmentId: number = departmentUser['departmentId'];
+    const user = await User.findOne({ where: { id: userId } });
+    const departmentId: number = Number(user['departmentId']);
     const orderBy: string = req.query.orderBy;
     const ascending: string = req.query.ascending;
     // Sorting
@@ -343,6 +341,48 @@ export const getRegions = async (req: Request, res: Response) => {
   try {
     const regions: Array<Region> = await Region.findAll();
     res.status(200).send(regions);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({ message: err });
+  }
+};
+
+export const deleteProject = async (req: Request, res: Response) => {
+  try {
+    const projectId = req.query.projectId;
+    const userId = res.locals.userId;
+    console.log(projectId)
+    
+    const user = await User.findOne({ where: { id: userId } });
+    const project = await Project.findOne({ where: { id: projectId } });
+    const departmentId: number = user['departmentId'];
+
+    console.log(`departmentId: ${departmentId}`)
+    console.log(`project['departmentId']: ${project['departmentId']}`)
+    if (departmentId !== project['departmentId']) {
+      return res.status(403).json({ message: 'You do not have access to this project.' });
+    }
+
+    // Department chief can delete any project in his department.
+    // Department high official can only delete his projects.
+    // Regular user cannot delete project.
+    if ((user['userTypeId'] == 2 && project['userId'] !== userId) || user['userTypeId'] == 1) {
+      return res.status(403).json({ message: 'You are not authorized to perform this action.' })
+    }
+
+    // Project must not be in accepted state.
+    if (project['projectStatusId'] == 3) {
+      return res.status(403).json({ message: 'You cannot delete project in progress.'});
+    }
+
+    // There must not be any ProjectItems inProgress state.
+    const items = await ProjectItem.findAll({ where: { projectId, procurementStatusId: 2 } });
+    if (items.length > 0) {
+      return res.status(403).json({ message: 'You cannot delete a project that has any project item in progress.' })
+    }
+    
+    await Project.destroy({ where: { id: projectId } });
+    res.status(200).json({ message: `Project ${project['name']} deleted!` });
   } catch (err) {
     console.log(err);
     res.status(400).send({ message: err });

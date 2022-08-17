@@ -14,6 +14,7 @@ import {
   getProject,
   updateProjectStatus,
   updateProject,
+  deleteProject,
 } from './routes/project';
 import {
   getProjectItem,
@@ -41,6 +42,7 @@ router.route('/login').post(login);
 router.route('/project').post(checkAuth, createProject);
 router.route('/project').get(checkAuth, getProject);
 router.route('/project').put(checkAuth, updateProject);
+router.route('/project').delete(checkAuth, deleteProject);
 router.route('/projects').get(checkAuth, getProjects);
 
 router.route('/project/item').get(checkAuth, getProjectItem);

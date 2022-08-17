@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import User from '../db/models/user';
 import Department from '../db/models/department';
-import DepartmentUsers from '../db/models/departmentUsers';
+import { Op } from 'sequelize';
 
 export const getDepartments = async (req: Request, res: Response) => {
   try {
@@ -14,23 +14,9 @@ export const getDepartments = async (req: Request, res: Response) => {
 };
 
 export const getProjectLeads = async (userId: number) => {
-  const departmentUser = await DepartmentUsers.findOne({ where: { userId } });
-  const departmentId = departmentUser['departmentId'];
-  const departmentUsers: any = await DepartmentUsers.findAll({
-    where: {
-      departmentId,
-    },
-    include: [User],
-  });
-  const officials = await departmentUsers
-    .filter((depUser) => [2, 3].includes(depUser.user.userTypeId))
-    .map((depUser) => ({
-      id: depUser.user.id,
-      username: depUser.user.username,
-      firstName: depUser.user.firstName,
-      lastName: depUser.user.lastName,
-    }));
-  return officials;
+  const user = await User.findOne({ where: { id: userId } });
+  const users = await User.findAll({ where: { departmentId: user['departmentId'], userTypeId: { [Op.or]: [2, 3] } } });
+  return users;
 };
 
 export const getDepartmentOfficials = async (req: Request, res: Response) => {
@@ -45,24 +31,10 @@ export const getDepartmentOfficials = async (req: Request, res: Response) => {
 };
 
 const getAllExceptAdmin = async (userId: number) => {
-  const departmentUser = await DepartmentUsers.findOne({ where: { userId } });
-  const departmentId = departmentUser['departmentId'];
-  const departmentUsers: any = await DepartmentUsers.findAll({
-    where: {
-      departmentId,
-    },
-    include: [User],
-  });
-  const users: any = departmentUsers
-    .filter((depUser) => [1, 2, 3].includes(depUser.user.userTypeId))
-    .map((depUser) => ({
-      id: depUser.user.id,
-      username: depUser.user.username,
-      firstName: depUser.user.firstName,
-      lastName: depUser.user.lastName,
-    }));
+  const user = await User.findOne({ where: { id: userId } });
+  const users = await User.findAll({ where: { departmentId: user['departmentId'], userTypeId: { [Op.or]: [1, 2, 3] } } });
   return users;
-}
+};
 
 export const getDepartmentUsers = async (req: Request, res: Response) => {
   try {
@@ -70,8 +42,7 @@ export const getDepartmentUsers = async (req: Request, res: Response) => {
     const users = await getAllExceptAdmin(userId);
 
     res.status(200).send(users);
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
     res.status(400).send({ message: err });
   }

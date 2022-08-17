@@ -8,23 +8,11 @@ import ProjectItem from '../models/projectItem';
 import ProjectStatus from '../models/projectStatus';
 import User from '../models/user';
 import UserType from '../models/userType';
-import DepartmentUsers from '../models/departmentUsers';
 import Region from '../models/regions';
 import Currency from '../models/currency';
 import ProjectUsers from '../models/projectUsers';
 
 connection.sync().then(async () => {
-  await User.findAll();
-  await UserType.findAll();
-  await ProjectStatus.findAll();
-  await ProjectItem.findAll();
-  await Project.findAll();
-  await ProcurementStatus.findAll();
-  await Nda.findAll();
-  await Department.findAll();
-  await BusinessCategory.findAll();
-  await DepartmentUsers.findAll();
-
   // ==================== Region ====================
   Region.create({
     id: 1,
@@ -96,19 +84,19 @@ connection.sync().then(async () => {
   });
 
   // ==================== Department ====================
-  await Department.create({
+  const cpx = await Department.create({
     id: 1,
     abbrev: 'CPX',
     fullName: 'Capital Investment Department',
   });
 
-  await Department.create({
+  const inv = await Department.create({
     id: 2,
     abbrev: 'INV',
     fullName: 'Inventory Department',
   });
 
-  await Department.create({
+  const util = await Department.create({
     id: 3,
     abbrev: 'UTIL',
     fullName: 'Utilities Department',
@@ -168,7 +156,6 @@ connection.sync().then(async () => {
   });
 
   // ==================== Users ====================
-  // Department 1
   await User.create({
     id: 1,
     username: 'admin',
@@ -185,6 +172,7 @@ connection.sync().then(async () => {
     firstName: 'Stefan',
     lastName: 'Boskovic',
     userTypeId: 3,
+    departmentId: 1,
   });
 
   await User.create({
@@ -194,6 +182,7 @@ connection.sync().then(async () => {
     firstName: 'Marko',
     lastName: 'Andrijevic',
     userTypeId: 3,
+    departmentId: 2,
   });
 
   await User.create({
@@ -203,6 +192,7 @@ connection.sync().then(async () => {
     firstName: 'Goran',
     lastName: 'Stancevic',
     userTypeId: 3,
+    departmentId: 3,
   });
 
   await User.create({
@@ -212,6 +202,7 @@ connection.sync().then(async () => {
     firstName: 'Mihailo',
     lastName: 'Matejic',
     userTypeId: 2,
+    departmentId: 1,
   });
 
   await User.create({
@@ -221,16 +212,17 @@ connection.sync().then(async () => {
     firstName: 'Marko',
     lastName: 'Stojkovic',
     userTypeId: 2,
+    departmentId: 1,
   });
 
-  // Department 2
   await User.create({
     id: 7,
     username: 'avasilje',
     password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
     firstName: 'Aleksandar',
     lastName: 'Vasiljevic',
-    userTypeId: 3,
+    userTypeId: 1,
+    departmentId: 1,
   });
 
   await User.create({
@@ -240,6 +232,7 @@ connection.sync().then(async () => {
     firstName: 'Uros',
     lastName: 'Nastic',
     userTypeId: 2,
+    departmentId: 1,
   });
 
   await User.create({
@@ -249,6 +242,7 @@ connection.sync().then(async () => {
     firstName: 'Arsen',
     lastName: 'Boljanovic',
     userTypeId: 1,
+    departmentId: 1,
   });
 
   await User.create({
@@ -258,68 +252,13 @@ connection.sync().then(async () => {
     firstName: 'Aleksa',
     lastName: 'Grubacic',
     userTypeId: 1,
-  });
-
-  // ==================== DepartmentUsers ====================
-  await DepartmentUsers.create({
-    id: 1,
     departmentId: 1,
-    userId: 1,
   });
 
-  await DepartmentUsers.create({
-    id: 2,
-    departmentId: 1,
-    userId: 2,
-  });
-
-  await DepartmentUsers.create({
-    id: 3,
-    departmentId: 2,
-    userId: 3,
-  });
-
-  await DepartmentUsers.create({
-    id: 4,
-    departmentId: 3,
-    userId: 4,
-  });
-
-  await DepartmentUsers.create({
-    id: 5,
-    departmentId: 1,
-    userId: 5,
-  });
-
-  await DepartmentUsers.create({
-    id: 6,
-    departmentId: 2,
-    userId: 6,
-  });
-
-  await DepartmentUsers.create({
-    id: 7,
-    departmentId: 2,
-    userId: 7,
-  });
-
-  await DepartmentUsers.create({
-    id: 8,
-    departmentId: 2,
-    userId: 8,
-  });
-
-  await DepartmentUsers.create({
-    id: 9,
-    departmentId: 2,
-    userId: 9,
-  });
-
-  await DepartmentUsers.create({
-    id: 10,
-    departmentId: 2,
-    userId: 10,
-  });
+  // Set Department chiefs
+  await cpx.update({ userId: 2 });
+  await inv.update({ userId: 3 });
+  await util.update({ userId: 4 });
 
   // ==================== Projects ====================
   await Project.create({

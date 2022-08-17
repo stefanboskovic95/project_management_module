@@ -29,9 +29,11 @@ Department.init(
 );
 
 Department.belongsTo(User, {
-  foreignKey: {
-    name: 'departmentChiefId',
-  },
+  onUpdate: 'SET NULL',
+  onDelete: 'SET NULL',
+});
+
+Department.hasOne(User, {
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL',
 });

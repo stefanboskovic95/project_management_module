@@ -22,6 +22,12 @@ td {
   float: right;
 }
 
+.filters-btn {
+  float: right;
+  margin-right: 5px;
+  /* margin-right: auto; */
+}
+
 button {
   padding: 0px 0px;
   margin-top: 14px;
@@ -46,6 +52,11 @@ button {
   align-items: center;
   width: 35px;
   height: 35px;
+}
+
+.delete-mat-icon {
+  margin: auto;
+  color: red;
 }
 
 .details-mat-icon {
