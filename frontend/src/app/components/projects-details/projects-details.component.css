@@ -54,17 +54,8 @@ button {
   height: 35px;
 }
 
-.delete-mat-icon {
-  margin: auto;
-  color: red;
-}
-
 .details-mat-icon {
   margin: auto;
-}
-
-.small-padding {
-  padding: 10px;
 }
 
 .small-margin {

@@ -235,6 +235,14 @@ label {
   padding: 10px;
 }
 
-input.ng-touched {
+/* input.ng-dirty {
+  border: 1px solid red;
+}
+
+select.ng-dirty {
+  border: 
+} */
+
+.error-border {
   border: 1px solid red;
 }

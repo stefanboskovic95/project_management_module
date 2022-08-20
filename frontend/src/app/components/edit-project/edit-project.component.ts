@@ -29,7 +29,7 @@ export class EditProjectComponent implements OnInit {
   selectedCurrencyId: number = 1;
   budgetFormControl: FormControl = new FormControl();
 
-  constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar) {}
+  constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getProject();
@@ -76,9 +76,14 @@ export class EditProjectComponent implements OnInit {
           this.isEditing = false;
         },
         error: (err) => {
-          console.log(err);
-          this.openSnackBar(err.error.message);
-          this.budgetFormControl.markAsTouched();
+          const msg = err.error.message;
+          if (msg.includes('budget')) {
+            this.budgetFormControl.setErrors({ budget: true });
+          }
+          else if (msg.includes('lead')) {
+            this.budgetFormControl.setErrors({ projectLead: true });
+          }
+          this.openSnackBar(msg);
         },
       });
   }

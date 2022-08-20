@@ -22,7 +22,7 @@
         <div class="align-horizontally">
           <div class="align-vertically-40">
             <label for="budget">Budget</label>
-            <input type="number" class="value-cls" id="budget" name="budget" [(ngModel)]="project.budget" ngModel [disabled]="!isEditing" />
+            <input type="number" [ngClass]="{'error-border' : budgetFormControl.hasError('budget')}" id="budget" name="budget" [(ngModel)]="project.budget" ngModel [disabled]="!isEditing" />
           </div>
           <div class="align-vertically-20">
             <label for="currency">Currency</label>
@@ -57,7 +57,7 @@
         <div class="align-horizontally">
           <div class="align-vertically-50">
             <label for="userId">Project lead</label>
-            <select id="userId" name="userId" ngModel [(ngModel)]="project.userId" [disabled]="!isEditing">
+            <select id="userId" name="userId" ngModel [(ngModel)]="project.userId" [disabled]="!isEditing" [ngClass]="{'error-border' : budgetFormControl.hasError('projectLead')}">
               <option *ngFor="let user of users" [value]="user.id">{{ user.username }} ({{ user.firstName }} {{ user.lastName }})</option>
             </select>
           </div>

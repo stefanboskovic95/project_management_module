@@ -81,7 +81,6 @@ const _updateProjectStatus = async (projectId, projectStatusId, userTypeId) => {
   }
 
   // Project budget must be set before project is sent to deliberation
-  console.log(`projectStatusId: ${projectStatusId}`)
   if (projectStatusId >= 2 && project['budget'] == 0) {
     throw new Error('Project budget must be set before project is sent to deliberation');
   }
@@ -107,7 +106,7 @@ export const updateProject = async (req: Request, res: Response) => {
     const name: string = req.body.name;
     const description: string = req.body.description;
     const country: string = req.body.country;
-    const budget: number = req.body.budget;
+    const budget: number = req.body.budget | 0;
     const isConfidential: boolean = req.body.isConfidential;
     const projectStatusId: number = req.body.statusId;
     const businessCategoryId: number = req.body.businessCategoryId;
