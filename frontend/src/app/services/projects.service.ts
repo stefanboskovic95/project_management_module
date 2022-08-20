@@ -105,7 +105,7 @@ export class ProjectsService {
     name: string,
     subject: string,
     cost: number,
-    username: string,
+    assignee: string,
     isNdaSigned: boolean,
     procurementStatusId: number
   ) {
@@ -114,7 +114,7 @@ export class ProjectsService {
       name,
       subject,
       cost,
-      username,
+      assignee,
       isNdaSigned,
       procurementStatusId,
     });

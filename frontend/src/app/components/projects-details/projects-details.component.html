@@ -180,7 +180,7 @@
       <td>{{ project.id }}</td>
       <td style="width: 260px">{{ project.name }}</td>
       <td *ngIf="currencies">{{ project.budget | currency: getCurrency(project.currencyId) }}</td>
-      <td>{{ 0 | currency: getCurrency(project.currencyId) }}</td>
+      <td>{{ project.totalCost | currency: getCurrency(project.currencyId) }}</td>
       <td>{{ project.isConfidential ? 'YES' : 'NO' }}</td>
       <td>{{ project.status }}</td>
       <td>{{ project.businessCategory }}</td>

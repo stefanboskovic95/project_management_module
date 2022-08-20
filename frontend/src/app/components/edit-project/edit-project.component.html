@@ -34,37 +34,37 @@
       </div>
 
       <div class="flex-item">
-          <div class="half-width-float-left">
-            <label for="budget">Budget</label>
-            <input
-              type="number"
-              [ngClass]="{ 'error-border': budgetFormControl.hasError('budget') }"
-              id="budget"
-              name="budget"
-              [(ngModel)]="project.budget"
-              ngModel
-              [disabled]="!isEditing"
-            />
-          </div>
-          <div class="half-width-float-right">
-            <label for="currency">Currency</label>
-            <select id="currency" name="currency" ngModel [disabled]="!isEditing" [(ngModel)]="project.currencyId">
-              <option *ngFor="let currency of currencies" [value]="currency.id">{{ currency.name }}</option>
-            </select>
-          </div>
-        </div>
-        <div class="half-width-float-left" >
-          <!-- <label for="budgetEur">Budget in Eur</label> -->
+        <div class="half-width-float-left">
+          <label for="budget">Budget</label>
           <input
-            type="text"
-            class="value-cls"
-            id="budgetEur"
-            name="budgetEur"
-            [value]="project.budget | currency: 'EUR'"
-            [disabled]="true"
-            style="margin-top: 0px;"
+            type="number"
+            [ngClass]="{ 'error-border': budgetFormControl.hasError('budget') }"
+            id="budget"
+            name="budget"
+            [(ngModel)]="project.budget"
+            ngModel
+            [disabled]="!isEditing"
           />
         </div>
+        <div class="half-width-float-right">
+          <label for="currency">Currency</label>
+          <select id="currency" name="currency" ngModel [disabled]="!isEditing" [(ngModel)]="project.currencyId">
+            <option *ngFor="let currency of currencies" [value]="currency.id">{{ currency.name }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="half-width-float-left" >
+        <!-- <label for="budgetEur">Budget in Eur</label> -->
+        <input
+          type="text"
+          class="value-cls"
+          id="budgetEur"
+          name="budgetEur"
+          [value]="project.budget | currency: 'EUR'"
+          [disabled]="true"
+          style="margin-top: 0px;"
+        />
+      </div>
 
       <div class="flex-item">
         <div class="half-width-float-left">

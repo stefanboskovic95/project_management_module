@@ -3,6 +3,7 @@ import User from '../db/models/user';
 import ProcurementStatus from '../db/models/procurementStatus';
 import ProjectItem from '../db/models/projectItem';
 import { Op } from 'sequelize';
+import Project from '../db/models/project';
 
 export const getProjectItem = async (req: Request, res: Response) => {
   try {
@@ -24,6 +25,14 @@ export const createProjectItem = async (req: Request, res: Response) => {
     const procurementStatusId = 1; // draft
     const projectId = req.body.projectId;
 
+    const project = await Project.findOne({ where: { id: projectId } });
+    const projectBudget = project['budget'];
+    const projectTotalCost = project['totalCost'];
+  
+    if (projectTotalCost + cost > projectBudget) {
+      return res.status(400).send({ message: 'Project item cost exceeds project budget.' });
+    }
+
     await ProjectItem.create({
       name,
       subject,
@@ -32,6 +41,9 @@ export const createProjectItem = async (req: Request, res: Response) => {
       procurementStatusId,
       projectId,
     });
+
+    
+    await project.update({ totalCost: projectTotalCost + cost });
 
     res.status(200).json({ message: 'ok' });
   } catch (err) {
@@ -45,25 +57,40 @@ export const updateProjectItem = async (req: Request, res: Response) => {
     const id = req.body.itemId;
     const name = req.body.name;
     const subject = req.body.subject;
-    const cost = req.body.cost;
+    const updatedItemCost = req.body.cost;
     const isNdaSigned = req.body.isNdaSigned;
     const procurementStatusId = req.body.procurementStatusId;
-    const username = req.body.username;
-    console.log(`user: ${username}`);
+    const assignee = req.body.assignee;
 
-    const user = await User.findOne({ where: { username } });
+    const projectItem = await ProjectItem.findOne({ where: { id }});
 
-    await ProjectItem.update(
+    const project = await Project.findOne({ where: { id: projectItem['projectId'] } });
+    const projectBudget = project['budget'];
+    const projectTotalCost = project['totalCost'];
+    
+    const oldItemCost = projectItem['cost'];
+    const newProjectCost = projectTotalCost - oldItemCost + updatedItemCost;
+    console.log(`newProjectCost: ${newProjectCost}`)
+
+    if (newProjectCost > projectBudget) {
+      return res.status(400).send({ message: 'Project item cost exceeds project budget.' });
+    }
+
+    const user = await User.findOne({ where: { username: assignee } });
+
+    await projectItem.update(
       {
         name,
         subject,
-        cost,
-        userId: user['id'],
+        cost: updatedItemCost,
+        userId: user ? user['id'] : null,
         isNdaSigned,
         procurementStatusId,
-      },
-      { where: { id } }
+      }
     );
+
+    await project.update({ totalCost: newProjectCost });
+
     res.status(200).json({ message: 'ok' });
   } catch (err) {
     console.error(err);

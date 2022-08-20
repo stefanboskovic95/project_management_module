@@ -14,14 +14,6 @@ button {
   cursor: pointer;
 }
 
-button:disabled,
-button[disabled] {
-  /* border: 1px solid #999999; */
-  /* background-color: #cccccc; */
-  cursor: help;
-  color: #666666;
-}
-
 .dropped-rejected {
   text-decoration: line-through;
 }

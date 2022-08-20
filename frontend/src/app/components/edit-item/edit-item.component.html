@@ -37,27 +37,37 @@
       ></textarea>
     </div>
 
-    <div class="vertical-spacer">
-      <div class="align-horizontally">
-        <div class="align-vertically-75">
-          <label for="cost">Cost</label>
-          <input
-            type="number"
-            class="value-cls"
-            id="cost"
-            name="cost"
-            [(ngModel)]="item.cost"
-            ngModel
-            [disabled]="!isEditing"
-          />
-        </div>
-        <div class="align-vertically-20">
-          <label for="currency">Currency</label>
-          <select id="currency" name="currency" ngModel [disabled]="!isEditing" [(ngModel)]="selectedCurrencyId">
-            <option *ngFor="let currency of currencies" [value]="currency.id">{{ currency.name }}</option>
-          </select>
-        </div>
+    <div class="flex-item">
+      <div class="half-width-float-left">
+        <label for="cost">Cost</label>
+        <input
+          type="number"
+          [ngClass]="{ 'error-border': costFormControl.hasError('budget') }"
+          id="cost"
+          name="cost"
+          [(ngModel)]="item.cost"
+          ngModel
+          [disabled]="!isEditing"
+        />
       </div>
+      <div class="half-width-float-right">
+        <label for="currency">Currency</label>
+        <select id="currency" name="currency" ngModel [disabled]="!isEditing" [(ngModel)]="selectedCurrencyId">
+          <option *ngFor="let currency of currencies" [value]="currency.id">{{ currency.name }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="half-width-float-left" >
+      <!-- <label for="budgetEur">Budget in Eur</label> -->
+      <input
+        type="text"
+        class="value-cls"
+        id="costEur"
+        name="costEru"
+        [value]="item.cost | currency: 'EUR'"
+        [disabled]="true"
+        style="margin-top: 0px;"
+      />
     </div>
 
     <div class="vertical-spacer">
@@ -75,7 +85,7 @@
         class="value-cls"
         type="text"
         placeholder="Search for user"
-        [formControl]="control"
+        [formControl]="assigneeControl"
         [matAutocomplete]="auto"
       />
       <mat-autocomplete #auto="matAutocomplete">

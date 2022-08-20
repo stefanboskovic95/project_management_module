@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Currency } from 'src/app/models/currency';
@@ -22,11 +23,12 @@ export class EditItemComponent implements OnInit {
   statuses: Array<ProcurementStatus> = [];
   selectedCurrencyId: number = 1;
 
-  control: FormControl = new FormControl();
+  assigneeControl: FormControl = new FormControl();
+  costFormControl: FormControl = new FormControl();
   departmentUsers: Array<User> = [];
   filteredUsers: Observable<Array<User>> | undefined;
 
-  constructor(private projectsService: ProjectsService) {}
+  constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.projectsService.getProject(this.projectsService.getSelectedProjectId()).subscribe({
@@ -56,18 +58,18 @@ export class EditItemComponent implements OnInit {
       this.departmentUsers = users;
       this.setDefaultUser();
     });
-    this.filteredUsers = this.control.valueChanges.pipe(
+    this.filteredUsers = this.assigneeControl.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value || ''))
     );
-    this.control.disable();
+    this.assigneeControl.disable();
   }
 
   setDefaultUser() {
     if (this.item && this.departmentUsers) {
       const user = this.departmentUsers.find((item) => item.id == this.item?.userId);
       if (user) {
-        this.control.setValue(user.username);
+        this.assigneeControl.setValue(user.username);
       }
     }
   }
@@ -82,7 +84,7 @@ export class EditItemComponent implements OnInit {
   }
 
   submitItem(formData: any) {
-    console.log(this.control.getRawValue());
+    console.log(this.assigneeControl.getRawValue());
     if (!this.item) {
       return;
     }
@@ -92,17 +94,29 @@ export class EditItemComponent implements OnInit {
         formData.name,
         formData.subject,
         formData.cost,
-        this.control.getRawValue(),
+        this.assigneeControl.getRawValue(),
         formData.isNdaSigned,
         formData.status
       )
-      .subscribe(() => {
-        this.toggleEditing();
+      .subscribe({
+        next: () => {
+          this.toggleEditing();
+        },
+        error: (err) => {
+          if (err.error.message.includes('costFormControl')) {
+            this.costFormControl.setErrors({cost: true})
+          }
+          this.openSnackBar(err.error.message);
+        }
       });
   }
 
   toggleEditing() {
     this.isEditing = !this.isEditing;
-    this.control.disabled ? this.control.enable() : this.control.disable();
+    this.assigneeControl.disabled ? this.assigneeControl.enable() : this.assigneeControl.disable();
+  }
+
+  openSnackBar(message: string, action: string = 'Dismiss') {
+    this._snackBar.open(message, action);
   }
 }
