@@ -9,20 +9,43 @@
     <form #addProject="ngForm" (ngSubmit)="editProject(addProject.value)" *ngIf="project">
       <div class="vertical-spacer">
         <label for="name">Name</label>
-        <input type="text" class="value-cls" id="name" name="name" [(ngModel)]="project.name" ngModel [disabled]="!isEditing" />
+        <input
+          type="text"
+          class="value-cls"
+          id="name"
+          name="name"
+          [(ngModel)]="project.name"
+          ngModel
+          [disabled]="!isEditing"
+        />
       </div>
 
       <div class="vertical-spacer">
         <label for="description">Project description</label>
-        <textarea type="text" class="value-cls" id="description" name="description" [(ngModel)]="project.description" ngModel
-          [disabled]="!isEditing"></textarea>
+        <textarea
+          type="text"
+          class="value-cls"
+          id="description"
+          name="description"
+          [(ngModel)]="project.description"
+          ngModel
+          [disabled]="!isEditing"
+        ></textarea>
       </div>
 
       <div class="vertical-spacer">
         <div class="align-horizontally">
           <div class="align-vertically-40">
             <label for="budget">Budget</label>
-            <input type="number" [ngClass]="{'error-border' : budgetFormControl.hasError('budget')}" id="budget" name="budget" [(ngModel)]="project.budget" ngModel [disabled]="!isEditing" />
+            <input
+              type="number"
+              [ngClass]="{ 'error-border': budgetFormControl.hasError('budget') }"
+              id="budget"
+              name="budget"
+              [(ngModel)]="project.budget"
+              ngModel
+              [disabled]="!isEditing"
+            />
           </div>
           <div class="align-vertically-20">
             <label for="currency">Currency</label>
@@ -32,22 +55,38 @@
           </div>
           <div class="align-vertically-40">
             <label for="budgetEur">Budget in Eur</label>
-            <input type="text" class="value-cls" id="budgetEur" name="budgetEur" [value]="project.budget | currency:'EUR'" [disabled]="true" />
+            <input
+              type="text"
+              class="value-cls"
+              id="budgetEur"
+              name="budgetEur"
+              [value]="project.budget | currency: 'EUR'"
+              [disabled]="true"
+            />
           </div>
         </div>
       </div>
-
 
       <div class="vertical-spacer">
         <div class="align-horizontally">
           <div class="align-vertically-50">
             <label for="country">Country</label>
-            <input type="text" class="value-cls" id="country" name="country" [(ngModel)]="project.country" ngModel [disabled]="!isEditing" />
+            <input
+              type="text"
+              class="value-cls"
+              id="country"
+              name="country"
+              [(ngModel)]="project.country"
+              ngModel
+              [disabled]="!isEditing"
+            />
           </div>
           <div class="align-vertically-50-right">
             <label for="region">Region</label>
             <select id="region" name="region" ngModel [(ngModel)]="project.regionId" [disabled]="!isEditing">
-              <option *ngFor="let region of regions" [value]="region.id">{{ region.name }} ({{ region.abbrev }})</option>
+              <option *ngFor="let region of regions" [value]="region.id">
+                {{ region.name }} ({{ region.abbrev }})
+              </option>
             </select>
           </div>
         </div>
@@ -57,13 +96,28 @@
         <div class="align-horizontally">
           <div class="align-vertically-50">
             <label for="userId">Project lead</label>
-            <select id="userId" name="userId" ngModel [(ngModel)]="project.userId" [disabled]="!isEditing" [ngClass]="{'error-border' : budgetFormControl.hasError('projectLead')}">
-              <option *ngFor="let user of users" [value]="user.id">{{ user.username }} ({{ user.firstName }} {{ user.lastName }})</option>
+            <select
+              id="userId"
+              name="userId"
+              ngModel
+              [(ngModel)]="project.userId"
+              [disabled]="!isEditing"
+              [ngClass]="{ 'error-border': budgetFormControl.hasError('projectLead') }"
+            >
+              <option *ngFor="let user of users" [value]="user.id">
+                {{ user.username }} ({{ user.firstName }} {{ user.lastName }})
+              </option>
             </select>
           </div>
           <div class="align-vertically-50-right">
             <label for="categoryId">Business category</label>
-            <select id="categoryId" name="categoryId" ngModel [(ngModel)]="project.businessCategoryId" [disabled]="!isEditing">
+            <select
+              id="categoryId"
+              name="categoryId"
+              ngModel
+              [(ngModel)]="project.businessCategoryId"
+              [disabled]="!isEditing"
+            >
               <option *ngFor="let category of businessCategories" [value]="category.id">{{ category.type }}</option>
             </select>
           </div>
@@ -83,8 +137,14 @@
             <select id="categoryId" name="categoryId" ngModel [(ngModel)]="project.businessCategoryId" [disabled]="!isEditing">
               <option *ngFor="let category of businessCategories" [value]="category.id">{{ category.type }}</option>
             </select> -->
-            <input type="checkbox" id="isConfidential" name="isConfidential" [(ngModel)]="isConfidential" ngModel
-              [disabled]="!isEditing" />
+            <input
+              type="checkbox"
+              id="isConfidential"
+              name="isConfidential"
+              [(ngModel)]="isConfidential"
+              ngModel
+              [disabled]="!isEditing"
+            />
             <label for="isConfidential" [ngClass]="{ 'label-disabled': !isEditing }">Is confidential</label>
           </div>
         </div>
@@ -92,8 +152,15 @@
 
       <div class="vertical-spacer">
         <label for="description">NDA</label>
-        <textarea type="text" class="value-cls" id="nda" name="nda" [(ngModel)]="nda" ngModel
-          [disabled]="isNdaDisabled()"></textarea>
+        <textarea
+          type="text"
+          class="value-cls"
+          id="nda"
+          name="nda"
+          [(ngModel)]="nda"
+          ngModel
+          [disabled]="isNdaDisabled()"
+        ></textarea>
       </div>
       <button type="submit" [disabled]="!isEditing">Update</button>
     </form>

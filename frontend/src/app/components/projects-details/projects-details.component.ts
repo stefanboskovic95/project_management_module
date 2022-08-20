@@ -137,8 +137,8 @@ export class ProjectsDetailsComponent implements OnInit {
       },
       error: (err: any) => {
         this.openSnackBar(err.error.message);
-      }
-    })
+      },
+    });
   }
 
   getCurrency(currencyId: number) {

@@ -32,7 +32,9 @@ export const getDepartmentOfficials = async (req: Request, res: Response) => {
 
 const getAllExceptAdmin = async (userId: number) => {
   const user = await User.findOne({ where: { id: userId } });
-  const users = await User.findAll({ where: { departmentId: user['departmentId'], userTypeId: { [Op.or]: [1, 2, 3] } } });
+  const users = await User.findAll({
+    where: { departmentId: user['departmentId'], userTypeId: { [Op.or]: [1, 2, 3] } },
+  });
   return users;
 };
 

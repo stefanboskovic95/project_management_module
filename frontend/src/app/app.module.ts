@@ -5,7 +5,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProjectsOverviewComponent } from './components/projects-overview/projects-overview.component';
@@ -68,4 +67,4 @@ import { ItemsDetailsComponent } from './components/items-details/items-details.
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

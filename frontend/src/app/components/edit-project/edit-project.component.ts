@@ -29,7 +29,7 @@ export class EditProjectComponent implements OnInit {
   selectedCurrencyId: number = 1;
   budgetFormControl: FormControl = new FormControl();
 
-  constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar) { }
+  constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.getProject();
@@ -79,8 +79,7 @@ export class EditProjectComponent implements OnInit {
           const msg = err.error.message;
           if (msg.includes('budget')) {
             this.budgetFormControl.setErrors({ budget: true });
-          }
-          else if (msg.includes('lead')) {
+          } else if (msg.includes('lead')) {
             this.budgetFormControl.setErrors({ projectLead: true });
           }
           this.openSnackBar(msg);
@@ -107,15 +106,15 @@ export class EditProjectComponent implements OnInit {
   }
 
   toggleItemsOverview() {
-    this.itemsOverview = !(sessionStorage.getItem(this.itemsOverviewName) == "true");
+    this.itemsOverview = !(sessionStorage.getItem(this.itemsOverviewName) == 'true');
     // this.itemsOverview = !this.itemsOverview;
-    console.log(this.itemsOverview)
+    console.log(this.itemsOverview);
     sessionStorage.setItem(this.itemsOverviewName, String(this.itemsOverview));
     return this.itemsOverview;
   }
 
   getItemsOverview() {
-    return (sessionStorage.getItem(this.itemsOverviewName) == "true");
+    return sessionStorage.getItem(this.itemsOverviewName) == 'true';
   }
 
   openSnackBar(message: string, action: string = 'Dismiss') {

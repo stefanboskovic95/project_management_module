@@ -46,8 +46,8 @@ export class ProjectsOverviewComponent implements OnInit {
   drop(event: CdkDragDrop<Project[]>) {
     const item = event.previousContainer.data[event.previousIndex];
     item.projectStatusId = this.dropIdToStatusId[event.container.id];
-    console.log(item.projectStatusId)
-    console.log(`event.container.id: ${event.container.id}`)
+    console.log(item.projectStatusId);
+    console.log(`event.container.id: ${event.container.id}`);
     this.projectsService.updateProjectStatus(item.id, this.dropIdToStatusId[event.container.id]).subscribe({
       next: () => {},
       error: (err) => {

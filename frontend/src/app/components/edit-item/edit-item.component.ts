@@ -26,7 +26,7 @@ export class EditItemComponent implements OnInit {
   departmentUsers: Array<User> = [];
   filteredUsers: Observable<Array<User>> | undefined;
 
-  constructor(private projectsService: ProjectsService) { }
+  constructor(private projectsService: ProjectsService) {}
 
   ngOnInit(): void {
     this.projectsService.getProject(this.projectsService.getSelectedProjectId()).subscribe({
@@ -58,7 +58,7 @@ export class EditItemComponent implements OnInit {
     });
     this.filteredUsers = this.control.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '')),
+      map((value) => this._filter(value || ''))
     );
     this.control.disable();
   }
@@ -74,7 +74,7 @@ export class EditItemComponent implements OnInit {
 
   private _filter(value: string): Array<User> {
     const filterValue = this._normalizeValue(value);
-    return this.departmentUsers.filter(user => this._normalizeValue(user.username).includes(filterValue));
+    return this.departmentUsers.filter((user) => this._normalizeValue(user.username).includes(filterValue));
   }
 
   private _normalizeValue(value: string): string {
@@ -82,7 +82,7 @@ export class EditItemComponent implements OnInit {
   }
 
   submitItem(formData: any) {
-    console.log(this.control.getRawValue())
+    console.log(this.control.getRawValue());
     if (!this.item) {
       return;
     }

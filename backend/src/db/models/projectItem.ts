@@ -5,7 +5,7 @@ import connection from '../connection/connection';
 import ProcurementStatus from './procurementStatus';
 import User from './user';
 
-export default class ProjectItem extends Model { }
+export default class ProjectItem extends Model {}
 
 ProjectItem.init(
   {

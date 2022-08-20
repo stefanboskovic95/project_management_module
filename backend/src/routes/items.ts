@@ -51,7 +51,7 @@ export const updateProjectItem = async (req: Request, res: Response) => {
     const username = req.body.username;
     console.log(`user: ${username}`);
 
-    const user = await User.findOne({ where: { username }});
+    const user = await User.findOne({ where: { username } });
 
     await ProjectItem.update(
       {
@@ -102,8 +102,8 @@ export const getProjectItems = async (req: Request, res: Response) => {
       order = [['id', 'DESC']];
     }
 
-    let where = { projectId }
-    
+    let where = { projectId };
+
     // Filtering
     if (req.query.myItems) {
       where['userId'] = userId;
@@ -130,9 +130,9 @@ export const getProjectItems = async (req: Request, res: Response) => {
     }
     console.log(where);
 
-    const items = await ProjectItem.findAll({ 
+    const items = await ProjectItem.findAll({
       where,
-      order
+      order,
     });
     res.status(200).send(items);
   } catch (err) {

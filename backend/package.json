@@ -7,7 +7,9 @@
     "compile": "tsc && node dist\\index.js",
     "dev": "nodemon -e ts --exec \"npm run compile\" dist\\index.js",
     "init-db": "npm run init-database-helper",
-    "init-database-helper": "node dist/db/misc/init-database.js"
+    "init-database-helper": "node dist/db/misc/init-database.js",
+    "prettier-write": "npx prettier --write .",
+    "prettier-check": "npx prettier --check ."
   },
   "author": "Stefan Boskovic",
   "license": "ISC",

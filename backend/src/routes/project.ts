@@ -91,7 +91,7 @@ const _updateProjectStatus = async (projectId, projectStatusId, userTypeId) => {
   }
 
   await Project.update({ projectStatusId }, { where: { id: projectId } });
-}
+};
 
 export const updateProject = async (req: Request, res: Response) => {
   try {
@@ -118,7 +118,6 @@ export const updateProject = async (req: Request, res: Response) => {
 
     const existingProject = await Project.findOne({ where: { id: projectId } });
 
-    
     await _updateProjectStatus(projectId, projectStatusId, userTypeId);
 
     if (isConfidential && !existingProject['isConfidential']) {
@@ -372,14 +371,14 @@ export const deleteProject = async (req: Request, res: Response) => {
   try {
     const projectId = req.query.projectId;
     const userId = res.locals.userId;
-    console.log(projectId)
-    
+    console.log(projectId);
+
     const user = await User.findOne({ where: { id: userId } });
     const project = await Project.findOne({ where: { id: projectId } });
     const departmentId: number = user['departmentId'];
 
-    console.log(`departmentId: ${departmentId}`)
-    console.log(`project['departmentId']: ${project['departmentId']}`)
+    console.log(`departmentId: ${departmentId}`);
+    console.log(`project['departmentId']: ${project['departmentId']}`);
     if (departmentId !== project['departmentId']) {
       return res.status(403).json({ message: 'You do not have access to this project.' });
     }
@@ -388,20 +387,20 @@ export const deleteProject = async (req: Request, res: Response) => {
     // Department high official can only delete his projects.
     // Regular user cannot delete project.
     if ((user['userTypeId'] == 2 && project['userId'] !== userId) || user['userTypeId'] == 1) {
-      return res.status(403).json({ message: 'You are not authorized to perform this action.' })
+      return res.status(403).json({ message: 'You are not authorized to perform this action.' });
     }
 
     // Project must not be in accepted state.
     if (project['projectStatusId'] == 3) {
-      return res.status(403).json({ message: 'You cannot delete project in progress.'});
+      return res.status(403).json({ message: 'You cannot delete project in progress.' });
     }
 
     // There must not be any ProjectItems inProgress state.
     const items = await ProjectItem.findAll({ where: { projectId, procurementStatusId: 2 } });
     if (items.length > 0) {
-      return res.status(403).json({ message: 'You cannot delete a project that has any project item in progress.' })
+      return res.status(403).json({ message: 'You cannot delete a project that has any project item in progress.' });
     }
-    
+
     await Project.destroy({ where: { id: projectId } });
     res.status(200).json({ message: `Project ${project['name']} deleted!` });
   } catch (err) {

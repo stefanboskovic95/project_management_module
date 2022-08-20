@@ -18,7 +18,7 @@ export class ProjectsService {
   private departmentId = 1;
   private selectedProjectId: number = 0;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   addProject(
     name: string,

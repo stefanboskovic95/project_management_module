@@ -25,7 +25,7 @@
 }
 
 textarea:disabled,
-input[type="text"]:disabled,
+input[type='text']:disabled,
 input[type='number']:disabled {
   background-color: rgb(218, 218, 218);
   color: black;
