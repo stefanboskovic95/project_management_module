@@ -13,9 +13,9 @@
   margin: 5px;
 }
 
-.drop-downs-container {
+.items-container {
   width: 830px;
-  margin: 5px;
+  margin: 15px;
 }
 
 .flex-row {
@@ -23,6 +23,12 @@
   flex-direction: row;
   margin: auto;
   width: 1520px;
+}
+
+.flex-item {
+  display: inline-block;
+  margin: auto;
+  width: 100%;
 }
 
 .details-btn {
@@ -55,4 +61,8 @@
 
 .error-border {
   border: 1px solid red;
+}
+
+.check-box{
+  margin-top: 30px;
 }

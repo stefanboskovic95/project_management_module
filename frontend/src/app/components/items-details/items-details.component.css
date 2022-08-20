@@ -1,6 +1,6 @@
 .items-table-column {
   display: grid;
-  grid-template-columns: 75px 2fr 1fr 1fr 1fr 50px;
+  grid-template-columns: 75px 2fr 1fr 100px 110px 50px;
   /* margin: 10px; */
   border-bottom: 1px solid #c9c9c9;
 }

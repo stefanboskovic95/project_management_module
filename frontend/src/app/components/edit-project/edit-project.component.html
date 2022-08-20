@@ -33,9 +33,8 @@
         ></textarea>
       </div>
 
-      <div class="vertical-spacer">
-        <div class="align-horizontally">
-          <div class="align-vertically-40">
+      <div class="flex-item">
+          <div class="half-width-float-left">
             <label for="budget">Budget</label>
             <input
               type="number"
@@ -47,103 +46,97 @@
               [disabled]="!isEditing"
             />
           </div>
-          <div class="align-vertically-20">
+          <div class="half-width-float-right">
             <label for="currency">Currency</label>
             <select id="currency" name="currency" ngModel [disabled]="!isEditing" [(ngModel)]="project.currencyId">
               <option *ngFor="let currency of currencies" [value]="currency.id">{{ currency.name }}</option>
             </select>
           </div>
-          <div class="align-vertically-40">
-            <label for="budgetEur">Budget in Eur</label>
-            <input
-              type="text"
-              class="value-cls"
-              id="budgetEur"
-              name="budgetEur"
-              [value]="project.budget | currency: 'EUR'"
-              [disabled]="true"
-            />
-          </div>
+        </div>
+        <div class="half-width-float-left" >
+          <!-- <label for="budgetEur">Budget in Eur</label> -->
+          <input
+            type="text"
+            class="value-cls"
+            id="budgetEur"
+            name="budgetEur"
+            [value]="project.budget | currency: 'EUR'"
+            [disabled]="true"
+            style="margin-top: 0px;"
+          />
+        </div>
+
+      <div class="flex-item">
+        <div class="half-width-float-left">
+          <label for="country">Country</label>
+          <input
+            type="text"
+            class="value-cls"
+            id="country"
+            name="country"
+            [(ngModel)]="project.country"
+            ngModel
+            [disabled]="!isEditing"
+          />
+        </div>
+        <div class="half-width-float-right">
+          <label for="region">Region</label>
+          <select id="region" name="region" ngModel [(ngModel)]="project.region" [disabled]="!isEditing">
+            <option *ngFor="let region of regions" [value]="region">
+              {{ region }}
+            </option>
+          </select>
         </div>
       </div>
 
-      <div class="vertical-spacer">
-        <div class="align-horizontally">
-          <div class="align-vertically-50">
-            <label for="country">Country</label>
-            <input
-              type="text"
-              class="value-cls"
-              id="country"
-              name="country"
-              [(ngModel)]="project.country"
-              ngModel
-              [disabled]="!isEditing"
-            />
-          </div>
-          <div class="align-vertically-50-right">
-            <label for="region">Region</label>
-            <select id="region" name="region" ngModel [(ngModel)]="project.region" [disabled]="!isEditing">
-              <option *ngFor="let region of regions" [value]="region">
-                {{ region }}
-              </option>
-            </select>
-          </div>
+      <div class="flex-item">
+        <div class="half-width-float-left">
+          <label for="userId">Project lead</label>
+          <select
+            id="userId"
+            name="userId"
+            ngModel
+            [(ngModel)]="project.userId"
+            [disabled]="!isEditing"
+            [ngClass]="{ 'error-border': budgetFormControl.hasError('projectLead') }"
+          >
+            <option *ngFor="let user of users" [value]="user.id">
+              {{ user.username }} ({{ user.firstName }} {{ user.lastName }})
+            </option>
+          </select>
+        </div>
+        <div class="half-width-float-right">
+          <label for="categoryId">Business category</label>
+          <select
+            id="categoryId"
+            name="categoryId"
+            ngModel
+            [(ngModel)]="project.businessCategory"
+            [disabled]="!isEditing"
+          >
+            <option *ngFor="let category of businessCategories" [value]="category">{{ category }}</option>
+          </select>
         </div>
       </div>
 
-      <div class="vertical-spacer">
-        <div class="align-horizontally">
-          <div class="align-vertically-50">
-            <label for="userId">Project lead</label>
-            <select
-              id="userId"
-              name="userId"
-              ngModel
-              [(ngModel)]="project.userId"
-              [disabled]="!isEditing"
-              [ngClass]="{ 'error-border': budgetFormControl.hasError('projectLead') }"
-            >
-              <option *ngFor="let user of users" [value]="user.id">
-                {{ user.username }} ({{ user.firstName }} {{ user.lastName }})
-              </option>
-            </select>
-          </div>
-          <div class="align-vertically-50-right">
-            <label for="categoryId">Business category</label>
-            <select
-              id="categoryId"
-              name="categoryId"
-              ngModel
-              [(ngModel)]="project.businessCategory"
-              [disabled]="!isEditing"
-            >
-              <option *ngFor="let category of businessCategories" [value]="category">{{ category }}</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="vertical-spacer">
-        <div class="align-horizontally">
-          <div class="align-vertically-50">
+      <div class="flex-item">
+          <div class="half-width-float-left">
             <label for="statusId">Status</label>
             <select id="statusId" name="statusId" ngModel [(ngModel)]="project.status" [disabled]="!isEditing">
               <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
             </select>
           </div>
-          <div class="align-vertically-50-right">
-            <input
-              type="checkbox"
-              id="isConfidential"
-              name="isConfidential"
-              [(ngModel)]="isConfidential"
-              ngModel
-              [disabled]="!isEditing"
-            />
+          <div class="check-box">
+              <input
+                type="checkbox"
+                id="isConfidential"
+                name="isConfidential"
+                [(ngModel)]="isConfidential"
+                ngModel
+                [disabled]="!isEditing"
+              />
             <label for="isConfidential" [ngClass]="{ 'label-disabled': !isEditing }">Is confidential</label>
           </div>
-        </div>
       </div>
 
       <div class="vertical-spacer">
@@ -161,7 +154,7 @@
       <button type="submit" [disabled]="!isEditing">Update</button>
     </form>
   </div>
-  <div class="drop-downs-container">
+  <div class="items-container">
     <div class="title-box">
       <h1>Project Items</h1>
       <button class="details-btn" mat-menu-item (click)="toggleItemsOverview()" matTooltip="Switch view">
