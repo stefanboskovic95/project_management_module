@@ -5,7 +5,6 @@ import { User } from '../models/user';
 import { Project } from '../models/project';
 import { Region } from '../models/region';
 import { Currency } from '../models/currency';
-import { ProjectStatus } from '../models/projectStatus';
 import { ProjectItem } from '../models/ProjectItem';
 import { ProcurementStatus } from '../models/procurementStatus';
 
@@ -46,10 +45,10 @@ export class ProjectsService {
     });
   }
 
-  updateProjectStatus(projectId: number, projectStatusId: number) {
-    return this.http.patch(`${environment.backend_url}/update_project_status`, {
+  updateProjectStatus(projectId: number, status: string) {
+    return this.http.patch(`${environment.backend_url}/project/status`, {
       projectId,
-      projectStatusId,
+      status,
     });
   }
 
@@ -150,7 +149,7 @@ export class ProjectsService {
   }
 
   getBusinessCategories() {
-    return this.http.get<Array<string>>(`${environment.backend_url}/business_categories`);
+    return this.http.get<Array<string>>(`${environment.backend_url}/project/category`);
   }
 
   getDepartmentOfficials() {
@@ -170,7 +169,7 @@ export class ProjectsService {
   }
 
   getProjectStatuses() {
-    return this.http.get<Array<ProjectStatus>>(`${environment.backend_url}/project_statuses`);
+    return this.http.get<Array<string>>(`${environment.backend_url}/project/status`);
   }
 
   getProcurementStatuses() {

@@ -12,12 +12,12 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./projects-overview.component.css'],
 })
 export class ProjectsOverviewComponent implements OnInit {
-  dropIdToStatusId: { [key: string]: number } = {
-    'list-0': 1, // draft
-    'list-1': 2, // deliberation
-    'list-2': 3, // accepted
-    'list-3': 4, // rejected
-    'list-4': 5, // completed
+  dropIdToStatusId: { [key: string]: string } = {
+    'list-0': 'Draft',
+    'list-1': 'Deliberation',
+    'list-2': 'Accepted',
+    'list-3': 'Rejected',
+    'list-4': 'Completed',
   };
 
   projectsDraft: Array<Project> = [];
@@ -35,18 +35,17 @@ export class ProjectsOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectsService.getProjects().subscribe((projects) => {
-      this.projectsDraft = projects.filter((project) => project.projectStatusId == 1);
-      this.projectsDeliberation = projects.filter((project) => project.projectStatusId == 2);
-      this.projectsAccepted = projects.filter((project) => project.projectStatusId == 3);
-      this.projectsRejected = projects.filter((project) => project.projectStatusId == 4);
-      this.projectsCompleted = projects.filter((project) => project.projectStatusId == 5);
+      this.projectsDraft = projects.filter((project) => project.status == 'Draft');
+      this.projectsDeliberation = projects.filter((project) => project.status == 'Deliberation');
+      this.projectsAccepted = projects.filter((project) => project.status == 'Accepted');
+      this.projectsRejected = projects.filter((project) => project.status == 'Rejected');
+      this.projectsCompleted = projects.filter((project) => project.status == 'Completed');
     });
   }
 
   drop(event: CdkDragDrop<Project[]>) {
     const item = event.previousContainer.data[event.previousIndex];
-    item.projectStatusId = this.dropIdToStatusId[event.container.id];
-    console.log(item.projectStatusId);
+    item.status = this.dropIdToStatusId[event.container.id];
     console.log(`event.container.id: ${event.container.id}`);
     this.projectsService.updateProjectStatus(item.id, this.dropIdToStatusId[event.container.id]).subscribe({
       next: () => {},

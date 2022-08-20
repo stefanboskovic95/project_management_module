@@ -52,14 +52,14 @@ router.route('/project/item').patch(checkAuth, updateProjectItemStatus);
 router.route('/project/items').get(checkAuth, getProjectItems);
 router.route('/project/items/status').get(checkAuth, getProcurementStatuses);
 
-router.route('/project_statuses').get(checkAuth, getProjectStatuses);
-router.route('/business_categories').get(checkAuth, getBusinessCategories);
+router.route('/project/status').get(checkAuth, getProjectStatuses);
+router.route('/project/status').patch(checkAuth, updateProjectStatus);
+router.route('/project/category').get(checkAuth, getBusinessCategories);
 router.route('/departments').get(checkAuth, getDepartments);
 router.route('/department_officials').get(checkAuth, getDepartmentOfficials);
 router.route('/department_users').get(checkAuth, getDepartmentUsers);
 router.route('/currencies').get(checkAuth, getCurrencies);
 router.route('/regions').get(checkAuth, getRegions);
-router.route('/update_project_status').patch(checkAuth, updateProjectStatus);
 
 app.use('/', router);
 app.listen(port, () => {

@@ -6,7 +6,6 @@ import Currency from './currency';
 import Department from './department';
 import Nda from './nda';
 import ProjectItem from './projectItem';
-import ProjectStatus from './projectStatus';
 import Region from './regions';
 import User from './user';
 
@@ -31,6 +30,7 @@ Project.init(
     totalCost: DataTypes.DOUBLE,
     isConfidential: DataTypes.BOOLEAN,
     businessCategory: DataTypes.ENUM('Investment Project', 'Resource Project', 'Development Project'),
+    status: DataTypes.ENUM('Draft', 'Deliberation', 'Accepted', 'Rejected', 'Completed'),
     country: DataTypes.STRING,
   },
   {
@@ -40,14 +40,6 @@ Project.init(
 );
 
 Project.hasMany(ProjectItem, {
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
-});
-
-Project.belongsTo(ProjectStatus, {
-  foreignKey: {
-    field: 'projectStatusId',
-  },
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL',
 });

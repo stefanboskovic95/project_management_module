@@ -128,8 +128,8 @@
         <div class="align-horizontally">
           <div class="align-vertically-50">
             <label for="statusId">Status</label>
-            <select id="statusId" name="statusId" ngModel [(ngModel)]="project.projectStatusId" [disabled]="!isEditing">
-              <option *ngFor="let status of statuses" [value]="status.id">{{ status.status }}</option>
+            <select id="statusId" name="statusId" ngModel [(ngModel)]="project.status" [disabled]="!isEditing">
+              <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
             </select>
           </div>
           <div class="align-vertically-50-right">

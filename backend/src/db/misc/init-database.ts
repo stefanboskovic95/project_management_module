@@ -4,7 +4,6 @@ import Nda from '../models/nda';
 import ProcurementStatus from '../models/procurementStatus';
 import Project from '../models/project';
 import ProjectItem from '../models/projectItem';
-import ProjectStatus from '../models/projectStatus';
 import User from '../models/user';
 import UserType from '../models/userType';
 import Region from '../models/regions';
@@ -55,33 +54,6 @@ connection.sync().then(async () => {
     name: 'RSD',
     ratioToEur: 0.0085,
   });
-
-  // ==================== ProjectStatus ====================
-  await ProjectStatus.create({
-    id: 1,
-    status: 'draft',
-  });
-
-  await ProjectStatus.create({
-    id: 2,
-    status: 'deliberation',
-  });
-
-  await ProjectStatus.create({
-    id: 3,
-    status: 'accepted',
-  });
-
-  await ProjectStatus.create({
-    id: 4,
-    status: 'rejected', // rejected / dropped
-  });
-
-  await ProjectStatus.create({
-    id: 5,
-    status: 'completed',
-  });
-
   // ==================== Department ====================
   const cpx = await Department.create({
     id: 1,
@@ -252,7 +224,7 @@ connection.sync().then(async () => {
     totalCost: 0,
     isConfidential: false,
     country: 'Serbia',
-    projectStatusId: 1, // Draft
+    status: 'Draft',
     currencyId: 1,
     userId: 5,
     businessCategory: 'Investment Project',
@@ -268,7 +240,7 @@ connection.sync().then(async () => {
     totalCost: 0,
     isConfidential: false,
     country: 'Serbia',
-    projectStatusId: 2, // Deliberation
+    status: 'Deliberation',
     currencyId: 1,
     userId: 2,
     businessCategory: 'Investment Project',
@@ -284,7 +256,7 @@ connection.sync().then(async () => {
     totalCost: 0,
     isConfidential: false,
     country: 'Serbia',
-    projectStatusId: 2, // Deliberation
+    status: 'Deliberation',
     currencyId: 1,
     userId: 2,
     businessCategory: 'Investment Project',
@@ -300,7 +272,7 @@ connection.sync().then(async () => {
     totalCost: 0,
     isConfidential: false,
     country: 'Serbia',
-    projectStatusId: 3, // Accepted
+    status: 'Accepted',
     currencyId: 1,
     userId: 2,
     businessCategory: 'Resource Project',
@@ -316,7 +288,7 @@ connection.sync().then(async () => {
     totalCost: 0,
     isConfidential: false,
     country: 'Serbia',
-    projectStatusId: 1, // Draft
+    status: 'Draft',
     currencyId: 1,
     userId: 2,
     businessCategory: 'Resource Project',
@@ -332,7 +304,7 @@ connection.sync().then(async () => {
     totalCost: 0,
     isConfidential: false,
     country: 'Serbia',
-    projectStatusId: 1, // Draft
+    status: 'Draft',
     currencyId: 1,
     userId: 2,
     businessCategory: 'Resource Project',

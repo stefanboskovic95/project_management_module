@@ -1,13 +1,11 @@
 import { Request, Response } from 'express';
 import { Op } from 'sequelize';
-import ProjectStatus from '../db/models/projectStatus';
 import Project from '../db/models/project';
 import Currency from '../db/models/currency';
 import Region from '../db/models/regions';
 import ProjectUsers from '../db/models/projectUsers';
 import User from '../db/models/user';
 import Nda from '../db/models/nda';
-import { getProjectLeads } from './department';
 import ProjectItem from '../db/models/projectItem';
 
 export const createProject = async (req: Request, res: Response) => {
@@ -22,7 +20,7 @@ export const createProject = async (req: Request, res: Response) => {
     const budget: number = req.body.budget;
     const totalCost: number = 0;
     const isConfidential: boolean = req.body.isConfidential;
-    const projectStatusId: number = 1; // draft
+    const status: string = 'Draft';
     const businessCategory: string = req.body.businessCategory;
     const regionId: string = req.body.regionId;
     const userId: number = req.body.projectLeadId;
@@ -39,7 +37,7 @@ export const createProject = async (req: Request, res: Response) => {
       country,
       regionId,
       currencyId,
-      projectStatusId,
+      status,
       businessCategory,
       userId: userId ? userId : null,
       departmentId,
@@ -59,7 +57,7 @@ export const createProject = async (req: Request, res: Response) => {
   }
 };
 
-const _updateProjectStatus = async (projectId, projectStatusId, userTypeId) => {
+const _updateProjectStatus = async (projectId, status, userTypeId) => {
   // Regular user cannot update projects
   if (userTypeId == 1) {
     throw new Error('You are not authorized to preform this action.');
@@ -70,26 +68,26 @@ const _updateProjectStatus = async (projectId, projectStatusId, userTypeId) => {
   });
 
   // Only department chief can approve or reject the project. High official can update other states.
-  if (userTypeId == 2 && ![3, 4].includes(projectStatusId)) {
+  if (userTypeId == 2 && !['Accepted', 'Rejected'].includes(status)) {
     throw new Error('Only Department Chief can accept or reject the project.');
   }
 
   // When project is accepted it cannot be sent back to draft / deliberation
-  if ([3, 4, 5].includes(project['projectStatusId']) && [1, 2].includes(projectStatusId)) {
+  if (['Accepted', 'Rejected', 'Completed'].includes(project['status']) && ['Draft', 'Deliberation'].includes(status)) {
     throw new Error('When project is accepted it cannot be sent back to draft / deliberation');
   }
 
   // Project budget must be set before project is sent to deliberation
-  if (projectStatusId >= 2 && project['budget'] == 0) {
+  if (['Deliberation', 'Accepted', 'Rejected', 'Completed'].includes(status) && project['budget'] == 0) {
     throw new Error('Project budget must be set before project is sent to deliberation');
   }
 
   // Project lead must be set before project is sent to deliberation
-  if (projectStatusId >= 2 && !project['userId']) {
+  if (['Deliberation', 'Accepted', 'Rejected', 'Completed'].includes(status) && !project['userId']) {
     throw new Error('Project lead must be set before project is sent to deliberation');
   }
 
-  await Project.update({ projectStatusId }, { where: { id: projectId } });
+  await Project.update({ status }, { where: { id: projectId } });
 };
 
 export const updateProject = async (req: Request, res: Response) => {
@@ -107,7 +105,7 @@ export const updateProject = async (req: Request, res: Response) => {
     const country: string = req.body.country;
     const budget: number = req.body.budget | 0;
     const isConfidential: boolean = req.body.isConfidential;
-    const projectStatusId: number = req.body.statusId;
+    const status: string = req.body.status;
     const businessCategory: string = req.body.businessCategory;
     const regionId: string = req.body.regionId;
     const userId: number = req.body.projectLeadId;
@@ -117,7 +115,7 @@ export const updateProject = async (req: Request, res: Response) => {
 
     const existingProject = await Project.findOne({ where: { id: projectId } });
 
-    await _updateProjectStatus(projectId, projectStatusId, userTypeId);
+    await _updateProjectStatus(projectId, status, userTypeId);
 
     if (isConfidential && !existingProject['isConfidential']) {
       Nda.create({
@@ -155,10 +153,10 @@ export const updateProject = async (req: Request, res: Response) => {
 export const updateProjectStatus = async (req: Request, res: Response) => {
   try {
     const projectId: number = req.body.projectId;
-    const projectStatusId: number = req.body.projectStatusId;
+    const status: string = req.body.status;
     const userTypeId: number = res.locals.userTypeId;
 
-    await _updateProjectStatus(projectId, projectStatusId, userTypeId);
+    await _updateProjectStatus(projectId, status, userTypeId);
 
     res.status(200).json({ message: 'Updated!' });
   } catch (err) {
@@ -210,7 +208,7 @@ export const getProjects = async (req: Request, res: Response) => {
     // Project statuses
     const statuses = req.query.status;
     if (statuses) {
-      where['projectStatusId'] = {
+      where['status'] = {
         [Op.or]: Array.isArray(statuses) ? statuses : [statuses],
       };
     }
@@ -328,7 +326,7 @@ export const getProject = async (req: Request, res: Response) => {
 
 export const getProjectStatuses = async (req: Request, res: Response) => {
   try {
-    const projectStatuses: Array<ProjectStatus> = await ProjectStatus.findAll();
+    const projectStatuses: any = Project.getAttributes().status.values;
     res.status(200).send(projectStatuses);
   } catch (err) {
     console.log(err);
@@ -391,7 +389,7 @@ export const deleteProject = async (req: Request, res: Response) => {
     }
 
     // Project must not be in accepted state.
-    if (project['projectStatusId'] == 3) {
+    if (project['status'] == 'Accepted') {
       return res.status(403).json({ message: 'You cannot delete project in progress.' });
     }
 

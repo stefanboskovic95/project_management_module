@@ -5,7 +5,6 @@ import { Currency } from 'src/app/models/currency';
 import { Region } from 'src/app/models/region';
 import { User } from 'src/app/models/user';
 import { Project } from 'src/app/models/project';
-import { ProjectStatus } from 'src/app/models/projectStatus';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -20,7 +19,7 @@ export class EditProjectComponent implements OnInit {
   isConfidential: boolean = false;
   currencies: Array<Currency> = [];
   project: Project | undefined;
-  statuses: Array<ProjectStatus> = [];
+  statuses: Array<string> = [];
   isEditing: boolean = false;
   nda: string = '';
   itemsOverview: boolean = true;
