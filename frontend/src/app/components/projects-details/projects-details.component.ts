@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Currency } from 'src/app/models/currency';
 import { Project } from 'src/app/models/project';
-import { Region } from 'src/app/models/region';
 import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
 
@@ -14,11 +13,11 @@ import { ProjectsService } from 'src/app/services/projects.service';
   styleUrls: ['./projects-details.component.css'],
 })
 export class ProjectsDetailsComponent implements OnInit {
-  projects: Array<Project> | undefined;
-  users: Array<User> | undefined;
-  regions: Array<Region> | undefined;
-  currencies: Array<Currency> | undefined;
-  businessCategories: Array<string> | undefined;
+  projects: Array<Project> = [];
+  users: Array<User> = [];
+  regions: Array<string> = [];
+  currencies: Array<Currency> = [];
+  businessCategories: Array<string> = [];
   projectsStatuses: Array<string> = [];
   distinctCountries: Array<string> = [];
   findFormControl: FormControl = new FormControl();
@@ -141,10 +140,6 @@ export class ProjectsDetailsComponent implements OnInit {
 
   getCurrency(currencyId: number) {
     return this.currencies?.find((item) => item.id == currencyId)?.name;
-  }
-
-  getRegion(regionId: number) {
-    return this.regions?.find((item) => item.id == regionId)?.name;
   }
 
   getCountries() {

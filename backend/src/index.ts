@@ -55,11 +55,11 @@ router.route('/project/items/status').get(checkAuth, getProcurementStatuses);
 router.route('/project/status').get(checkAuth, getProjectStatuses);
 router.route('/project/status').patch(checkAuth, updateProjectStatus);
 router.route('/project/category').get(checkAuth, getBusinessCategories);
+router.route('/project/regions').get(checkAuth, getRegions);
 router.route('/departments').get(checkAuth, getDepartments);
 router.route('/department_officials').get(checkAuth, getDepartmentOfficials);
 router.route('/department_users').get(checkAuth, getDepartmentUsers);
 router.route('/currencies').get(checkAuth, getCurrencies);
-router.route('/regions').get(checkAuth, getRegions);
 
 app.use('/', router);
 app.listen(port, () => {

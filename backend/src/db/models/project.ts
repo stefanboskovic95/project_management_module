@@ -6,7 +6,6 @@ import Currency from './currency';
 import Department from './department';
 import Nda from './nda';
 import ProjectItem from './projectItem';
-import Region from './regions';
 import User from './user';
 
 export default class Project extends Model {}
@@ -31,6 +30,7 @@ Project.init(
     isConfidential: DataTypes.BOOLEAN,
     businessCategory: DataTypes.ENUM('Investment Project', 'Resource Project', 'Development Project'),
     status: DataTypes.ENUM('Draft', 'Deliberation', 'Accepted', 'Rejected', 'Completed'),
+    region: DataTypes.ENUM('Western Europe', 'Central Europe', 'Eastern Europe', 'Middle East'),
     country: DataTypes.STRING,
   },
   {
@@ -64,11 +64,6 @@ Project.hasOne(Nda, {
 });
 
 Project.belongsTo(Currency, {
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
-});
-
-Project.belongsTo(Region, {
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL',
 });

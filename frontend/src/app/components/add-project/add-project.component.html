@@ -51,8 +51,8 @@
     <mat-form-field class="half-width-float-right" appearance="fill">
       <mat-label>Region</mat-label>
       <mat-select name="region" ngModel>
-        <mat-option *ngFor="let region of regions" [value]="region.id">
-          {{ region.name }} ({{ region.abbrev }})
+        <mat-option *ngFor="let region of regions" [value]="region">
+          {{ region }}
         </mat-option>
       </mat-select>
     </mat-form-field>

@@ -45,7 +45,7 @@
   </mat-menu>
   <mat-menu #regionsMenu xPosition="before">
     <div class="small-padding" *ngFor="let region of regions">
-      <mat-checkbox (click)="applyFilters($event, 'region', region.id.toString())">{{ region.name }}</mat-checkbox>
+      <mat-checkbox (click)="applyFilters($event, 'region', region)">{{ region }}</mat-checkbox>
     </div>
   </mat-menu>
 
@@ -164,9 +164,9 @@
       <th>
         <div id="p-w-button">
           <p>Region</p>
-          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('regionId')" matTooltip="Sort by region">
-            <mat-icon *ngIf="isSortedAscendingBy('regionId')">arrow_drop_up</mat-icon>
-            <mat-icon *ngIf="!isSortedAscendingBy('regionId')">arrow_drop_down</mat-icon>
+          <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('region')" matTooltip="Sort by region">
+            <mat-icon *ngIf="isSortedAscendingBy('region')">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="!isSortedAscendingBy('region')">arrow_drop_down</mat-icon>
           </button>
         </div>
       </th>
@@ -186,7 +186,7 @@
       <td>{{ project.businessCategory }}</td>
       <td>{{ getProjectLead(project.userId) }}</td>
       <td>{{ project.country }}</td>
-      <td>{{ getRegion(project.regionId) }}</td>
+      <td>{{ project.region }}</td>
       <td>
         <button
           mat-icon-button

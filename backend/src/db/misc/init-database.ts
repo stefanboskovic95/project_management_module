@@ -6,36 +6,10 @@ import Project from '../models/project';
 import ProjectItem from '../models/projectItem';
 import User from '../models/user';
 import UserType from '../models/userType';
-import Region from '../models/regions';
 import Currency from '../models/currency';
 import ProjectUsers from '../models/projectUsers';
 
 connection.sync().then(async () => {
-  // ==================== Region ====================
-  Region.create({
-    id: 1,
-    abbrev: 'WE',
-    name: 'Western Europe',
-  });
-
-  Region.create({
-    id: 2,
-    abbrev: 'CE',
-    name: 'Central Europe',
-  });
-
-  Region.create({
-    id: 3,
-    abbrev: 'EE',
-    name: 'Eastern Europe',
-  });
-
-  Region.create({
-    id: 4,
-    abbrev: 'ME',
-    name: 'Middle East',
-  });
-
   // ==================== Currency ====================
   Currency.create({
     id: 1,
@@ -229,7 +203,7 @@ connection.sync().then(async () => {
     userId: 5,
     businessCategory: 'Investment Project',
     departmentId: 1,
-    regionId: 3,
+    region: 'Eastern Europe',
   });
 
   await Project.create({
@@ -245,7 +219,7 @@ connection.sync().then(async () => {
     userId: 2,
     businessCategory: 'Investment Project',
     departmentId: 1,
-    regionId: 3,
+    region: 'Eastern Europe',
   });
 
   await Project.create({
@@ -261,7 +235,7 @@ connection.sync().then(async () => {
     userId: 2,
     businessCategory: 'Investment Project',
     departmentId: 1,
-    regionId: 3,
+    region: 'Eastern Europe',
   });
 
   await Project.create({
@@ -277,7 +251,7 @@ connection.sync().then(async () => {
     userId: 2,
     businessCategory: 'Resource Project',
     departmentId: 1,
-    regionId: 3,
+    region: 'Eastern Europe',
   });
 
   await Project.create({
@@ -293,7 +267,7 @@ connection.sync().then(async () => {
     userId: 2,
     businessCategory: 'Resource Project',
     departmentId: 2,
-    regionId: 3,
+    region: 'Eastern Europe',
   });
 
   await Project.create({
@@ -309,7 +283,7 @@ connection.sync().then(async () => {
     userId: 2,
     businessCategory: 'Resource Project',
     departmentId: 2,
-    regionId: 3,
+    region: 'Eastern Europe',
   });
 
   // ==================== ProjectItems ====================

@@ -13,7 +13,6 @@ export interface Project {
   businessCategory: string;
   departmentId: number;
   currencyId: number;
-  regionId: number;
   nda?: {
     text: string;
   };

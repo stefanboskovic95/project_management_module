@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { Op } from 'sequelize';
 import Project from '../db/models/project';
 import Currency from '../db/models/currency';
-import Region from '../db/models/regions';
 import ProjectUsers from '../db/models/projectUsers';
 import User from '../db/models/user';
 import Nda from '../db/models/nda';
@@ -22,7 +21,7 @@ export const createProject = async (req: Request, res: Response) => {
     const isConfidential: boolean = req.body.isConfidential;
     const status: string = 'Draft';
     const businessCategory: string = req.body.businessCategory;
-    const regionId: string = req.body.regionId;
+    const region: string = req.body.region;
     const userId: number = req.body.projectLeadId;
     const departmentId: number = req.body.departmentId;
     const currencyId: number = req.body.currencyId | 1;
@@ -35,7 +34,7 @@ export const createProject = async (req: Request, res: Response) => {
       totalCost,
       isConfidential,
       country,
-      regionId,
+      region,
       currencyId,
       status,
       businessCategory,
@@ -107,7 +106,7 @@ export const updateProject = async (req: Request, res: Response) => {
     const isConfidential: boolean = req.body.isConfidential;
     const status: string = req.body.status;
     const businessCategory: string = req.body.businessCategory;
-    const regionId: string = req.body.regionId;
+    const region: string = req.body.region;
     const userId: number = req.body.projectLeadId;
     const departmentId: number = req.body.departmentId;
     const currencyId: number = req.body.currencyId;
@@ -136,7 +135,7 @@ export const updateProject = async (req: Request, res: Response) => {
         budget,
         isConfidential,
         businessCategory,
-        regionId,
+        region,
         userId,
         departmentId,
         currencyId,
@@ -232,7 +231,7 @@ export const getProjects = async (req: Request, res: Response) => {
     // Regions
     const regions = req.query.region;
     if (regions) {
-      where['regionId'] = {
+      where['region'] = {
         [Op.or]: Array.isArray(regions) ? regions : [regions],
       };
     }
@@ -357,7 +356,7 @@ export const getCurrencies = async (req: Request, res: Response) => {
 
 export const getRegions = async (req: Request, res: Response) => {
   try {
-    const regions: Array<Region> = await Region.findAll();
+    const regions: any = Project.getAttributes().region.values;
     res.status(200).send(regions);
   } catch (err) {
     console.log(err);

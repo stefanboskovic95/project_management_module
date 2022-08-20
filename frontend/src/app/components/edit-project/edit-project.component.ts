@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { ProjectsService } from 'src/app/services/projects.service';
 import { Currency } from 'src/app/models/currency';
-import { Region } from 'src/app/models/region';
 import { User } from 'src/app/models/user';
 import { Project } from 'src/app/models/project';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class EditProjectComponent implements OnInit {
   businessCategories: Array<string> = [];
   users: Array<User> = [];
-  regions: Array<Region> = [];
+  regions: Array<string> = [];
   isConfidential: boolean = false;
   currencies: Array<Currency> = [];
   project: Project | undefined;
@@ -65,7 +64,7 @@ export class EditProjectComponent implements OnInit {
         data.userId,
         data.categoryId,
         data.country,
-        data.regionId,
+        data.region,
         data.statusId
       )
       .subscribe({

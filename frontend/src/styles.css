@@ -235,14 +235,6 @@ label {
   padding: 10px;
 }
 
-/* input.ng-dirty {
-  border: 1px solid red;
-}
-
-select.ng-dirty {
-  border: 
-} */
-
 .error-border {
   border: 1px solid red;
 }

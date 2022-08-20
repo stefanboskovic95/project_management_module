@@ -83,9 +83,9 @@
           </div>
           <div class="align-vertically-50-right">
             <label for="region">Region</label>
-            <select id="region" name="region" ngModel [(ngModel)]="project.regionId" [disabled]="!isEditing">
-              <option *ngFor="let region of regions" [value]="region.id">
-                {{ region.name }} ({{ region.abbrev }})
+            <select id="region" name="region" ngModel [(ngModel)]="project.region" [disabled]="!isEditing">
+              <option *ngFor="let region of regions" [value]="region">
+                {{ region }}
               </option>
             </select>
           </div>

@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 import { Project } from '../models/project';
-import { Region } from '../models/region';
 import { Currency } from '../models/currency';
 import { ProjectItem } from '../models/ProjectItem';
 import { ProcurementStatus } from '../models/procurementStatus';
@@ -27,7 +26,7 @@ export class ProjectsService {
     currencyId: number,
     projectLeadId: number,
     businessCategory: number,
-    regionId: number,
+    region: string,
     country: string
   ) {
     return this.http.post(`${environment.backend_url}/project`, {
@@ -37,7 +36,7 @@ export class ProjectsService {
       isConfidential,
       nda,
       country,
-      regionId,
+      region,
       currencyId,
       businessCategory,
       projectLeadId,
@@ -63,7 +62,7 @@ export class ProjectsService {
     projectLeadId: number,
     businessCategory: string,
     country: string,
-    regionId: number,
+    region: string,
     statusId: number
   ) {
     return this.http.put(`${environment.backend_url}/project`, {
@@ -74,7 +73,7 @@ export class ProjectsService {
       isConfidential,
       nda,
       country,
-      regionId,
+      region,
       currencyId,
       businessCategory,
       projectLeadId,
@@ -161,7 +160,7 @@ export class ProjectsService {
   }
 
   getRegions() {
-    return this.http.get<Array<Region>>(`${environment.backend_url}/regions`);
+    return this.http.get<Array<string>>(`${environment.backend_url}/project/regions`);
   }
 
   getCurrencies() {
