@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { BusinessCategory } from '../models/businessCategory';
 import { User } from '../models/user';
 import { Project } from '../models/project';
 import { Region } from '../models/region';
@@ -28,7 +27,7 @@ export class ProjectsService {
     nda: string,
     currencyId: number,
     projectLeadId: number,
-    businessCategoryId: number,
+    businessCategory: number,
     regionId: number,
     country: string
   ) {
@@ -41,7 +40,7 @@ export class ProjectsService {
       country,
       regionId,
       currencyId,
-      businessCategoryId,
+      businessCategory,
       projectLeadId,
       departmentId: this.departmentId,
     });
@@ -63,7 +62,7 @@ export class ProjectsService {
     nda: string,
     currencyId: number,
     projectLeadId: number,
-    businessCategoryId: number,
+    businessCategory: string,
     country: string,
     regionId: number,
     statusId: number
@@ -78,7 +77,7 @@ export class ProjectsService {
       country,
       regionId,
       currencyId,
-      businessCategoryId,
+      businessCategory,
       projectLeadId,
       statusId,
       departmentId: this.departmentId,
@@ -151,7 +150,7 @@ export class ProjectsService {
   }
 
   getBusinessCategories() {
-    return this.http.get<Array<BusinessCategory>>(`${environment.backend_url}/business_categories`);
+    return this.http.get<Array<string>>(`${environment.backend_url}/business_categories`);
   }
 
   getDepartmentOfficials() {

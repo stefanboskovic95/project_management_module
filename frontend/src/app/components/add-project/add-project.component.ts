@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { BusinessCategory } from 'src/app/models/businessCategory';
 import { Currency } from 'src/app/models/currency';
 import { Region } from 'src/app/models/region';
 import { User } from 'src/app/models/user';
@@ -13,7 +12,7 @@ import { ProjectsService } from 'src/app/services/projects.service';
   styleUrls: ['./add-project.component.css'],
 })
 export class AddProjectComponent implements OnInit {
-  businessCategories: Array<BusinessCategory> = [];
+  businessCategories: Array<string> = [];
   users: Array<User> = [];
   regions: Array<Region> = [];
   isConfidential: boolean = false;

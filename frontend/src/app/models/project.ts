@@ -10,7 +10,7 @@ export interface Project {
   projectStatusId: number;
   isEditable: boolean;
   userId: number;
-  businessCategoryId: number;
+  businessCategory: string;
   departmentId: number;
   currencyId: number;
   regionId: number;

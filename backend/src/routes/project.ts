@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { Op } from 'sequelize';
 import ProjectStatus from '../db/models/projectStatus';
 import Project from '../db/models/project';
-import BusinessCategory from '../db/models/businessCategories';
 import Currency from '../db/models/currency';
 import Region from '../db/models/regions';
 import ProjectUsers from '../db/models/projectUsers';
@@ -24,7 +23,7 @@ export const createProject = async (req: Request, res: Response) => {
     const totalCost: number = 0;
     const isConfidential: boolean = req.body.isConfidential;
     const projectStatusId: number = 1; // draft
-    const businessCategoryId: number = req.body.businessCategoryId;
+    const businessCategory: string = req.body.businessCategory;
     const regionId: string = req.body.regionId;
     const userId: number = req.body.projectLeadId;
     const departmentId: number = req.body.departmentId;
@@ -41,7 +40,7 @@ export const createProject = async (req: Request, res: Response) => {
       regionId,
       currencyId,
       projectStatusId,
-      businessCategoryId,
+      businessCategory,
       userId: userId ? userId : null,
       departmentId,
     });
@@ -109,7 +108,7 @@ export const updateProject = async (req: Request, res: Response) => {
     const budget: number = req.body.budget | 0;
     const isConfidential: boolean = req.body.isConfidential;
     const projectStatusId: number = req.body.statusId;
-    const businessCategoryId: number = req.body.businessCategoryId;
+    const businessCategory: string = req.body.businessCategory;
     const regionId: string = req.body.regionId;
     const userId: number = req.body.projectLeadId;
     const departmentId: number = req.body.departmentId;
@@ -138,7 +137,7 @@ export const updateProject = async (req: Request, res: Response) => {
         country,
         budget,
         isConfidential,
-        businessCategoryId,
+        businessCategory,
         regionId,
         userId,
         departmentId,
@@ -339,7 +338,8 @@ export const getProjectStatuses = async (req: Request, res: Response) => {
 
 export const getBusinessCategories = async (req: Request, res: Response) => {
   try {
-    const businessCategories: Array<BusinessCategory> = await BusinessCategory.findAll();
+    const businessCategories: any = Project.getAttributes().businessCategory.values;
+    console.log()
     res.status(200).send(businessCategories);
   } catch (err) {
     console.log(err);

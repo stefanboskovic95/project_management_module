@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { BusinessCategory } from 'src/app/models/businessCategory';
 import { Currency } from 'src/app/models/currency';
 import { Project } from 'src/app/models/project';
 import { ProjectStatus } from 'src/app/models/projectStatus';
@@ -20,7 +19,7 @@ export class ProjectsDetailsComponent implements OnInit {
   users: Array<User> | undefined;
   regions: Array<Region> | undefined;
   currencies: Array<Currency> | undefined;
-  businessCategories: Array<BusinessCategory> | undefined;
+  businessCategories: Array<string> | undefined;
   projectsStatuses: Array<ProjectStatus> | undefined;
   distinctCountries: Array<string> = [];
   findFormControl: FormControl = new FormControl();
@@ -147,10 +146,6 @@ export class ProjectsDetailsComponent implements OnInit {
 
   getProjectStatus(statusId: number) {
     return this.projectsStatuses?.find((item) => item.id == statusId)?.status;
-  }
-
-  getBusinessCategory(categoryId: number) {
-    return this.businessCategories?.find((item) => item.id == categoryId)?.type;
   }
 
   getRegion(regionId: number) {

@@ -1,5 +1,4 @@
 import connection from '../connection/connection';
-import BusinessCategory from '../models/businessCategories';
 import Department from '../models/department';
 import Nda from '../models/nda';
 import ProcurementStatus from '../models/procurementStatus';
@@ -116,22 +115,6 @@ connection.sync().then(async () => {
   await ProcurementStatus.create({
     id: 3,
     status: 'completed',
-  });
-
-  // ==================== BusinessCategories ====================
-  await BusinessCategory.create({
-    id: 1,
-    type: 'Investment Project',
-  });
-
-  await BusinessCategory.create({
-    id: 2,
-    type: 'Resource Project',
-  });
-
-  await BusinessCategory.create({
-    id: 3,
-    type: 'Development Project',
   });
 
   // ==================== UserType ====================
@@ -272,7 +255,7 @@ connection.sync().then(async () => {
     projectStatusId: 1, // Draft
     currencyId: 1,
     userId: 5,
-    businessCategoryId: 1,
+    businessCategory: 'Investment Project',
     departmentId: 1,
     regionId: 3,
   });
@@ -288,7 +271,7 @@ connection.sync().then(async () => {
     projectStatusId: 2, // Deliberation
     currencyId: 1,
     userId: 2,
-    businessCategoryId: 1,
+    businessCategory: 'Investment Project',
     departmentId: 1,
     regionId: 3,
   });
@@ -304,7 +287,7 @@ connection.sync().then(async () => {
     projectStatusId: 2, // Deliberation
     currencyId: 1,
     userId: 2,
-    businessCategoryId: 1,
+    businessCategory: 'Investment Project',
     departmentId: 1,
     regionId: 3,
   });
@@ -320,7 +303,7 @@ connection.sync().then(async () => {
     projectStatusId: 3, // Accepted
     currencyId: 1,
     userId: 2,
-    businessCategoryId: 2,
+    businessCategory: 'Resource Project',
     departmentId: 1,
     regionId: 3,
   });
@@ -336,7 +319,7 @@ connection.sync().then(async () => {
     projectStatusId: 1, // Draft
     currencyId: 1,
     userId: 2,
-    businessCategoryId: 2,
+    businessCategory: 'Resource Project',
     departmentId: 2,
     regionId: 3,
   });
@@ -352,7 +335,7 @@ connection.sync().then(async () => {
     projectStatusId: 1, // Draft
     currencyId: 1,
     userId: 2,
-    businessCategoryId: 2,
+    businessCategory: 'Resource Project',
     departmentId: 2,
     regionId: 3,
   });

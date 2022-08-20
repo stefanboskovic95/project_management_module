@@ -37,8 +37,8 @@
     <mat-form-field class="half-width-float-right" appearance="fill">
       <mat-label>Business category</mat-label>
       <mat-select name="category" ngModel>
-        <mat-option *ngFor="let category of businessCategories" [value]="category.id">
-          {{ category.type }}
+        <mat-option *ngFor="let category of businessCategories" [value]="category">
+          {{ category }}
         </mat-option>
       </mat-select>
     </mat-form-field>

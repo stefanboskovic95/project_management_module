@@ -130,11 +130,11 @@
           <button
             mat-icon-button
             class="tittle-add-btn-btn"
-            (click)="sortBy('businessCategoryId')"
+            (click)="sortBy('businessCategory')"
             matTooltip="Sort by category"
           >
-            <mat-icon *ngIf="isSortedAscendingBy('businessCategoryId')">arrow_drop_up</mat-icon>
-            <mat-icon *ngIf="!isSortedAscendingBy('businessCategoryId')">arrow_drop_down</mat-icon>
+            <mat-icon *ngIf="isSortedAscendingBy('businessCategory')">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="!isSortedAscendingBy('businessCategory')">arrow_drop_down</mat-icon>
           </button>
         </div>
       </th>
@@ -183,7 +183,7 @@
       <td>{{ 0 | currency: getCurrency(project.currencyId) }}</td>
       <td>{{ project.isConfidential ? 'YES' : 'NO' }}</td>
       <td>{{ getProjectStatus(project.projectStatusId) }}</td>
-      <td>{{ getBusinessCategory(project.businessCategoryId) }}</td>
+      <td>{{ project.businessCategory }}</td>
       <td>{{ getProjectLead(project.userId) }}</td>
       <td>{{ project.country }}</td>
       <td>{{ getRegion(project.regionId) }}</td>

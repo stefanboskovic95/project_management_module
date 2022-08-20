@@ -2,7 +2,6 @@
 
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
-import BusinessCategory from './businessCategories';
 import Currency from './currency';
 import Department from './department';
 import Nda from './nda';
@@ -31,6 +30,7 @@ Project.init(
     },
     totalCost: DataTypes.DOUBLE,
     isConfidential: DataTypes.BOOLEAN,
+    businessCategory: DataTypes.ENUM('Investment Project', 'Resource Project', 'Development Project'),
     country: DataTypes.STRING,
   },
   {
@@ -48,11 +48,6 @@ Project.belongsTo(ProjectStatus, {
   foreignKey: {
     field: 'projectStatusId',
   },
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
-});
-
-Project.belongsTo(BusinessCategory, {
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL',
 });

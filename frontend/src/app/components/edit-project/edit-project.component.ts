@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { ProjectsService } from 'src/app/services/projects.service';
-import { BusinessCategory } from 'src/app/models/businessCategory';
 import { Currency } from 'src/app/models/currency';
 import { Region } from 'src/app/models/region';
 import { User } from 'src/app/models/user';
@@ -15,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./edit-project.component.css'],
 })
 export class EditProjectComponent implements OnInit {
-  businessCategories: Array<BusinessCategory> = [];
+  businessCategories: Array<string> = [];
   users: Array<User> = [];
   regions: Array<Region> = [];
   isConfidential: boolean = false;
