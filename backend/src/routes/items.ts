@@ -51,8 +51,12 @@ export const createProjectItem = async (req: Request, res: Response) => {
   }
 };
 
-const _updateProjectItemStatus = async (projectItem: ProjectItem, status: string) => {
-
+const _updateProjectItemStatus = async (project: Project, projectItem: ProjectItem, status: string) => {
+  if (['In Progress', 'Completed'].includes(status) && !['Accepted', 'Rejected', 'Completed'].includes(project['status'])) {
+    throw new Error('Project must be accepted before any item can be moved to \'In Progress\' state.');
+  }
+  
+  await projectItem.update({ status });
 };
 
 export const updateProjectItem = async (req: Request, res: Response) => {
@@ -66,8 +70,10 @@ export const updateProjectItem = async (req: Request, res: Response) => {
     const assignee = req.body.assignee;
 
     const projectItem = await ProjectItem.findOne({ where: { id }});
-
     const project = await Project.findOne({ where: { id: projectItem['projectId'] } });
+
+    await _updateProjectItemStatus(project, projectItem, status);
+
     const projectBudget = project['budget'];
     const projectTotalCost = project['totalCost'];
     
@@ -106,11 +112,14 @@ export const updateProjectItemStatus = async (req: Request, res: Response) => {
     const id = req.body.itemId;
     const status = req.body.status;
 
-    await ProjectItem.update({ status }, { where: { id } });
+    const projectItem = await ProjectItem.findOne({ where: { id }});
+    const project = await Project.findOne({ where: { id: projectItem['projectId'] } });
+
+    await _updateProjectItemStatus(project, projectItem, status);
 
     res.status(200).json({ message: 'ok' });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.status(400).json({ message: err.message });
   }
 };

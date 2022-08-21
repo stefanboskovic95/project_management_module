@@ -40,6 +40,7 @@ export class ItemsOverviewComponent implements OnInit {
     this.projectsService.updateProjectItemStatus(item.id, this.dropIdToStatus[event.container.id]).subscribe({
       next: () => {},
       error: (err) => {
+        console.log(err)
         // Revert update
         this.swap(event, 'previousContainer', 'container');
         this.updateSwimLanes(event);
