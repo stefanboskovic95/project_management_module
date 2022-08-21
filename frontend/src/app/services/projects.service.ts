@@ -107,7 +107,7 @@ export class ProjectsService {
     cost: number,
     assignee: string,
     isNdaSigned: boolean,
-    procurementStatusId: number
+    status: number
   ) {
     return this.http.put(`${environment.backend_url}/project/item`, {
       itemId,
@@ -116,14 +116,14 @@ export class ProjectsService {
       cost,
       assignee,
       isNdaSigned,
-      procurementStatusId,
+      status,
     });
   }
 
-  updateProjectItemStatus(itemId: number, procurementStatusId: number) {
+  updateProjectItemStatus(itemId: number, status: string) {
     return this.http.patch(`${environment.backend_url}/project/item`, {
       itemId,
-      procurementStatusId,
+      status,
     });
   }
 

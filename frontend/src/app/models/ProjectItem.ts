@@ -4,7 +4,7 @@ export interface ProjectItem {
   subject: string;
   cost: number;
   isNdaSigned: boolean;
-  procurementStatusId: number;
+  status: string;
   projectId: number;
   userId: number;
 }

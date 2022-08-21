@@ -72,8 +72,8 @@
 
     <div class="vertical-spacer">
       <label for="status">Status</label>
-      <select id="status" name="status" ngModel [(ngModel)]="item.procurementStatusId" [disabled]="!isEditing">
-        <option *ngFor="let status of statuses" [value]="status.id">{{ status.status }}</option>
+      <select id="status" name="status" ngModel [(ngModel)]="item.status" [disabled]="!isEditing">
+        <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
       </select>
     </div>
 

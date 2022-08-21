@@ -14,10 +14,10 @@ export class ItemsOverviewComponent implements OnInit {
   draftProjectItems: Array<ProjectItem> = [];
   inProgressProjectItems: Array<ProjectItem> = [];
   completedProjectItems: Array<ProjectItem> = [];
-  dropIdToStatusId: { [key: string]: number } = {
-    'cdk-drop-list-0': 1, // draft
-    'cdk-drop-list-1': 2, // inProgress
-    'cdk-drop-list-2': 3, // complete
+  dropIdToStatus: { [key: string]: string } = {
+    'list-0': 'Draft',
+    'list-1': 'In Progress',
+    'list-2': 'Completed',
   };
 
   constructor(private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) {}
@@ -26,9 +26,9 @@ export class ItemsOverviewComponent implements OnInit {
     const projectId = this.projectsService.getSelectedProjectId();
     this.projectsService.getProjectItems(`?projectId=${projectId}`).subscribe({
       next: (projectItems) => {
-        this.draftProjectItems = projectItems.filter((item) => item.procurementStatusId == 1);
-        this.inProgressProjectItems = projectItems.filter((item) => item.procurementStatusId == 2);
-        this.completedProjectItems = projectItems.filter((item) => item.procurementStatusId == 3);
+        this.draftProjectItems = projectItems.filter((item) => item.status === 'Draft');
+        this.inProgressProjectItems = projectItems.filter((item) => item.status === 'In Progress');
+        this.completedProjectItems = projectItems.filter((item) => item.status === 'Completed');
       },
       error: (err) => {},
     });
@@ -36,8 +36,8 @@ export class ItemsOverviewComponent implements OnInit {
 
   drop(event: CdkDragDrop<ProjectItem[]>) {
     const item = event.previousContainer.data[event.previousIndex];
-    item.procurementStatusId = this.dropIdToStatusId[event.container.id];
-    this.projectsService.updateProjectItemStatus(item.id, this.dropIdToStatusId[event.container.id]).subscribe({
+    item.status = this.dropIdToStatus[event.container.id];
+    this.projectsService.updateProjectItemStatus(item.id, this.dropIdToStatus[event.container.id]).subscribe({
       next: () => {},
       error: (err) => {
         // Revert update

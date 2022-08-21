@@ -390,7 +390,7 @@ export const deleteProject = async (req: Request, res: Response) => {
     }
 
     // There must not be any ProjectItems inProgress state.
-    const items = await ProjectItem.findAll({ where: { projectId, procurementStatusId: 2 } });
+    const items = await ProjectItem.findAll({ where: { projectId, status: 'In Progress' } });
     if (items.length > 0) {
       return res.status(403).json({ message: 'You cannot delete a project that has any project item in progress.' });
     }

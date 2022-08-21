@@ -1,7 +1,6 @@
 import connection from '../connection/connection';
 import Department from '../models/department';
 import Nda from '../models/nda';
-import ProcurementStatus from '../models/procurementStatus';
 import Project from '../models/project';
 import ProjectItem from '../models/projectItem';
 import User from '../models/user';
@@ -45,22 +44,6 @@ connection.sync().then(async () => {
     id: 3,
     abbrev: 'UTIL',
     fullName: 'Utilities Department',
-  });
-
-  // ==================== ProcurementStatus ====================
-  await ProcurementStatus.create({
-    id: 1,
-    status: 'draft',
-  });
-
-  await ProcurementStatus.create({
-    id: 2,
-    status: 'inProgress',
-  });
-
-  await ProcurementStatus.create({
-    id: 3,
-    status: 'completed',
   });
 
   // ==================== UserType ====================
@@ -293,7 +276,7 @@ connection.sync().then(async () => {
     subject: 'Prilagoditi kanalizacionu mrezu na trasi buduceg puta',
     cost: 1000000,
     isNdaSigned: false,
-    procurementStatusId: 3,
+    status: 'Completed',
     projectId: 1,
   });
 
@@ -304,7 +287,7 @@ connection.sync().then(async () => {
       'Izvršiti konverziju postojećeg puta u put sa 4 trake od sportskog centra Rakovica do ulaza u topčiderski park.',
     cost: 5000000,
     isNdaSigned: false,
-    procurementStatusId: 2,
+    status: 'In Progress',
     projectId: 1,
   });
 
@@ -314,7 +297,7 @@ connection.sync().then(async () => {
     subject: 'Izgradnja puta kroz topčiderski park do mosta.',
     cost: 8500000,
     isNdaSigned: false,
-    procurementStatusId: 1,
+    status: 'Draft',
     projectId: 1,
   });
 

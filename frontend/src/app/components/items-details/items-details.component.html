@@ -58,11 +58,11 @@
         <button
           mat-icon-button
           class="tittle-add-btn-btn"
-          (click)="sortBy('procurementStatusId')"
+          (click)="sortBy('status')"
           matTooltip="Sort by Id"
         >
-          <mat-icon *ngIf="isSortedAscendingBy('procurementStatusId')">arrow_drop_up</mat-icon>
-          <mat-icon *ngIf="!isSortedAscendingBy('procurementStatusId')">arrow_drop_down</mat-icon>
+          <mat-icon *ngIf="isSortedAscendingBy('status')">arrow_drop_up</mat-icon>
+          <mat-icon *ngIf="!isSortedAscendingBy('status')">arrow_drop_down</mat-icon>
         </button>
       </div>
       <div class="p-w-button">
@@ -76,7 +76,7 @@
       <div class="table-td">{{ item.name }}</div>
       <div class="table-td">{{ item.cost | currency: 'EUR' }}</div>
       <div class="table-td">{{ item.isNdaSigned ? 'Yes' : 'No' }}</div>
-      <div class="table-td">{{ getItemStatus(item.procurementStatusId) }}</div>
+      <div class="table-td">{{ item.status }}</div>
       <div class="table-td">
         <button
           mat-icon-button
