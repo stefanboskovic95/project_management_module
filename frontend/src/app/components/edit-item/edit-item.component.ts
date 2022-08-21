@@ -99,11 +99,12 @@ export class EditItemComponent implements OnInit {
         formData.status
       )
       .subscribe({
-        next: () => {
+        next: (resp: any) => {
+          this.item = resp.projectItem;
           this.toggleEditing();
         },
         error: (err) => {
-          if (err.error.message.includes('costFormControl')) {
+          if (err.error.message.includes('cost')) {
             this.costFormControl.setErrors({cost: true})
           }
           this.openSnackBar(err.error.message);

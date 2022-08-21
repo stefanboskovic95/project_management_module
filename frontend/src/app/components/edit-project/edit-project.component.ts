@@ -57,7 +57,7 @@ export class EditProjectComponent implements OnInit {
         this.project.id,
         data.name,
         data.description,
-        this.budgetFormControl.getRawValue(),
+        data.budget,
         data.isConfidential,
         this.nda,
         data.currencyId,
@@ -65,7 +65,7 @@ export class EditProjectComponent implements OnInit {
         data.categoryId,
         data.country,
         data.region,
-        data.statusId
+        data.status
       )
       .subscribe({
         next: () => {
@@ -74,9 +74,10 @@ export class EditProjectComponent implements OnInit {
         },
         error: (err) => {
           const msg = err.error.message;
+          console.log(err.error.message)
           if (msg.includes('budget')) {
             this.budgetFormControl.setErrors({ budget: true });
-          } else if (msg.includes('lead')) {
+          } else if (msg.includes('Project lead')) {
             this.budgetFormControl.setErrors({ projectLead: true });
           }
           this.openSnackBar(msg);

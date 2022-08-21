@@ -56,7 +56,7 @@ export const createProject = async (req: Request, res: Response) => {
   }
 };
 
-const _updateProjectStatus = async (projectId, status, userTypeId) => {
+const _updateProjectStatus = async (projectId: number, status: string, userTypeId: number) => {
   // Regular user cannot update projects
   if (userTypeId == 1) {
     throw new Error('You are not authorized to preform this action.');
@@ -95,9 +95,6 @@ export const updateProject = async (req: Request, res: Response) => {
     if (userTypeId == 1) {
       return res.status(403).json({ message: 'You are not authorized to preform this action.' });
     }
-
-    console.log(req.body);
-
     const projectId = req.body.projectId;
     const name: string = req.body.name;
     const description: string = req.body.description;

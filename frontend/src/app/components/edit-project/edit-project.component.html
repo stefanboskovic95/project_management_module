@@ -121,8 +121,8 @@
 
       <div class="flex-item">
           <div class="half-width-float-left">
-            <label for="statusId">Status</label>
-            <select id="statusId" name="statusId" ngModel [(ngModel)]="project.status" [disabled]="!isEditing">
+            <label for="status">Status</label>
+            <select id="status" name="status" ngModel [(ngModel)]="project.status" [disabled]="!isEditing">
               <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
             </select>
           </div>

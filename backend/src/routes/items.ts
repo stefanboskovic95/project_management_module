@@ -52,6 +52,10 @@ export const createProjectItem = async (req: Request, res: Response) => {
   }
 };
 
+const _updateProjectItemStatus = async (projectItem: ProjectItem, status: string) => {
+
+};
+
 export const updateProjectItem = async (req: Request, res: Response) => {
   try {
     const id = req.body.itemId;
@@ -91,7 +95,7 @@ export const updateProjectItem = async (req: Request, res: Response) => {
 
     await project.update({ totalCost: newProjectCost });
 
-    res.status(200).json({ message: 'ok' });
+    res.status(200).json({ message: 'ok', projectItem });
   } catch (err) {
     console.error(err);
     res.status(400).json({ message: err.message });

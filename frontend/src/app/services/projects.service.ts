@@ -63,7 +63,7 @@ export class ProjectsService {
     businessCategory: string,
     country: string,
     region: string,
-    statusId: number
+    status: string
   ) {
     return this.http.put(`${environment.backend_url}/project`, {
       projectId,
@@ -77,7 +77,7 @@ export class ProjectsService {
       currencyId,
       businessCategory,
       projectLeadId,
-      statusId,
+      status,
       departmentId: this.departmentId,
     });
   }
