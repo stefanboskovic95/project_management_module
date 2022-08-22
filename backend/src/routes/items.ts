@@ -51,12 +51,18 @@ export const createProjectItem = async (req: Request, res: Response) => {
   }
 };
 
-const _updateProjectItemStatus = async (project: Project, projectItem: ProjectItem, status: string) => {
+const checkProjectItemStatus = (project: Project, projectItem: ProjectItem, status: string) => {
   if (['In Progress', 'Completed'].includes(status) && !['Accepted', 'Rejected', 'Completed'].includes(project['status'])) {
     throw new Error('Project must be accepted before any item can be moved to \'In Progress\' state.');
   }
-  
-  await projectItem.update({ status });
+
+  if (['In Progress', 'Completed'].includes(status) && !projectItem['userId']) {
+    throw new Error('Project Item must have assignee before work on it can start.')
+  }
+
+  if (['In Progress', 'Completed'].includes(status) && (projectItem['cost'] == 0 || !projectItem['cost'])) {
+    throw new Error('Project Item must have cost before work on it can start.')
+  }
 };
 
 export const updateProjectItem = async (req: Request, res: Response) => {
@@ -72,7 +78,9 @@ export const updateProjectItem = async (req: Request, res: Response) => {
     const projectItem = await ProjectItem.findOne({ where: { id }});
     const project = await Project.findOne({ where: { id: projectItem['projectId'] } });
 
-    await _updateProjectItemStatus(project, projectItem, status);
+    projectItem['cost'] = updatedItemCost;
+    projectItem['userId'] = assignee;
+    checkProjectItemStatus(project, projectItem, status);
 
     const projectBudget = project['budget'];
     const projectTotalCost = project['totalCost'];
@@ -115,8 +123,9 @@ export const updateProjectItemStatus = async (req: Request, res: Response) => {
     const projectItem = await ProjectItem.findOne({ where: { id }});
     const project = await Project.findOne({ where: { id: projectItem['projectId'] } });
 
-    await _updateProjectItemStatus(project, projectItem, status);
+    checkProjectItemStatus(project, projectItem, status);
 
+    projectItem.update({ status });
     res.status(200).json({ message: 'ok' });
   } catch (err) {
     // console.error(err);

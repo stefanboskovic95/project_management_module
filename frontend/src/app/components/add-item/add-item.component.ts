@@ -39,7 +39,7 @@ export class AddItemComponent implements OnInit {
         formData.name,
         formData.subject,
         formData.cost,
-        formData.isNdaSigned,
+        formData.isNdaSigned || false,
         formData.currency
       )
       .subscribe(() => {

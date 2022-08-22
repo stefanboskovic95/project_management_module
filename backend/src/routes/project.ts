@@ -56,15 +56,11 @@ export const createProject = async (req: Request, res: Response) => {
   }
 };
 
-const _updateProjectStatus = async (projectId: number, status: string, userTypeId: number) => {
+const checkProjectStatus = (project: Project, status: string, userTypeId: number) => {
   // Regular user cannot update projects
   if (userTypeId == 1) {
     throw new Error('You are not authorized to preform this action.');
   }
-
-  const project: Project = await Project.findOne({
-    where: { id: projectId },
-  });
 
   // Only department chief can approve or reject the project. High official can update other states.
   if (userTypeId == 2 && !['Accepted', 'Rejected'].includes(status)) {
@@ -77,7 +73,7 @@ const _updateProjectStatus = async (projectId: number, status: string, userTypeI
   }
 
   // Project budget must be set before project is sent to deliberation
-  if (['Deliberation', 'Accepted', 'Rejected', 'Completed'].includes(status) && project['budget'] == 0) {
+  if (['Deliberation', 'Accepted', 'Rejected', 'Completed'].includes(status) && (project['budget'] == 0 || !project['budget'])) {
     throw new Error('Project budget must be set before project is sent to deliberation');
   }
 
@@ -85,8 +81,6 @@ const _updateProjectStatus = async (projectId: number, status: string, userTypeI
   if (['Deliberation', 'Accepted', 'Rejected', 'Completed'].includes(status) && !project['userId']) {
     throw new Error('Project lead must be set before project is sent to deliberation');
   }
-
-  await Project.update({ status }, { where: { id: projectId } });
 };
 
 export const updateProject = async (req: Request, res: Response) => {
@@ -111,7 +105,9 @@ export const updateProject = async (req: Request, res: Response) => {
 
     const existingProject = await Project.findOne({ where: { id: projectId } });
 
-    await _updateProjectStatus(projectId, status, userTypeId);
+    existingProject['userId'] = userId;
+    existingProject['budget'] = budget;
+    checkProjectStatus(existingProject, status, userTypeId);
 
     if (isConfidential && !existingProject['isConfidential']) {
       Nda.create({
@@ -132,6 +128,7 @@ export const updateProject = async (req: Request, res: Response) => {
         budget,
         isConfidential,
         businessCategory,
+        status,
         region,
         userId,
         departmentId,
@@ -152,7 +149,13 @@ export const updateProjectStatus = async (req: Request, res: Response) => {
     const status: string = req.body.status;
     const userTypeId: number = res.locals.userTypeId;
 
-    await _updateProjectStatus(projectId, status, userTypeId);
+    const project: Project = await Project.findOne({
+      where: { id: projectId },
+    });
+
+    checkProjectStatus(project, status, userTypeId);
+
+    await project.update({ status });
 
     res.status(200).json({ message: 'Updated!' });
   } catch (err) {
