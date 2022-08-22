@@ -210,3 +210,37 @@ export const getProjectItemStatuses = async (req: Request, res: Response) => {
     res.status(400).json({ message: err.message });
   }
 };
+
+export const deleteProjectItem = async (req: Request, res: Response) => {
+  try {
+    const id = req.query.itemId;
+    console.log(`id: ${id}`)
+    const userId = res.locals.userId;
+
+    const user = await User.findOne({ where: { id: userId } });
+    const projectItem = await ProjectItem.findOne({ where: { id } });
+    const project = await Project.findOne({ where: { id: projectItem['projectId'] } });
+
+    // Department High Official cannot delete projectItems of projects that are not assigned to him.
+    if ((user['userTypeId'] == 2 && project['userId'] !== userId) || user['userTypeId'] == 1) {
+      return res.status(403).json({ message: 'You are not authorized to perform this action.' });
+    }
+
+    if (user['userTypeId'] == 1 && projectItem['userId'] != user['id']) {
+      return res.status(403).json({ message: 'You are not authorized to perform this action.' });
+    }
+
+    if (['In Progress', 'Completed'].includes(projectItem['status'])) {
+      return res.status(400).json({ message: 'You cannot delete project item that is completed or in progress.' })
+    }
+
+    await ProjectItem.destroy({ where: { id } });
+
+    const reducedProjectCost = project['totalCost'] - projectItem['cost'];
+    await project.update({ totalCost: reducedProjectCost })
+    res.status(200).send({ message: 'ok' });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ message: err.message });
+  }
+};

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ProcurementStatus } from 'src/app/models/procurementStatus';
 import { ProjectItem } from 'src/app/models/ProjectItem';
@@ -22,7 +23,7 @@ export class ItemsDetailsComponent implements OnInit {
   // Filters
   filters: Array<{ name: string; value: string }> = [];
 
-  constructor(private projectsService: ProjectsService, private router: Router) {}
+  constructor(private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     const projectId = this.projectsService.getSelectedProjectId();
@@ -108,7 +109,23 @@ export class ItemsDetailsComponent implements OnInit {
     this.router.navigate(['/editItem']);
   }
 
+  
+  deleteProjectItem(itemId: number) {
+    this.projectsService.deleteProjectItem(itemId).subscribe({
+      next: () => {
+        this.getProjectItems()
+      },
+      error: (err) => {
+        this.openSnackBar(err.error.message);
+      }
+    })
+  }
+
   getItemStatus(statusId: number) {
     return this.statuses?.find((item) => item.id == statusId)?.status;
+  }
+
+  openSnackBar(message: string, action: string = 'Dismiss') {
+    this._snackBar.open(message, action);
   }
 }

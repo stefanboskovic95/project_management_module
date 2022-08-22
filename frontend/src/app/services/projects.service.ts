@@ -131,6 +131,10 @@ export class ProjectsService {
     return this.http.delete(`${environment.backend_url}/project?projectId=${projectId}`);
   }
 
+  deleteProjectItem(itemId: number) {
+    return this.http.delete(`${environment.backend_url}/project/item?itemId=${itemId}`);
+  }
+
   getProjectItem(itemId: number) {
     return this.http.get<ProjectItem>(`${environment.backend_url}/project/item?itemId=${itemId}`);
   }

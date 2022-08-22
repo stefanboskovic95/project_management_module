@@ -23,6 +23,7 @@ import {
   updateProjectItemStatus,
   getProjectItems,
   getProjectItemStatuses,
+  deleteProjectItem,
 } from './routes/items';
 
 const port = process.env.NODE_DOCKER_PORT || 8000;
@@ -48,6 +49,7 @@ router.route('/projects').get(checkAuth, getProjects);
 router.route('/project/item').get(checkAuth, getProjectItem);
 router.route('/project/item').post(checkAuth, createProjectItem);
 router.route('/project/item').put(checkAuth, updateProjectItem);
+router.route('/project/item').delete(checkAuth, deleteProjectItem);
 router.route('/project/item').patch(checkAuth, updateProjectItemStatus);
 router.route('/project/items').get(checkAuth, getProjectItems);
 router.route('/project/items/status').get(checkAuth, getProjectItemStatuses);

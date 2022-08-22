@@ -55,12 +55,7 @@
       </div>
       <div class="p-w-button">
         <p>Status</p>
-        <button
-          mat-icon-button
-          class="tittle-add-btn-btn"
-          (click)="sortBy('status')"
-          matTooltip="Sort by Id"
-        >
+        <button mat-icon-button class="tittle-add-btn-btn" (click)="sortBy('status')" matTooltip="Sort by Id">
           <mat-icon *ngIf="isSortedAscendingBy('status')">arrow_drop_up</mat-icon>
           <mat-icon *ngIf="!isSortedAscendingBy('status')">arrow_drop_down</mat-icon>
         </button>
@@ -85,6 +80,11 @@
           matTooltip="More details about this item"
         >
           <mat-icon class="details-mat-icon">fullscreen</mat-icon>
+        </button>
+      </div>
+      <div class="table-td">
+        <button mat-icon-button class="details-btn" (click)="deleteProjectItem(item.id)" matTooltip="Delete this item">
+          <mat-icon class="delete-mat-icon">delete_outline</mat-icon>
         </button>
       </div>
     </div>
