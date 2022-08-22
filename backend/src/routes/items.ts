@@ -15,6 +15,13 @@ export const getProjectItem = async (req: Request, res: Response) => {
   }
 };
 
+const checkItemNameUnique = async (project: Project, name: string, itemId: number = null) => {
+  const projectItems = await ProjectItem.findAll({ where: { projectId: project['id'], name, [Op.not]: { id: itemId } } });
+  if (projectItems.length > 0) {
+    throw new Error('Project item name must be unique for project.');
+  }
+}
+
 export const createProjectItem = async (req: Request, res: Response) => {
   try {
     const name = req.body.name;
@@ -27,6 +34,8 @@ export const createProjectItem = async (req: Request, res: Response) => {
     const project = await Project.findOne({ where: { id: projectId } });
     const projectBudget = project['budget'];
     const projectTotalCost = project['totalCost'];
+
+    await checkItemNameUnique(project, name);
   
     if (projectTotalCost + cost > projectBudget) {
       return res.status(400).send({ message: 'Project item cost exceeds project budget.' });
@@ -73,13 +82,16 @@ export const updateProjectItem = async (req: Request, res: Response) => {
     const updatedItemCost = req.body.cost;
     const isNdaSigned = req.body.isNdaSigned;
     const status = req.body.status;
-    const assignee = req.body.assignee;
+    const assigneeUsername = req.body.assignee;
 
     const projectItem = await ProjectItem.findOne({ where: { id }});
     const project = await Project.findOne({ where: { id: projectItem['projectId'] } });
+    const user = await User.findOne({ where: { username: assigneeUsername } });
+
+    await checkItemNameUnique(project, name, projectItem['id']);
 
     projectItem['cost'] = updatedItemCost;
-    projectItem['userId'] = assignee;
+    projectItem['userId'] = user['id'];
     checkProjectItemStatus(project, projectItem, status);
 
     const projectBudget = project['budget'];
@@ -92,8 +104,6 @@ export const updateProjectItem = async (req: Request, res: Response) => {
     if (newProjectCost > projectBudget) {
       return res.status(400).send({ message: 'Project item cost exceeds project budget.' });
     }
-
-    const user = await User.findOne({ where: { username: assignee } });
 
     await projectItem.update(
       {

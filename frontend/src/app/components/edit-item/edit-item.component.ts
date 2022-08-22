@@ -25,6 +25,7 @@ export class EditItemComponent implements OnInit {
 
   assigneeControl: FormControl = new FormControl();
   costFormControl: FormControl = new FormControl();
+  nameFormControl: FormControl = new FormControl();
   departmentUsers: Array<User> = [];
   filteredUsers: Observable<Array<User>> | undefined;
 
@@ -84,7 +85,6 @@ export class EditItemComponent implements OnInit {
   }
 
   submitItem(formData: any) {
-    console.log(this.assigneeControl.getRawValue());
     if (!this.item) {
       return;
     }
@@ -94,7 +94,7 @@ export class EditItemComponent implements OnInit {
         formData.name,
         formData.subject,
         formData.cost,
-        this.assigneeControl.getRawValue(),
+        this.assigneeControl.value,
         formData.isNdaSigned,
         formData.status
       )
@@ -106,6 +106,12 @@ export class EditItemComponent implements OnInit {
         error: (err) => {
           if (err.error.message.includes('cost')) {
             this.costFormControl.setErrors({cost: true})
+          }
+          if (err.error.message.includes('name')) {
+            this.nameFormControl.setErrors({name: true})
+          }
+          if (err.error.message.includes('assignee')) {
+            this.assigneeControl.setErrors({assignee: true})
           }
           this.openSnackBar(err.error.message);
         }

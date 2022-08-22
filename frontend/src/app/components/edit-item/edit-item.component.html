@@ -15,7 +15,7 @@
       <label for="name">Name</label>
       <input
         type="text"
-        class="value-cls"
+        [ngClass]="{ 'error-border': nameFormControl.hasError('name') }"
         id="name"
         name="name"
         [(ngModel)]="item.name"
@@ -82,11 +82,12 @@
       <input
         id="assignee"
         name="assignee"
-        class="value-cls"
+        [ngClass]="{ 'error-border': assigneeControl.hasError('assignee') }"
         type="text"
         placeholder="Search for user"
-        [formControl]="assigneeControl"
         [matAutocomplete]="auto"
+        [formControl]="assigneeControl"
+        [disabled]="!isEditing"
       />
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let user of filteredUsers | async" [value]="user.username">
