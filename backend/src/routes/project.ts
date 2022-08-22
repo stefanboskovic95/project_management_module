@@ -56,7 +56,7 @@ export const createProject = async (req: Request, res: Response) => {
   }
 };
 
-const checkProjectStatus = (project: Project, status: string, userTypeId: number) => {
+const checkProjectStatus = async (project: Project, status: string, userTypeId: number) => {
   // Regular user cannot update projects
   if (userTypeId == 1) {
     throw new Error('You are not authorized to preform this action.');
@@ -80,6 +80,11 @@ const checkProjectStatus = (project: Project, status: string, userTypeId: number
   // Project lead must be set before project is sent to deliberation
   if (['Deliberation', 'Accepted', 'Rejected', 'Completed'].includes(status) && !project['userId']) {
     throw new Error('Project lead must be set before project is sent to deliberation');
+  }
+
+  const nonCompletedProjectItems = await ProjectItem.findAll({ where: { projectId: project['id'], [Op.not]: {status: 'Completed'} } })
+  if (status == 'Completed' && nonCompletedProjectItems.length > 0) {
+    throw new Error('All project items must be in completed state before project can be completed.')
   }
 };
 
@@ -107,7 +112,7 @@ export const updateProject = async (req: Request, res: Response) => {
 
     existingProject['userId'] = userId;
     existingProject['budget'] = budget;
-    checkProjectStatus(existingProject, status, userTypeId);
+    await checkProjectStatus(existingProject, status, userTypeId);
 
     if (isConfidential && !existingProject['isConfidential']) {
       Nda.create({
@@ -153,7 +158,7 @@ export const updateProjectStatus = async (req: Request, res: Response) => {
       where: { id: projectId },
     });
 
-    checkProjectStatus(project, status, userTypeId);
+    await checkProjectStatus(project, status, userTypeId);
 
     await project.update({ status });
 
