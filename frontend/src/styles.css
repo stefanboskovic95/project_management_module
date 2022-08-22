@@ -122,6 +122,11 @@ label {
   color: #007904;
 }
 
+.delete-mat-icon {
+  margin: auto;
+  color: red;
+}
+
 .h3-w-button h3 {
   display: inline-block;
 }
@@ -200,27 +205,6 @@ label {
   flex-direction: column;
   /* border: 1px solid black; */
   width: 78%;
-}
-
-.align-vertically-40 {
-  display: flex;
-  flex-direction: column;
-  /* border: 1px solid black; */
-  width: 40%;
-}
-
-.align-vertically-50 {
-  display: flex;
-  flex-direction: column;
-  /* border: 1px solid black; */
-  width: 48%;
-}
-
-.align-vertically-50-right {
-  display: flex;
-  flex-direction: column;
-  /* border: 1px solid black; */
-  width: 48%;
 }
 
 .align-vertically-20 {

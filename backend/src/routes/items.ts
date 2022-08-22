@@ -16,11 +16,13 @@ export const getProjectItem = async (req: Request, res: Response) => {
 };
 
 const checkItemNameUnique = async (project: Project, name: string, itemId: number = null) => {
-  const projectItems = await ProjectItem.findAll({ where: { projectId: project['id'], name, [Op.not]: { id: itemId } } });
+  const projectItems = await ProjectItem.findAll({
+    where: { projectId: project['id'], name, [Op.not]: { id: itemId } },
+  });
   if (projectItems.length > 0) {
     throw new Error('Project item name must be unique for project.');
   }
-}
+};
 
 export const createProjectItem = async (req: Request, res: Response) => {
   try {
@@ -36,7 +38,7 @@ export const createProjectItem = async (req: Request, res: Response) => {
     const projectTotalCost = project['totalCost'];
 
     await checkItemNameUnique(project, name);
-  
+
     if (projectTotalCost + cost > projectBudget) {
       return res.status(400).send({ message: 'Project item cost exceeds project budget.' });
     }
@@ -50,7 +52,6 @@ export const createProjectItem = async (req: Request, res: Response) => {
       projectId,
     });
 
-    
     await project.update({ totalCost: projectTotalCost + cost });
 
     res.status(200).json({ message: 'ok' });
@@ -61,16 +62,19 @@ export const createProjectItem = async (req: Request, res: Response) => {
 };
 
 const checkProjectItemStatus = (project: Project, projectItem: ProjectItem, status: string) => {
-  if (['In Progress', 'Completed'].includes(status) && !['Accepted', 'Rejected', 'Completed'].includes(project['status'])) {
-    throw new Error('Project must be accepted before any item can be moved to \'In Progress\' state.');
+  if (
+    ['In Progress', 'Completed'].includes(status) &&
+    !['Accepted', 'Rejected', 'Completed'].includes(project['status'])
+  ) {
+    throw new Error("Project must be accepted before any item can be moved to 'In Progress' state.");
   }
 
   if (['In Progress', 'Completed'].includes(status) && !projectItem['userId']) {
-    throw new Error('Project Item must have assignee before work on it can start.')
+    throw new Error('Project Item must have assignee before work on it can start.');
   }
 
   if (['In Progress', 'Completed'].includes(status) && (projectItem['cost'] == 0 || !projectItem['cost'])) {
-    throw new Error('Project Item must have cost before work on it can start.')
+    throw new Error('Project Item must have cost before work on it can start.');
   }
 };
 
@@ -84,37 +88,37 @@ export const updateProjectItem = async (req: Request, res: Response) => {
     const status = req.body.status;
     const assigneeUsername = req.body.assignee;
 
-    const projectItem = await ProjectItem.findOne({ where: { id }});
+    const projectItem = await ProjectItem.findOne({ where: { id } });
     const project = await Project.findOne({ where: { id: projectItem['projectId'] } });
     const user = await User.findOne({ where: { username: assigneeUsername } });
+    const oldItemCost = projectItem['cost'];
 
     await checkItemNameUnique(project, name, projectItem['id']);
 
     projectItem['cost'] = updatedItemCost;
-    projectItem['userId'] = user['id'];
+    projectItem['userId'] = user ? user['id'] : undefined;
     checkProjectItemStatus(project, projectItem, status);
 
     const projectBudget = project['budget'];
     const projectTotalCost = project['totalCost'];
-    
-    const oldItemCost = projectItem['cost'];
-    const newProjectCost = projectTotalCost - oldItemCost + updatedItemCost;
-    console.log(`newProjectCost: ${newProjectCost}`)
+
+    let newProjectCost = projectTotalCost - oldItemCost + updatedItemCost;
+    if (newProjectCost < 0) {
+      newProjectCost = 0;
+    }
 
     if (newProjectCost > projectBudget) {
       return res.status(400).send({ message: 'Project item cost exceeds project budget.' });
     }
 
-    await projectItem.update(
-      {
-        name,
-        subject,
-        cost: updatedItemCost,
-        userId: user ? user['id'] : null,
-        isNdaSigned,
-        status,
-      }
-    );
+    await projectItem.update({
+      name,
+      subject,
+      cost: updatedItemCost,
+      userId: user ? user['id'] : null,
+      isNdaSigned,
+      status,
+    });
 
     await project.update({ totalCost: newProjectCost });
 
@@ -130,7 +134,7 @@ export const updateProjectItemStatus = async (req: Request, res: Response) => {
     const id = req.body.itemId;
     const status = req.body.status;
 
-    const projectItem = await ProjectItem.findOne({ where: { id }});
+    const projectItem = await ProjectItem.findOne({ where: { id } });
     const project = await Project.findOne({ where: { id: projectItem['projectId'] } });
 
     checkProjectItemStatus(project, projectItem, status);

@@ -181,7 +181,7 @@ connection.sync().then(async () => {
     totalCost: 0,
     isConfidential: false,
     country: 'Serbia',
-    status: 'Draft',
+    status: 'Accepted',
     currencyId: 1,
     userId: 5,
     businessCategory: 'Investment Project',
@@ -276,7 +276,7 @@ connection.sync().then(async () => {
     subject: 'Prilagoditi kanalizacionu mrezu na trasi buduceg puta',
     cost: 1000000,
     isNdaSigned: false,
-    status: 'Completed',
+    status: 'Draft',
     projectId: 1,
   });
 
@@ -287,7 +287,7 @@ connection.sync().then(async () => {
       'Izvršiti konverziju postojećeg puta u put sa 4 trake od sportskog centra Rakovica do ulaza u topčiderski park.',
     cost: 5000000,
     isNdaSigned: false,
-    status: 'In Progress',
+    status: 'Draft',
     projectId: 1,
   });
 
