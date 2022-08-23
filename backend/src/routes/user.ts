@@ -21,13 +21,12 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).send({ message: 'Invalid username or password' });
     }
 
-    const token = jwt.sign({ id: user['id'], userTypeId: user['userTypeId'] }, process.env.SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user['id'] }, process.env.SECRET, { expiresIn: '1h' });
 
     res.status(200).json({
       username: user['username'],
       firstName: user['firstName'],
       lastName: user['lastName'],
-      userTypeId: user['userTypeId'],
       token: token,
       expiresIn: 3600,
     });

@@ -2639,7 +2639,7 @@
 											"top": 687,
 											"width": 152.4072265625,
 											"height": 13,
-											"text": "Department High Official"
+											"text": "Department Official"
 										},
 										{
 											"_type": "LabelView",
@@ -9441,7 +9441,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Department High Official",
+					"name": "Department Official",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",

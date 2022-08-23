@@ -11,7 +11,7 @@ import { User } from '../models/user';
 export class UserService {
   private token: string = '';
   private username: string = '';
-  private userTypeId: number = 0;
+  private type: number = 0;
   private authStatusListener = new Subject<boolean>();
   private tokenTimer: any;
   private errorMsg: string = '';
@@ -25,7 +25,7 @@ export class UserService {
         this.username = user.username;
         this.setTimer(user.expiresIn);
         const expireDate = new Date().getTime() + user.expiresIn * 1000;
-        this.saveAuthData(this.token, new Date(expireDate), this.username, user.userTypeId);
+        this.saveAuthData(this.token, new Date(expireDate), this.username, user.type);
         this.authStatusListener.next(true);
       },
       error: (err) => {
@@ -53,18 +53,18 @@ export class UserService {
     this.authStatusListener.next(true);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, username: string, userTypeId: number) {
+  private saveAuthData(token: string, expirationDate: Date, username: string, userType: string) {
     sessionStorage.setItem('token', token);
     sessionStorage.setItem('expirationDate', expirationDate.toISOString());
     sessionStorage.setItem('username', username);
-    sessionStorage.setItem('userTypeId', String(userTypeId));
+    sessionStorage.setItem('userType', userType);
   }
 
   private clearAuthData() {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('expirationDate');
     sessionStorage.removeItem('username');
-    sessionStorage.removeItem('userTypeId');
+    sessionStorage.removeItem('userType');
   }
 
   autoAuthUser() {
@@ -116,7 +116,7 @@ export class UserService {
     return this.errorMsg;
   }
 
-  getUserTypeId() {
-    return Number(sessionStorage.getItem('userTypeId'));
+  getUserType() {
+    return sessionStorage.getItem('userType');
   }
 }

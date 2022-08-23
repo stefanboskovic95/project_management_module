@@ -15,7 +15,7 @@ export const getDepartments = async (req: Request, res: Response) => {
 
 export const getProjectLeads = async (userId: number) => {
   const user = await User.findOne({ where: { id: userId } });
-  const users = await User.findAll({ where: { departmentId: user['departmentId'], userTypeId: { [Op.or]: [2, 3] } } });
+  const users = await User.findAll({ where: { departmentId: user['departmentId'], type: { [Op.or]: ['Department Official', 'Department Chief'] } } });
   return users;
 };
 
@@ -33,7 +33,7 @@ export const getDepartmentOfficials = async (req: Request, res: Response) => {
 const getAllExceptAdmin = async (userId: number) => {
   const user = await User.findOne({ where: { id: userId } });
   const users = await User.findAll({
-    where: { departmentId: user['departmentId'], userTypeId: { [Op.or]: [1, 2, 3] } },
+    where: { departmentId: user['departmentId'], type: { [Op.not]: ['Admin'] } },
   });
   return users;
 };

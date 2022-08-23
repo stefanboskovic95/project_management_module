@@ -3,7 +3,7 @@ export interface User {
   username: string;
   firstName: string;
   lastName: string;
-  userTypeId: number;
+  type: string;
   token: string;
   expiresIn: number;
 }

@@ -84,7 +84,7 @@ export class ProjectsOverviewComponent implements OnInit {
   }
 
   isAddProjectDisabled() {
-    if (this.userService.getUserTypeId() == 1) {
+    if (this.userService.getUserType() === 'Regular') {
       return true;
     }
     return false;

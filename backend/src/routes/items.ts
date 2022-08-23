@@ -214,19 +214,18 @@ export const getProjectItemStatuses = async (req: Request, res: Response) => {
 export const deleteProjectItem = async (req: Request, res: Response) => {
   try {
     const id = req.query.itemId;
-    console.log(`id: ${id}`)
     const userId = res.locals.userId;
 
     const user = await User.findOne({ where: { id: userId } });
     const projectItem = await ProjectItem.findOne({ where: { id } });
     const project = await Project.findOne({ where: { id: projectItem['projectId'] } });
 
-    // Department High Official cannot delete projectItems of projects that are not assigned to him.
-    if ((user['userTypeId'] == 2 && project['userId'] !== userId) || user['userTypeId'] == 1) {
+    // Department Official cannot delete projectItems of projects that are not assigned to him.
+    if ((user['type'] == 'Department Official' && project['userId'] !== userId) || user['type'] == 'Regular') {
       return res.status(403).json({ message: 'You are not authorized to perform this action.' });
     }
 
-    if (user['userTypeId'] == 1 && projectItem['userId'] != user['id']) {
+    if (user['type'] == 'Regular' && projectItem['userId'] != user['id']) {
       return res.status(403).json({ message: 'You are not authorized to perform this action.' });
     }
 

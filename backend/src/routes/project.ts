@@ -9,7 +9,9 @@ import ProjectItem from '../db/models/projectItem';
 
 export const createProject = async (req: Request, res: Response) => {
   try {
-    if (res.locals.userTypeId == 1) {
+    const user = await User.findOne({ where: { id: res.locals.userId }});
+    const userType = user['type'];
+    if (userType === 'Regular') {
       return res.status(403).send({ message: 'You are not authorized to preform this action.' });
     }
 
@@ -56,14 +58,14 @@ export const createProject = async (req: Request, res: Response) => {
   }
 };
 
-const checkProjectStatus = async (project: Project, status: string, userTypeId: number) => {
+const checkProjectStatus = async (project: Project, status: string, userType: string) => {
   // Regular user cannot update projects
-  if (userTypeId == 1) {
+  if (userType == 'Regular') {
     throw new Error('You are not authorized to preform this action.');
   }
 
   // Only department chief can approve or reject the project. High official can update other states.
-  if (userTypeId == 2 && !['Accepted', 'Rejected'].includes(status)) {
+  if (userType == 'Department Official' && !['Accepted', 'Rejected'].includes(status)) {
     throw new Error('Only Department Chief can accept or reject the project.');
   }
 
@@ -73,7 +75,10 @@ const checkProjectStatus = async (project: Project, status: string, userTypeId: 
   }
 
   // Project budget must be set before project is sent to deliberation
-  if (['Deliberation', 'Accepted', 'Rejected', 'Completed'].includes(status) && (project['budget'] == 0 || !project['budget'])) {
+  if (
+    ['Deliberation', 'Accepted', 'Rejected', 'Completed'].includes(status) &&
+    (project['budget'] == 0 || !project['budget'])
+  ) {
     throw new Error('Project budget must be set before project is sent to deliberation');
   }
 
@@ -82,18 +87,22 @@ const checkProjectStatus = async (project: Project, status: string, userTypeId: 
     throw new Error('Project lead must be set before project is sent to deliberation');
   }
 
-  const nonCompletedProjectItems = await ProjectItem.findAll({ where: { projectId: project['id'], [Op.not]: {status: 'Completed'} } })
+  const nonCompletedProjectItems = await ProjectItem.findAll({
+    where: { projectId: project['id'], [Op.not]: { status: 'Completed' } },
+  });
   if (status == 'Completed' && nonCompletedProjectItems.length > 0) {
-    throw new Error('All project items must be in completed state before project can be completed.')
+    throw new Error('All project items must be in completed state before project can be completed.');
   }
 };
 
 export const updateProject = async (req: Request, res: Response) => {
   try {
-    const userTypeId: number = res.locals.userTypeId;
-    if (userTypeId == 1) {
+    const user = await User.findOne({ where: { id: res.locals.userId }});
+    const userType = user['type'];
+    if (userType === 'Regular') {
       return res.status(403).json({ message: 'You are not authorized to preform this action.' });
     }
+
     const projectId = req.body.projectId;
     const name: string = req.body.name;
     const description: string = req.body.description;
@@ -103,16 +112,16 @@ export const updateProject = async (req: Request, res: Response) => {
     const status: string = req.body.status;
     const businessCategory: string = req.body.businessCategory;
     const region: string = req.body.region;
-    const userId: number = req.body.projectLeadId;
+    const projectLeadId: number = req.body.projectLeadId;
     const departmentId: number = req.body.departmentId;
     const currencyId: number = req.body.currencyId;
     const ndaText: string = req.body.nda;
 
     const existingProject = await Project.findOne({ where: { id: projectId } });
 
-    existingProject['userId'] = userId;
+    existingProject['userId'] = projectLeadId;
     existingProject['budget'] = budget;
-    await checkProjectStatus(existingProject, status, userTypeId);
+    await checkProjectStatus(existingProject, status, userType);
 
     if (isConfidential && !existingProject['isConfidential']) {
       Nda.create({
@@ -135,7 +144,7 @@ export const updateProject = async (req: Request, res: Response) => {
         businessCategory,
         status,
         region,
-        userId,
+        userId: projectLeadId,
         departmentId,
         currencyId,
       },
@@ -152,13 +161,14 @@ export const updateProjectStatus = async (req: Request, res: Response) => {
   try {
     const projectId: number = req.body.projectId;
     const status: string = req.body.status;
-    const userTypeId: number = res.locals.userTypeId;
+    const userId: number = res.locals.userId;
+    const user = await User.findOne({ where: { id: userId } });
 
     const project: Project = await Project.findOne({
       where: { id: projectId },
     });
 
-    await checkProjectStatus(project, status, userTypeId);
+    await checkProjectStatus(project, status, user['type']);
 
     await project.update({ status });
 
@@ -172,9 +182,8 @@ export const updateProjectStatus = async (req: Request, res: Response) => {
 export const getProjects = async (req: Request, res: Response) => {
   try {
     const userId: number = res.locals.userId;
-    const userTypeId: number = res.locals.userTypeId;
-
     const user = await User.findOne({ where: { id: userId } });
+    const userType = user['type'];
     const departmentId: number = Number(user['departmentId']);
     const orderBy: string = req.query.orderBy;
     const ascending: string = req.query.ascending;
@@ -252,7 +261,7 @@ export const getProjects = async (req: Request, res: Response) => {
     }
 
     // Regular user
-    if (userTypeId == 1) {
+    if (userType == 'Regular') {
       // Project user belongs to
       const projectUsers: Array<ProjectUsers> = await ProjectUsers.findAll({
         where: { userId },
@@ -262,13 +271,13 @@ export const getProjects = async (req: Request, res: Response) => {
         [Op.or]: projectIds,
       };
     }
-    // Department High official
-    if (userTypeId == 2) {
+    // Department Official
+    if (userType == 'Department Official') {
       where['departmentId'] = departmentId;
       where['isConfidential'] = false;
     }
     // Department chief
-    if (userTypeId == 3) {
+    if (userType == 'Department Chief') {
       where['departmentId'] = departmentId;
     }
 
@@ -287,12 +296,13 @@ export const getProject = async (req: Request, res: Response) => {
   try {
     const projectId: number = req.query.projectId;
     const userId: number = res.locals.userId;
-    const userTypeId: number = res.locals.userTypeId;
+    const user = await User.findOne({ where: { id: userId } });
+    const userType = user['type'];
     const where = { id: projectId };
     let isEditable = true;
 
     // Regular user
-    if (userTypeId == 1) {
+    if (userType == 'Regular') {
       // Project user belongs to
       const projectUsers: ProjectUsers = await ProjectUsers.findOne({
         where: { projectId, userId },
@@ -306,8 +316,8 @@ export const getProject = async (req: Request, res: Response) => {
     console.log(where);
     const project: Project = await Project.findOne({ where, include: [Nda] });
 
-    // Department High official cannot edit projects on which he is not a project lead
-    if (userTypeId == 2 && project['userId'] != userId) {
+    // Department Official cannot edit projects on which he is not a project lead
+    if (userType == 'Department Official' && project['userId'] != userId) {
       isEditable = false;
     }
 
@@ -341,7 +351,6 @@ export const getProjectStatuses = async (req: Request, res: Response) => {
 export const getBusinessCategories = async (req: Request, res: Response) => {
   try {
     const businessCategories: any = Project.getAttributes().businessCategory.values;
-    console.log()
     res.status(200).send(businessCategories);
   } catch (err) {
     console.log(err);
@@ -376,7 +385,7 @@ export const deleteProject = async (req: Request, res: Response) => {
 
     const user = await User.findOne({ where: { id: userId } });
     const project = await Project.findOne({ where: { id: projectId } });
-    
+
     const departmentId: number = user['departmentId'];
     const projectUserId = project['userId'];
 
@@ -385,13 +394,13 @@ export const deleteProject = async (req: Request, res: Response) => {
     }
 
     // Department chief can delete any project in his department.
-    // Department high official can only delete his projects.
+    // Department Official can only delete his projects.
     // Regular user cannot delete project.
-    if (user['userTypeId'] == 2 && projectUserId !== userId) {
+    if (user['userType'] == 'Department Official' && projectUserId !== userId) {
       return res.status(403).json({ message: 'You are not authorized to perform this action.' });
     }
-    
-    if (user['userTypeId'] == 1) {
+
+    if (user['userType'] == 'Regular') {
       return res.status(403).json({ message: 'You are not authorized to perform this action.' });
     }
 

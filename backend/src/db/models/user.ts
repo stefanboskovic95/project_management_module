@@ -2,7 +2,6 @@
 
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
-import UserType from './userType';
 
 export default class User extends Model {}
 
@@ -20,14 +19,10 @@ User.init(
     password: DataTypes.STRING,
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
+    type: DataTypes.ENUM('Regular', 'Department Official', 'Department Chief', 'Admin'),
   },
   {
     sequelize: connection,
     modelName: 'user',
   }
 );
-
-User.belongsTo(UserType, {
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
-});

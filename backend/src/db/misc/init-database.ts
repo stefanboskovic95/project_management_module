@@ -4,7 +4,6 @@ import Nda from '../models/nda';
 import Project from '../models/project';
 import ProjectItem from '../models/projectItem';
 import User from '../models/user';
-import UserType from '../models/userType';
 import Currency from '../models/currency';
 import ProjectUsers from '../models/projectUsers';
 
@@ -46,27 +45,6 @@ connection.sync().then(async () => {
     fullName: 'Utilities Department',
   });
 
-  // ==================== UserType ====================
-  await UserType.create({
-    id: 1,
-    type: 'regular',
-  });
-
-  await UserType.create({
-    id: 2,
-    type: 'Department High Official',
-  });
-
-  await UserType.create({
-    id: 3,
-    type: 'Department Chief',
-  });
-
-  await UserType.create({
-    id: 4,
-    type: 'admin',
-  });
-
   // ==================== Users ====================
   await User.create({
     id: 1,
@@ -74,7 +52,7 @@ connection.sync().then(async () => {
     password: '$2b$10$sMuiKseNOSS5.WJRxLdC1.p85cerpkH0sC/KsnqM0/3xRmJV9tMpW', // admin123
     firstName: 'Admin',
     lastName: 'Admin',
-    userTypeId: 4,
+    type: 'Admin',
   });
 
   await User.create({
@@ -83,7 +61,7 @@ connection.sync().then(async () => {
     password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
     firstName: 'Stefan',
     lastName: 'Boskovic',
-    userTypeId: 3,
+    type: 'Department Chief',
     departmentId: 1,
   });
 
@@ -93,7 +71,7 @@ connection.sync().then(async () => {
     password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
     firstName: 'Marko',
     lastName: 'Andrijevic',
-    userTypeId: 3,
+    type: 'Department Chief',
     departmentId: 2,
   });
 
@@ -103,7 +81,7 @@ connection.sync().then(async () => {
     password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
     firstName: 'Goran',
     lastName: 'Stancevic',
-    userTypeId: 3,
+    type: 'Department Chief',
     departmentId: 3,
   });
 
@@ -113,7 +91,7 @@ connection.sync().then(async () => {
     password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
     firstName: 'Mihailo',
     lastName: 'Matejic',
-    userTypeId: 2,
+    type: 'Department Official',
     departmentId: 1,
   });
 
@@ -123,7 +101,7 @@ connection.sync().then(async () => {
     password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
     firstName: 'Marko',
     lastName: 'Stojkovic',
-    userTypeId: 2,
+    type: 'Department Official',
     departmentId: 1,
   });
 
@@ -133,7 +111,7 @@ connection.sync().then(async () => {
     password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
     firstName: 'Aleksandar',
     lastName: 'Vasiljevic',
-    userTypeId: 1,
+    type: 'Regular',
     departmentId: 1,
   });
 
@@ -143,7 +121,7 @@ connection.sync().then(async () => {
     password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
     firstName: 'Uros',
     lastName: 'Nastic',
-    userTypeId: 2,
+    type: 'Department Official',
     departmentId: 1,
   });
 
@@ -153,7 +131,7 @@ connection.sync().then(async () => {
     password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
     firstName: 'Arsen',
     lastName: 'Boljanovic',
-    userTypeId: 1,
+    type: 'Regular',
     departmentId: 1,
   });
 
@@ -163,7 +141,7 @@ connection.sync().then(async () => {
     password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
     firstName: 'Aleksa',
     lastName: 'Grubacic',
-    userTypeId: 1,
+    type: 'Regular',
     departmentId: 1,
   });
 
