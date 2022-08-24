@@ -135,6 +135,12 @@ label {
   float: right;
 }
 
+.flex-item {
+  display: inline-block;
+  margin: auto;
+  width: 100%;
+}
+
 /* (=============== Dropdown stuff ===============) */
 .drop-downs-container {
   border-radius: 5px;

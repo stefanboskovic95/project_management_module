@@ -25,12 +25,6 @@
   width: 1520px;
 }
 
-.flex-item {
-  display: inline-block;
-  margin: auto;
-  width: 100%;
-}
-
 .details-btn {
   padding: 5px 5px;
   margin-top: 0;
