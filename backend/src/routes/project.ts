@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Op } from 'sequelize';
+import { Op, fn, col } from 'sequelize';
 import Project from '../db/models/project';
 import Currency from '../db/models/currency';
 import ProjectUsers from '../db/models/projectUsers';
@@ -92,6 +92,16 @@ const checkProjectStatus = async (project: Project, status: string, userType: st
   });
   if (status == 'Completed' && nonCompletedProjectItems.length > 0) {
     throw new Error('All project items must be in completed state before project can be completed.');
+  }
+
+  // const totalProjectCost = await ProjectItem.findAll({
+  //   attributes: [ [fn('sum', col('cost')), 'total_cost'] ],
+  //   where: { projectId: project['id'] },
+  //   raw: true
+  // });
+
+  if (project['totalCost'] > project['budget']) {
+    throw new Error('Project budget must not ne lower then project cost.');
   }
 };
 
