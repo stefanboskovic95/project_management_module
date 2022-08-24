@@ -41,7 +41,7 @@
             [ngClass]="{ 'error-border': budgetFormControl.hasError('budget') }"
             id="budget"
             name="budget"
-            [(ngModel)]="project.budget"
+            [(ngModel)]="budget"
             ngModel
             [disabled]="!isEditing"
           />
@@ -60,7 +60,7 @@
           class="value-cls"
           id="budgetEur"
           name="budgetEur"
-          [value]="project.budget | currency: 'EUR'"
+          [value]="budget | currency: 'EUR'"
           [disabled]="true"
           style="margin-top: 0px;"
         />
@@ -161,7 +161,7 @@
         <mat-icon class="details-mat-icon">swap_horiz</mat-icon>
       </button>
     </div>
-    <app-project-items *ngIf="getItemsOverview()"></app-project-items>
+    <app-project-items *ngIf="getItemsOverview()" [project]="project"></app-project-items>
     <app-items-details *ngIf="!getItemsOverview()"></app-items-details>
   </div>
 </div>

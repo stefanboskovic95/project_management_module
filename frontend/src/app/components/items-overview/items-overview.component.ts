@@ -1,7 +1,8 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Project } from 'src/app/models/project';
 import { ProjectItem } from 'src/app/models/ProjectItem';
 import { ProjectsService } from 'src/app/services/projects.service';
 
@@ -11,6 +12,8 @@ import { ProjectsService } from 'src/app/services/projects.service';
   styleUrls: ['./items-overview.component.css'],
 })
 export class ItemsOverviewComponent implements OnInit {
+  @Input()
+  project: Project | undefined;
   draftProjectItems: Array<ProjectItem> = [];
   inProgressProjectItems: Array<ProjectItem> = [];
   completedProjectItems: Array<ProjectItem> = [];
@@ -61,11 +64,18 @@ export class ItemsOverviewComponent implements OnInit {
     }
   }
 
+  isAddDisabled() {
+    return this.project && (this.project.budget === 0 || !this.project.budget);
+  }
+
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
   }
 
   goToAddItem() {
+    if (this.isAddDisabled()) {
+      return;
+    }
     this.router.navigate(['/addItem']);
   }
 

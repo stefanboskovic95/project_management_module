@@ -28,3 +28,7 @@ button {
   color: #007904;
   margin: auto;
 }
+
+.disabled-mat-icon{
+  color: #666666;
+}
