@@ -16,6 +16,9 @@ export class AddProjectComponent implements OnInit {
   regions: Array<string> = [];
   isConfidential: boolean = false;
   currencies: Array<Currency> = [];
+  currenciesMap: { [key: number]: number } = {};
+  selectedCurrencyId = 1;
+  budget: number = 0;
 
   constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar, private router: Router) {}
 
@@ -31,6 +34,9 @@ export class AddProjectComponent implements OnInit {
     });
     this.projectsService.getCurrencies().subscribe((currencies) => {
       this.currencies = currencies;
+      for (const currency of currencies) {
+        this.currenciesMap[currency.id] = currency.ratioToEur;
+      }
     });
   }
 
@@ -40,7 +46,7 @@ export class AddProjectComponent implements OnInit {
       .addProject(
         data.name,
         data.description,
-        data.budget ? data.budget : 0,
+        this.getBudgetInEur(),
         data.isConfidential,
         data.nda,
         data.currency ? data.currency : 1,
@@ -58,6 +64,10 @@ export class AddProjectComponent implements OnInit {
           this.openSnackBar(err.error.message);
         },
       });
+  }
+
+  getBudgetInEur() {
+    return this.budget * this.currenciesMap[this.selectedCurrencyId];
   }
 
   openSnackBar(message: string, action: string = 'Dismiss') {
