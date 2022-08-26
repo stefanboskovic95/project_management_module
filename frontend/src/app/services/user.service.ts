@@ -11,7 +11,6 @@ import { User } from '../models/user';
 export class UserService {
   private token: string = '';
   private username: string = '';
-  private type: number = 0;
   private authStatusListener = new Subject<boolean>();
   private tokenTimer: any;
   private errorMsg: string = '';
@@ -51,6 +50,10 @@ export class UserService {
       this.logout();
     }, duration * 1000);
     this.authStatusListener.next(true);
+  }
+
+  getUsers() {
+    return this.http.get<Array<User>>(`${environment.backend_url}/users`);
   }
 
   private saveAuthData(token: string, expirationDate: Date, username: string, userType: string) {

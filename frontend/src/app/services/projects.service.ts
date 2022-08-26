@@ -6,6 +6,7 @@ import { Project } from '../models/project';
 import { Currency } from '../models/currency';
 import { ProjectItem } from '../models/ProjectItem';
 import { ProcurementStatus } from '../models/procurementStatus';
+import { Department } from '../models/department';
 
 @Injectable({
   providedIn: 'root',
@@ -156,11 +157,15 @@ export class ProjectsService {
   }
 
   getDepartmentOfficials() {
-    return this.http.get<Array<User>>(`${environment.backend_url}/department_officials`);
+    return this.http.get<Array<User>>(`${environment.backend_url}/department/officials`);
   }
 
   getUsersInDepartment() {
-    return this.http.get<Array<User>>(`${environment.backend_url}/department_users`);
+    return this.http.get<Array<User>>(`${environment.backend_url}/department/users`);
+  }
+
+  getDepartments() {
+    return this.http.get<Array<Department>>(`${environment.backend_url}/department`);
   }
 
   getRegions() {

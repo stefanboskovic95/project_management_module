@@ -6,4 +6,5 @@ export interface User {
   type: string;
   token: string;
   expiresIn: number;
+  departmentId: number;
 }

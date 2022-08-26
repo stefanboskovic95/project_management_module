@@ -2,7 +2,7 @@ import express, { Router, Request, Response } from 'express';
 import cors from 'cors';
 
 import checkAuth from './middleware/check-auth';
-import { login } from './routes/user';
+import { getUsers, login } from './routes/user';
 import { getDepartments, getDepartmentOfficials, getDepartmentUsers } from './routes/department';
 import {
   createProject,
@@ -40,6 +40,8 @@ router.route('/test').get(async (_: Request, res: Response) => {
 
 router.route('/login').post(login);
 
+router.route('/users').get(checkAuth, getUsers);
+
 router.route('/project').post(checkAuth, createProject);
 router.route('/project').get(checkAuth, getProject);
 router.route('/project').put(checkAuth, updateProject);
@@ -58,9 +60,11 @@ router.route('/project/status').get(checkAuth, getProjectStatuses);
 router.route('/project/status').patch(checkAuth, updateProjectStatus);
 router.route('/project/category').get(checkAuth, getBusinessCategories);
 router.route('/project/regions').get(checkAuth, getRegions);
-router.route('/departments').get(checkAuth, getDepartments);
-router.route('/department_officials').get(checkAuth, getDepartmentOfficials);
-router.route('/department_users').get(checkAuth, getDepartmentUsers);
+
+router.route('/department').get(checkAuth, getDepartments);
+router.route('/department/users').get(checkAuth, getDepartmentUsers);
+router.route('/department/officials').get(checkAuth, getDepartmentOfficials);
+
 router.route('/currencies').get(checkAuth, getCurrencies);
 
 app.use('/', router);

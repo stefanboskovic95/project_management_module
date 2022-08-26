@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../db/models/user';
+import { Op } from 'sequelize';
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -27,6 +28,7 @@ export const login = async (req: Request, res: Response) => {
       username: user['username'],
       firstName: user['firstName'],
       lastName: user['lastName'],
+      type: user['type'],
       token: token,
       expiresIn: 3600,
     });
@@ -36,3 +38,12 @@ export const login = async (req: Request, res: Response) => {
     res.status(400).send({ message: 'Login error' });
   }
 };
+
+export const getUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await User.findAll({ where: { type: { [Op.not]: 'Admin' } }});
+    res.status(200).send(users);
+  } catch (err) {
+    res.status(400).send({ message: err.message })
+  }
+}

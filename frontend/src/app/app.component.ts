@@ -27,6 +27,18 @@ export class AppComponent {
     if (this.authListenerSubscription) this.authListenerSubscription.unsubscribe();
   }
 
+  onLogout() {
+    this.userService.logout();
+  }
+
+  isAdmin() {
+    return this.userService.getUserType() == 'Admin';
+  }
+
+  goToUsers() {
+    this.router.navigate(['users']);
+  }
+
   goToProjects() {
     this.router.navigate(['projectsOverview']);
   }
@@ -35,9 +47,6 @@ export class AppComponent {
     this.router.navigate(['projectsDetails']);
   }
 
-  onLogout() {
-    this.userService.logout();
-  }
 
   goToAddProject() {
     this.router.navigate(['addProject']);

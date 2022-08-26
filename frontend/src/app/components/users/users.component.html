@@ -1,0 +1,57 @@
+<div class="table-container">
+  <div class="flex-item">
+    <div class="float-left-80">
+      <input type="text" id="find" name="find" [formControl]="findFormControl" placeholder="Find users by Id or name" />
+    </div>
+    <button
+      mat-icon-button
+      class="add-user"
+      matTooltip="Add new user"
+    >
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+  </div>
+  <div class="table-border">
+    <div class="items-table-column">
+      <div class="items-table-row">
+        <div class="table-th">
+          <p>Username</p>
+        </div>
+        <div class="table-th">
+          <p>First name</p>
+        </div>
+        <div class="table-th">
+          <p>Last name</p>
+        </div>
+        <div class="table-th">
+          <p>Type</p>
+        </div>
+        <div class="table-th">
+          <p>Department</p>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let user of users" class="items-table-row">
+      <div class="table-td">{{ user.username }}</div>
+      <div class="table-td">{{ user.firstName }}</div>
+      <div class="table-td">{{ user.lastName }}</div>
+      <div class="table-td">{{ user.type }}</div>
+      <div class="table-td">{{ getDepartmentForId(user.departmentId) }}</div>
+      <div class="table-td">
+        <button mat-icon-button class="details-btn" matTooltip="More details about this user">
+          <mat-icon class="details-mat-icon">fullscreen</mat-icon>
+        </button>
+      </div>
+      <div class="table-td">
+        <button
+          mat-icon-button
+          class="details-btn"
+          matTooltip="Delete this user"
+        >
+          <mat-icon class="delete-mat-icon">delete_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

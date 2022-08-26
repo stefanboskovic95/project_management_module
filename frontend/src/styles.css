@@ -94,6 +94,16 @@ label {
   float: right;
 }
 
+.float-left-80 {
+  width: 80%;
+  float: left;
+}
+
+.float-right-20 {
+  width: 20%;
+  float: right;
+}
+
 .check-box{
   width: 48%;
   float: right;
