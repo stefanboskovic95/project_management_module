@@ -52,8 +52,8 @@ export class UserService {
     this.authStatusListener.next(true);
   }
 
-  getUsers() {
-    return this.http.get<Array<User>>(`${environment.backend_url}/users`);
+  getUsers(query: string) {
+    return this.http.get<Array<User>>(`${environment.backend_url}/users?${query}`);
   }
 
   private saveAuthData(token: string, expirationDate: Date, username: string, userType: string) {

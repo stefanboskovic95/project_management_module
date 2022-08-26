@@ -16,6 +16,8 @@ export class UsersComponent implements OnInit {
   departments: Array<Department> = [];
   findFormControl = new FormControl();
 
+  findWhat: string = '';
+
   constructor(private userService: UserService, private projectsService: ProjectsService, private router: Router) { }
 
   ngOnInit(): void {
@@ -23,7 +25,22 @@ export class UsersComponent implements OnInit {
       this.router.navigate(['/']);
     }
 
-    this.userService.getUsers().subscribe({
+    this.getUsers()
+    this.projectsService.getDepartments().subscribe((departments) => {
+      this.departments = departments;
+    });
+    this.findFormControl.valueChanges.subscribe((val) => {
+      this.findWhat = val;
+      this.getUsers();
+    })
+  }
+
+  getUsers() {
+    let queryString = '';
+    if (this.findWhat !== '') {
+      queryString = queryString + `find=${this.findWhat}`;
+    }
+    this.userService.getUsers(queryString).subscribe({
       next: (users) => {
         this.users = users
       },
@@ -31,9 +48,6 @@ export class UsersComponent implements OnInit {
         console.log(err);
       }
     });
-    this.projectsService.getDepartments().subscribe((departments) => {
-      this.departments = departments;
-    })
   }
 
   getDepartmentForId(departmentId: number) {
