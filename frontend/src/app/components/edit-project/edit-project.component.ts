@@ -17,6 +17,7 @@ export class EditProjectComponent implements OnInit {
   regions: Array<string> = [];
   isConfidential: boolean = false;
   currencies: Array<Currency> = [];
+  currenciesMap: { [key: number]: number } = {};
   project: Project | undefined;
   statuses: Array<string> = [];
   isEditing: boolean = false;
@@ -42,6 +43,9 @@ export class EditProjectComponent implements OnInit {
     });
     this.projectsService.getCurrencies().subscribe((currencies) => {
       this.currencies = currencies;
+      for (const currency of currencies) {
+        this.currenciesMap[currency.id] = currency.ratioToEur;
+      }
     });
     this.projectsService.getProjectStatuses().subscribe((statuses) => {
       this.statuses = statuses;
@@ -58,7 +62,7 @@ export class EditProjectComponent implements OnInit {
         this.project.id,
         data.name,
         data.description,
-        data.budget,
+        this.getBudgetInEur(),
         data.isConfidential,
         this.nda,
         data.currencyId,
@@ -111,6 +115,18 @@ export class EditProjectComponent implements OnInit {
     console.log(this.itemsOverview);
     sessionStorage.setItem(this.itemsOverviewName, String(this.itemsOverview));
     return this.itemsOverview;
+  }
+
+  getBudgetInEur() {
+    return this.budget * this.currenciesMap[this.selectedCurrencyId];
+  }
+
+  getBudgetAvailable() {
+    if (!this.project) {
+      return 0;
+    }
+
+    return this.getBudgetInEur() - this.project.totalCost
   }
 
   getItemsOverview() {

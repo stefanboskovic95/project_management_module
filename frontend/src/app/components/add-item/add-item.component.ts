@@ -13,7 +13,10 @@ import { ProjectsService } from 'src/app/services/projects.service';
 })
 export class AddItemComponent implements OnInit {
   project: Project | undefined;
+  cost: number = 0;
   currencies: Array<Currency> = [];
+  currenciesMap: { [key: number]: number } = {};
+  selectedCurrencyId = 1;
 
   constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar, private router: Router) {}
 
@@ -26,6 +29,9 @@ export class AddItemComponent implements OnInit {
     });
     this.projectsService.getCurrencies().subscribe((currencies) => {
       this.currencies = currencies;
+      for (const currency of currencies) {
+        this.currenciesMap[currency.id] = currency.ratioToEur;
+      }
     });
   }
 
@@ -38,7 +44,7 @@ export class AddItemComponent implements OnInit {
         this.project.id,
         formData.name,
         formData.subject,
-        formData.cost,
+        this.getCostInEur(),
         formData.isNdaSigned || false,
         formData.currency
       )
@@ -46,6 +52,10 @@ export class AddItemComponent implements OnInit {
         this._snackBar.open(`Added: "${formData.name}".`, 'Dismiss');
         this.router.navigate(['/editProject']);
       });
+  }
+
+  getCostInEur() {
+    return this.cost * this.currenciesMap[this.selectedCurrencyId];
   }
 
   openSnackBar(message: string, action: string = 'Dismiss') {

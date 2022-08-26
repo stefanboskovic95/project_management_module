@@ -18,6 +18,7 @@ import { ProjectsService } from 'src/app/services/projects.service';
 export class EditItemComponent implements OnInit {
   project: Project | undefined;
   currencies: Array<Currency> = [];
+  currenciesMap: { [key: number]: number } = {};
   isEditing: boolean = false;
   item: ProjectItem | undefined;
   statuses: Array<ProcurementStatus> = [];
@@ -51,6 +52,9 @@ export class EditItemComponent implements OnInit {
     });
     this.projectsService.getCurrencies().subscribe((currencies) => {
       this.currencies = currencies;
+      for (const currency of currencies) {
+        this.currenciesMap[currency.id] = currency.ratioToEur;
+      }
     });
     this.projectsService.getProcurementStatuses().subscribe((statuses) => {
       this.statuses = statuses;
@@ -93,7 +97,7 @@ export class EditItemComponent implements OnInit {
         this.item.id,
         formData.name,
         formData.subject,
-        formData.cost,
+        this.getCostInEur(),
         this.assigneeControl.value,
         formData.isNdaSigned,
         formData.status
@@ -116,6 +120,13 @@ export class EditItemComponent implements OnInit {
           this.openSnackBar(err.error.message);
         }
       });
+  }
+
+  getCostInEur() {
+    if (this.item) {
+      return this.item.cost * this.currenciesMap[this.selectedCurrencyId];
+    }
+    return 0
   }
 
   toggleEditing() {
