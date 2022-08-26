@@ -150,7 +150,7 @@ connection.sync().then(async () => {
   await inv.update({ userId: 3 });
   await util.update({ userId: 4 });
 
-  // ==================== Projects ====================
+  // ==================== Capital Investment Department Projects ====================
   await Project.create({
     id: 1,
     name: 'Izgradnja pristupnih puteva ka mostu na Adi',
@@ -160,7 +160,6 @@ connection.sync().then(async () => {
     isConfidential: false,
     country: 'Serbia',
     status: 'Accepted',
-    currencyId: 1,
     userId: 5,
     businessCategory: 'Investment Project',
     departmentId: 1,
@@ -176,7 +175,6 @@ connection.sync().then(async () => {
     isConfidential: false,
     country: 'Serbia',
     status: 'Deliberation',
-    currencyId: 1,
     userId: 2,
     businessCategory: 'Investment Project',
     departmentId: 1,
@@ -192,7 +190,6 @@ connection.sync().then(async () => {
     isConfidential: false,
     country: 'Serbia',
     status: 'Deliberation',
-    currencyId: 1,
     userId: 2,
     businessCategory: 'Investment Project',
     departmentId: 1,
@@ -208,7 +205,6 @@ connection.sync().then(async () => {
     isConfidential: false,
     country: 'Serbia',
     status: 'Accepted',
-    currencyId: 1,
     userId: 2,
     businessCategory: 'Resource Project',
     departmentId: 1,
@@ -217,35 +213,73 @@ connection.sync().then(async () => {
 
   await Project.create({
     id: 5,
-    name: 'Nabavka 10 vozova tipa Soko',
-    description: 'Nabavka 10 brzih vozova tipa Soko',
-    budget: 10000000.0,
+    name: 'Solar power plant in Grenada',
+    description: 'Solar power plant in Grenada.',
     totalCost: 0,
     isConfidential: false,
-    country: 'Serbia',
+    country: 'Sapin',
     status: 'Draft',
-    currencyId: 1,
-    userId: 2,
-    businessCategory: 'Resource Project',
-    departmentId: 2,
-    region: 'Eastern Europe',
+    businessCategory: 'Development Project',
+    departmentId: 1,
+    region: 'Western Europe',
   });
 
   await Project.create({
     id: 6,
-    name: 'Nabavka 5 miliona kubnih metara prirodnog gasa.',
-    description: 'Nabavka 5 miliona kubnih metara prirodnog gasa.',
-    budget: 10000000.0,
+    name: 'Wind farm plant in Prague',
+    description: 'Wind farm plant in Prague.',
     totalCost: 0,
     isConfidential: false,
-    country: 'Serbia',
+    country: 'Czech Republic',
     status: 'Draft',
-    currencyId: 1,
-    userId: 2,
-    businessCategory: 'Resource Project',
-    departmentId: 2,
-    region: 'Eastern Europe',
+    businessCategory: 'Development Project',
+    departmentId: 1,
+    region: 'Central Europe',
   });
+
+  await Project.create({
+    id: 7,
+    name: 'Pipeline in Antalya',
+    description: 'Pipeline in Antalya.',
+    totalCost: 0,
+    isConfidential: false,
+    country: 'Turkey',
+    status: 'Draft',
+    businessCategory: 'Development Project',
+    departmentId: 1,
+    region: 'Middle East',
+  });
+
+  // ==================== Inventory Department Projects ====================
+  // await Project.create({
+  //   id: ?,
+  //   name: 'Nabavka 10 vozova tipa Soko',
+  //   description: 'Nabavka 10 brzih vozova tipa Soko',
+  //   budget: 10000000.0,
+  //   totalCost: 0,
+  //   isConfidential: false,
+  //   country: 'Serbia',
+  //   status: 'Draft',
+  //   userId: 2,
+  //   businessCategory: 'Resource Project',
+  //   departmentId: 2,
+  //   region: 'Eastern Europe',
+  // });
+
+  // await Project.create({
+  //   id: ?,
+  //   name: 'Nabavka 5 miliona kubnih metara prirodnog gasa.',
+  //   description: 'Nabavka 5 miliona kubnih metara prirodnog gasa.',
+  //   budget: 10000000.0,
+  //   totalCost: 0,
+  //   isConfidential: false,
+  //   country: 'Serbia',
+  //   status: 'Draft',
+  //   userId: 2,
+  //   businessCategory: 'Resource Project',
+  //   departmentId: 2,
+  //   region: 'Eastern Europe',
+  // });
 
   // ==================== ProjectItems ====================
   await ProjectItem.create({

@@ -2,7 +2,6 @@
 
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection/connection';
-import Currency from './currency';
 import Department from './department';
 import Nda from './nda';
 import ProjectItem from './projectItem';
@@ -59,11 +58,6 @@ Department.hasMany(Project, {
 });
 
 Project.hasOne(Nda, {
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
-});
-
-Project.belongsTo(Currency, {
   onUpdate: 'SET NULL',
   onDelete: 'SET NULL',
 });

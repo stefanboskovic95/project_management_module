@@ -26,7 +26,6 @@ export const createProject = async (req: Request, res: Response) => {
     const region: string = req.body.region;
     const userId: number = req.body.projectLeadId;
     const departmentId: number = req.body.departmentId;
-    const currencyId: number = req.body.currencyId | 1;
     const ndaText: string = req.body.nda;
 
     const project = await Project.create({
@@ -37,7 +36,6 @@ export const createProject = async (req: Request, res: Response) => {
       isConfidential,
       country,
       region,
-      currencyId,
       status,
       businessCategory,
       userId: userId ? userId : null,
@@ -124,7 +122,6 @@ export const updateProject = async (req: Request, res: Response) => {
     const region: string = req.body.region;
     const projectLeadId: number = req.body.projectLeadId;
     const departmentId: number = req.body.departmentId;
-    const currencyId: number = req.body.currencyId;
     const ndaText: string = req.body.nda;
 
     const existingProject = await Project.findOne({ where: { id: projectId } });
@@ -156,7 +153,6 @@ export const updateProject = async (req: Request, res: Response) => {
         region,
         userId: projectLeadId,
         departmentId,
-        currencyId,
       },
       { where: { id: projectId } }
     );
