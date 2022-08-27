@@ -1,3 +1,54 @@
-<h1>
-  Hello {{ user?.username }}
-</h1>
+<div class="form-container" *ngIf="user">
+  <div class="title-box">
+    <h1>User Details</h1>
+    <button class="details-btn" mat-menu-item (click)="toggleEditing()" matTooltip="Edit project">
+      <mat-icon class="details-mat-icon">edit</mat-icon>
+    </button>
+  </div>
+  <form #editUserForm="ngForm" (ngSubmit)="submitItem()">
+    <div class="vertical-spacer">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" [(ngModel)]="user.username" [disabled]="!isEditing" />
+    </div>
+
+    <div class="flex-item">
+      <div class="half-width-float-left">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" [(ngModel)]="user.firstName" [disabled]="!isEditing" />
+      </div>
+      <div class="half-width-float-right">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" [(ngModel)]="user.lastName" [disabled]="!isEditing" />
+      </div>
+    </div>
+
+    <div class="flex-item">
+      <div class="half-width-float-left">
+        <label for="firstName">Password</label>
+        <input type="password" id="password" name="password" [formControl]="passwordFormControl"
+          [ngClass]="{ 'error-border': passwordFormControl.hasError('password') }"/>
+      </div>
+      <div class="half-width-float-right">
+        <label for="passwordRepeat">Repeat password</label>
+        <input type="password" id="passwordRepeat" name="passwordRepeat" [formControl]="passwordRepeatFormControl"
+          [ngClass]="{ 'error-border': passwordRepeatFormControl.hasError('password') }"/>
+      </div>
+    </div>
+
+    <div class="flex-item">
+      <div class="half-width-float-left">
+        <label for="type">User Type</label>
+        <select id="type" name="type" [(ngModel)]="selectedType" [disabled]="!isEditing">
+          <option *ngFor="let type of userTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+      <div class="half-width-float-right">
+        <label for="department">Department</label>
+        <select id="department" name="department" [(ngModel)]="selectedDepartmentId" [disabled]="!isEditing">
+          <option *ngFor="let department of departments" [value]="department.id">{{ department.fullName }}</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" [disabled]="!isEditing">Submit</button>
+  </form>
+</div>

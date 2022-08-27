@@ -120,9 +120,11 @@ export const createUser = async (req: Request, res: Response) => {
       return res.status(403).send({ message: 'Creating admin accounts is prohibited! '});
     }
 
+    const hash = await bcrypt.hash(password, 10);
+
     const newUser = await User.create({
       username,
-      password,
+      password: hash,
       firstName,
       lastName,
       type,
@@ -145,6 +147,7 @@ export const updateUser = async (req: Request, res: Response) => {
       return res.status(403).send({ message: 'You do not have permissions to access this API.' })
     }
 
+    console.log(req.body);
     const id = req.body.id;
     const username = req.body.username;
     const password = req.body.password;
@@ -153,16 +156,23 @@ export const updateUser = async (req: Request, res: Response) => {
     const type = req.body.type;
     const departmentId = req.body.departmentId;
 
+    let updateWhat: any = {
+      username,
+      firstName,
+      lastName,
+      type,
+      departmentId,
+    };
+    if (password) {
+      const hash = await bcrypt.hash(password, 10);
+      updateWhat = { ...updateWhat, password: hash };
+    }
+
     const newUser = await User.update(
       {
-        username,
-        password,
-        firstName,
-        lastName,
-        type,
-        departmentId,
+        ...updateWhat
       },
-      { where: id }
+      { where: { id } }
     );
     
     await updateDepartmentChief(type, departmentId);

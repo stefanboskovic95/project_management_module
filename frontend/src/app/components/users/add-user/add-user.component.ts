@@ -28,13 +28,14 @@ export class AddUserComponent implements OnInit {
     });
     this.projectService.getDepartments().subscribe((departments) => {
       this.departments = departments;
-    })
+    });
   }
 
   submitItem(data: any) {
     if (this.passwordFormControl.value !== this.passwordRepeatFormControl.value) {
       this.passwordFormControl.setErrors({ password: true });
       this.passwordRepeatFormControl.setErrors({ password: true });
+      return;
     }
 
     this.userService.createUser(
@@ -47,7 +48,7 @@ export class AddUserComponent implements OnInit {
     ).subscribe(() => {
       this._snackBar.open(`Added: "${data.username}".`, 'Dismiss');
       this.router.navigate(['/users']);
-    })
+    });
   }
 
 }
