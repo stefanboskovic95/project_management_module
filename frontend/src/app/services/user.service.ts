@@ -56,6 +56,32 @@ export class UserService {
     return this.http.get<Array<User>>(`${environment.backend_url}/users?${query}`);
   }
 
+  getUser(userId: number) {
+    return this.http.get<User>(`${environment.backend_url}/user?id=${userId}`);
+  }
+
+  createUser(username: string, password: string, firstName: string, lastName: string, type: string, departmentId: number) {
+    return this.http.post<User>(`${environment.backend_url}/user`, {
+      username,
+      password,
+      firstName,
+      lastName,
+      type,
+      departmentId,
+    });
+  }
+
+  updateUser(username: string, password: string, firstName: string, lastName: string, type: string, departmentId: number) {
+    return this.http.put<User>(`${environment.backend_url}/user`, {
+      username,
+      password,
+      firstName,
+      lastName,
+      type,
+      departmentId,
+    });
+  }
+
   private saveAuthData(token: string, expirationDate: Date, username: string, userType: string) {
     sessionStorage.setItem('token', token);
     sessionStorage.setItem('expirationDate', expirationDate.toISOString());
@@ -99,6 +125,14 @@ export class UserService {
     };
   }
 
+  setSelectedUserId(userId: number) {
+    sessionStorage.setItem('selectedUserId', userId.toString());
+  }
+
+  getSelectedUserId() {
+    return Number(sessionStorage.getItem('selectedUserId'));
+  }
+
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
   }
@@ -121,5 +155,9 @@ export class UserService {
 
   getUserType() {
     return sessionStorage.getItem('userType');
+  }
+
+  isAdmin() {
+    return this.getUserType() == 'Admin';
   }
 }

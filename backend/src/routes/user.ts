@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../db/models/user';
 import { Op } from 'sequelize';
+import Department from '../db/models/department';
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -41,6 +42,11 @@ export const login = async (req: Request, res: Response) => {
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
+    const user = await User.findOne({ where: { id: res.locals.userId }});
+    if (user['type'] !== 'Admin') {
+      return res.status(403).send({ message: 'You do not have permissions to access this API.' })
+    }
+
     const where = { type: { [Op.not]: 'Admin' } }
     
     // Finding
@@ -50,9 +56,120 @@ export const getUsers = async (req: Request, res: Response) => {
       where['username'] = { [Op.like]: `%${findWhat}%` };
     }
     
-    const users = await User.findAll({ where });
+    const users = await User.findAll({
+      attributes: { exclude: ['password'] },
+      where,
+    });
     res.status(200).send(users);
   } catch (err) {
+    console.log(err);
     res.status(400).send({ message: err.message })
   }
+};
+
+export const getUser = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findOne({ where: { id: res.locals.userId }});
+    if (user['type'] !== 'Admin') {
+      return res.status(403).send({ message: 'You do not have permissions to access this API.' })
+    }
+
+    const id = req.query.id;
+
+    const foundUser = await User.findOne({
+      attributes: { exclude: ['password'] },
+      where: { id }
+    });
+    
+    res.status(200).send(foundUser);
+  } catch(err) {
+    console.log(err);
+    res.status(400).send({ message: err.message })
+  }
+};
+
+const updateDepartmentChief = async (type, departmentId) => {
+  // If user is upgraded to Department Chief.
+  if (type == 'Department Chief') {
+    const department = await Department.findOne({ where: { id: departmentId } });
+    // Update type of previous department chief.
+    await User.update(
+      {
+        type: 'Department Official',
+      },
+      { where: { id: department['userId'] } }
+    );
+  }
 }
+
+export const createUser = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findOne({ where: { id: res.locals.userId }});
+    if (user['type'] !== 'Admin') {
+      return res.status(403).send({ message: 'You do not have permissions to access this API.' })
+    }
+
+    const username = req.body.username;
+    const password = req.body.password;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const type = req.body.type;
+    const departmentId = req.body.departmentId;
+
+    if (type === 'Admin') {
+      return res.status(403).send({ message: 'Creating admin accounts is prohibited! '});
+    }
+
+    const newUser = await User.create({
+      username,
+      password,
+      firstName,
+      lastName,
+      type,
+      departmentId,
+    });
+    
+    await updateDepartmentChief(type, departmentId);
+
+    res.status(200).send(newUser);
+  } catch(err) {
+    console.log(err);
+    res.status(400).send({ message: err.message })
+  }
+};
+
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findOne({ where: { id: res.locals.userId }});
+    if (user['type'] !== 'Admin') {
+      return res.status(403).send({ message: 'You do not have permissions to access this API.' })
+    }
+
+    const id = req.body.id;
+    const username = req.body.username;
+    const password = req.body.password;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const type = req.body.type;
+    const departmentId = req.body.departmentId;
+
+    const newUser = await User.update(
+      {
+        username,
+        password,
+        firstName,
+        lastName,
+        type,
+        departmentId,
+      },
+      { where: id }
+    );
+    
+    await updateDepartmentChief(type, departmentId);
+
+    res.status(200).send(newUser);
+  } catch(err) {
+    console.log(err);
+    res.status(400).send({ message: err.message })
+  }
+};

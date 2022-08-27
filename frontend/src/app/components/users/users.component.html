@@ -5,6 +5,7 @@
     </div>
     <button
       mat-icon-button
+      (click)="goToAddUser()"
       class="add-user"
       matTooltip="Add new user"
     >
@@ -38,7 +39,7 @@
       <div class="table-td">{{ user.type }}</div>
       <div class="table-td">{{ getDepartmentForId(user.departmentId) }}</div>
       <div class="table-td">
-        <button mat-icon-button class="details-btn" matTooltip="More details about this user">
+        <button mat-icon-button class="details-btn" matTooltip="More details about this user" (click)="goToEditUser(user.id)">
           <mat-icon class="details-mat-icon">fullscreen</mat-icon>
         </button>
       </div>

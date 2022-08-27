@@ -54,4 +54,12 @@ export class UsersComponent implements OnInit {
     return this.departments.find((department) => department.id == departmentId)?.abbrev;
   }
 
+  goToAddUser() {
+    this.router.navigate(['/addUser']);
+  }
+
+  goToEditUser(userId: number) {
+    this.userService.setSelectedUserId(userId)
+    this.router.navigate(['/editUser']);
+  }
 }

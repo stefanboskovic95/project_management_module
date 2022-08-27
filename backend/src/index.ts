@@ -2,7 +2,7 @@ import express, { Router, Request, Response } from 'express';
 import cors from 'cors';
 
 import checkAuth from './middleware/check-auth';
-import { getUsers, login } from './routes/user';
+import { createUser, getUser, getUsers, login, updateUser } from './routes/user';
 import { getDepartments, getDepartmentOfficials, getDepartmentUsers } from './routes/department';
 import {
   createProject,
@@ -41,6 +41,9 @@ router.route('/test').get(async (_: Request, res: Response) => {
 router.route('/login').post(login);
 
 router.route('/users').get(checkAuth, getUsers);
+router.route('/user').get(checkAuth, getUser)
+router.route('/user').post(checkAuth, createUser)
+router.route('/user').put(checkAuth, updateUser)
 
 router.route('/project').post(checkAuth, createProject);
 router.route('/project').get(checkAuth, getProject);

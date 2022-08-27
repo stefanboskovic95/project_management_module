@@ -22,7 +22,11 @@ export class LoginComponent implements OnInit {
           this.message = this.userService.getErrorMsg();
           return;
         }
-        this.router.navigate(['/projectsOverview']);
+        if (this.userService.getUserType() == 'Admin') {
+          this.router.navigate(['/users']);
+        } else {
+          this.router.navigate(['/projectsOverview']);
+        }
       },
       error: (err) => {
         this.message = err.message;

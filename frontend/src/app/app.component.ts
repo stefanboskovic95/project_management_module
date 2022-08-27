@@ -32,21 +32,24 @@ export class AppComponent {
   }
 
   isAdmin() {
-    return this.userService.getUserType() == 'Admin';
+    return this.userService.isAdmin();
   }
 
   goToUsers() {
     this.router.navigate(['users']);
   }
 
-  goToProjects() {
-    this.router.navigate(['projectsOverview']);
+  goToHome() {
+    if (this.isAdmin()) {
+      this.router.navigate(['users']);
+    } else {
+      this.router.navigate(['projectsOverview']);
+    }
   }
 
   goToProjectsDetails() {
     this.router.navigate(['projectsDetails']);
   }
-
 
   goToAddProject() {
     this.router.navigate(['addProject']);

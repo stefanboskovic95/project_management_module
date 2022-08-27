@@ -7,9 +7,9 @@
     src="assets/images/project_management.png"
     class="img-head"
   />
-  <h2 style="margin-left: 15px" (click)="goToProjects()">Project Management Module</h2>
+  <h2 style="margin-left: 15px" (click)="goToHome()">Project Management Module</h2>
   <span class="spacer"></span>
-  <button *ngIf="isAuthenticated" mat-icon-button class="navbar-btn" (click)="goToProjects()">
+  <button *ngIf="isAuthenticated" mat-icon-button class="navbar-btn" (click)="goToHome()">
     <mat-icon aria-hidden="false" aria-label="Home icon">home</mat-icon>
   </button>
   <button
@@ -22,7 +22,7 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="goToProjects()" *ngIf="!isAdmin()">
+    <button mat-menu-item (click)="goToHome()" *ngIf="!isAdmin()">
       <mat-icon>insert_chart_outlined</mat-icon>
       <span>Projects overview</span>
     </button>
