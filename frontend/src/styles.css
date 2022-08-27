@@ -84,6 +84,12 @@ label {
   width: 100%;
 }
 
+.flex-item {
+  display: inline-block;
+  margin: auto;
+  width: 100%;
+}
+
 .half-width-float-left {
   width: 48%;
   float: left;
@@ -145,11 +151,6 @@ label {
   float: right;
 }
 
-.flex-item {
-  display: inline-block;
-  margin: auto;
-  width: 100%;
-}
 
 /* (=============== Dropdown stuff ===============) */
 .drop-downs-container {

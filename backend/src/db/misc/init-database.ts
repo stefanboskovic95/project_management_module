@@ -49,7 +49,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 1,
     username: 'admin',
-    password: '$2b$10$sMuiKseNOSS5.WJRxLdC1.p85cerpkH0sC/KsnqM0/3xRmJV9tMpW', // admin123
+    password: '$2b$10$x3OncjXdHLIuXktxYqIIvOM6HF2gFDxBXa3WnubiQvN8AYbgRwezm', // Tranquility78@.'
     firstName: 'Admin',
     lastName: 'Admin',
     type: 'Admin',

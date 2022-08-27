@@ -173,3 +173,18 @@ export const updateUser = async (req: Request, res: Response) => {
     res.status(400).send({ message: err.message })
   }
 };
+
+export const getUserTypes = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findOne({ where: { id: res.locals.userId }});
+    if (user['type'] !== 'Admin') {
+      return res.status(403).send({ message: 'You do not have permissions to access this API.' })
+    }
+
+    const userTypes = User.getAttributes().type.values;
+    res.status(200).send(userTypes);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({ message: err.message })
+  }
+}

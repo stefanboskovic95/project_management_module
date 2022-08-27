@@ -1,1 +1,49 @@
-<p>add-user works!</p>
+<div class="form-container">
+  <h1>Add User</h1>
+  <form #addUserForm="ngForm" (ngSubmit)="submitItem(addUserForm.value)">
+    <div class="vertical-spacer">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" ngModel />
+    </div>
+
+    <div class="flex-item">
+      <div class="half-width-float-left">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" ngModel />
+      </div>
+      <div class="half-width-float-right">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" ngModel />
+      </div>
+    </div>
+
+    <div class="flex-item">
+      <div class="half-width-float-left">
+        <label for="firstName">Password</label>
+        <input type="password" id="password" name="password" [formControl]="passwordFormControl"
+          [ngClass]="{ 'error-border': passwordFormControl.hasError('password') }" />
+      </div>
+      <div class="half-width-float-right">
+        <label for="passwordRepeat">Repeat password</label>
+        <input type="password" id="passwordRepeat" name="passwordRepeat" [formControl]="passwordRepeatFormControl"
+          [ngClass]="{ 'error-border': passwordRepeatFormControl.hasError('password') }" />
+      </div>
+    </div>
+
+    <div class="flex-item">
+      <div class="half-width-float-left">
+        <label for="type">User Type</label>
+        <select id="type" name="type" [(ngModel)]="selectedType">
+          <option *ngFor="let type of userTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+      <div class="half-width-float-right">
+        <label for="department">Department</label>
+        <select id="department" name="department" [(ngModel)]="selectedDepartmentId">
+          <option *ngFor="let department of departments" [value]="department.id">{{ department.fullName }}</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>

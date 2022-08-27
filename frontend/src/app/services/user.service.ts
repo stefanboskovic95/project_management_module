@@ -52,6 +52,10 @@ export class UserService {
     this.authStatusListener.next(true);
   }
 
+  getUserTypes() {
+    return this.http.get<Array<string>>(`${environment.backend_url}/user/type`);
+  }
+
   getUsers(query: string) {
     return this.http.get<Array<User>>(`${environment.backend_url}/users?${query}`);
   }
