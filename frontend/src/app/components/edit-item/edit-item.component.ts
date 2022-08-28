@@ -109,16 +109,16 @@ export class EditItemComponent implements OnInit {
         },
         error: (err) => {
           if (err.error.message.includes('cost')) {
-            this.costFormControl.setErrors({cost: true})
+            this.costFormControl.setErrors({ cost: true });
           }
           if (err.error.message.includes('name')) {
-            this.nameFormControl.setErrors({name: true})
+            this.nameFormControl.setErrors({ name: true });
           }
           if (err.error.message.includes('assignee')) {
-            this.assigneeControl.setErrors({assignee: true})
+            this.assigneeControl.setErrors({ assignee: true });
           }
           this.openSnackBar(err.error.message);
-        }
+        },
       });
   }
 
@@ -126,7 +126,7 @@ export class EditItemComponent implements OnInit {
     if (this.item) {
       return this.item.cost * this.currenciesMap[this.selectedCurrencyId];
     }
-    return 0
+    return 0;
   }
 
   toggleEditing() {

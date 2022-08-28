@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  styleUrls: ['./add-user.component.css'],
 })
 export class AddUserComponent implements OnInit {
   departments: Array<Department> = [];
@@ -19,12 +19,17 @@ export class AddUserComponent implements OnInit {
   passwordFormControl = new FormControl();
   passwordRepeatFormControl = new FormControl();
 
-  constructor(private userService: UserService, private projectService: ProjectsService, private _snackBar: MatSnackBar, private router: Router) { }
+  constructor(
+    private userService: UserService,
+    private projectService: ProjectsService,
+    private _snackBar: MatSnackBar,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.userService.getUserTypes().subscribe((userTypes) => {
       this.userTypes = userTypes;
-      console.log(userTypes)
+      console.log(userTypes);
     });
     this.projectService.getDepartments().subscribe((departments) => {
       this.departments = departments;
@@ -38,17 +43,18 @@ export class AddUserComponent implements OnInit {
       return;
     }
 
-    this.userService.createUser(
-      data.username,
-      this.passwordFormControl.value,
-      data.firstName,
-      data.lastName,
-      this.selectedType,
-      this.selectedDepartmentId,
-    ).subscribe(() => {
-      this._snackBar.open(`Added: "${data.username}".`, 'Dismiss');
-      this.router.navigate(['/users']);
-    });
+    this.userService
+      .createUser(
+        data.username,
+        this.passwordFormControl.value,
+        data.firstName,
+        data.lastName,
+        this.selectedType,
+        this.selectedDepartmentId
+      )
+      .subscribe(() => {
+        this._snackBar.open(`Added: "${data.username}".`, 'Dismiss');
+        this.router.navigate(['/users']);
+      });
   }
-
 }

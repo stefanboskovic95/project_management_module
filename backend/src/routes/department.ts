@@ -15,7 +15,9 @@ export const getDepartments = async (req: Request, res: Response) => {
 
 export const getProjectLeads = async (userId: number) => {
   const user = await User.findOne({ where: { id: userId } });
-  const users = await User.findAll({ where: { departmentId: user['departmentId'], type: { [Op.or]: ['Department Official', 'Department Chief'] } } });
+  const users = await User.findAll({
+    where: { departmentId: user['departmentId'], type: { [Op.or]: ['Department Official', 'Department Chief'] } },
+  });
   return users;
 };
 

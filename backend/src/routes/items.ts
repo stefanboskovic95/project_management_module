@@ -230,13 +230,13 @@ export const deleteProjectItem = async (req: Request, res: Response) => {
     }
 
     if (['In Progress', 'Completed'].includes(projectItem['status'])) {
-      return res.status(400).json({ message: 'You cannot delete project item that is completed or in progress.' })
+      return res.status(400).json({ message: 'You cannot delete project item that is completed or in progress.' });
     }
 
     await ProjectItem.destroy({ where: { id } });
 
     const reducedProjectCost = project['totalCost'] - projectItem['cost'];
-    await project.update({ totalCost: reducedProjectCost })
+    await project.update({ totalCost: reducedProjectCost });
     res.status(200).send({ message: 'ok' });
   } catch (err) {
     console.error(err);

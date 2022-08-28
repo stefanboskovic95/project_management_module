@@ -64,7 +64,14 @@ export class UserService {
     return this.http.get<User>(`${environment.backend_url}/user?id=${userId}`);
   }
 
-  createUser(username: string, password: string, firstName: string, lastName: string, type: string, departmentId: number) {
+  createUser(
+    username: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    type: string,
+    departmentId: number
+  ) {
     return this.http.post<User>(`${environment.backend_url}/user`, {
       username,
       password,
@@ -75,7 +82,15 @@ export class UserService {
     });
   }
 
-  updateUser(id: number, username: string, password: string, firstName: string, lastName: string, type: string, departmentId: number) {
+  updateUser(
+    id: number,
+    username: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    type: string,
+    departmentId: number
+  ) {
     return this.http.put<User>(`${environment.backend_url}/user`, {
       id,
       username,

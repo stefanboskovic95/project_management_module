@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.css']
+  styleUrls: ['./edit-user.component.css'],
 })
 export class EditUserComponent implements OnInit {
   user: User | undefined;
@@ -21,7 +21,11 @@ export class EditUserComponent implements OnInit {
   passwordRepeatFormControl = new FormControl();
   isEditing: boolean = false;
 
-  constructor(private userService: UserService, private projectService: ProjectsService, private _snackBar: MatSnackBar) { }
+  constructor(
+    private userService: UserService,
+    private projectService: ProjectsService,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.userService.getUser(this.userService.getSelectedUserId()).subscribe({
@@ -32,11 +36,11 @@ export class EditUserComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-      }
+      },
     });
     this.userService.getUserTypes().subscribe((userTypes) => {
       this.userTypes = userTypes;
-      console.log(userTypes)
+      console.log(userTypes);
     });
     this.projectService.getDepartments().subscribe((departments) => {
       this.departments = departments;
@@ -56,26 +60,29 @@ export class EditUserComponent implements OnInit {
       return;
     }
 
-    this.userService.updateUser(
-      this.user.id,
-      this.user.username,
-      this.passwordFormControl.value,
-      this.user.firstName,
-      this.user.lastName,
-      this.selectedType,
-      this.selectedDepartmentId,
-    ).subscribe(() => {
-      if (this.user) {
-        this._snackBar.open(`Updated: "${this.user.username}".`, 'Dismiss');
-        this.toggleEditing();
-      }
-    })
+    this.userService
+      .updateUser(
+        this.user.id,
+        this.user.username,
+        this.passwordFormControl.value,
+        this.user.firstName,
+        this.user.lastName,
+        this.selectedType,
+        this.selectedDepartmentId
+      )
+      .subscribe(() => {
+        if (this.user) {
+          this._snackBar.open(`Updated: "${this.user.username}".`, 'Dismiss');
+          this.toggleEditing();
+        }
+      });
   }
 
-   toggleEditing() {
+  toggleEditing() {
     this.isEditing = !this.isEditing;
     this.passwordFormControl.disabled ? this.passwordFormControl.enable() : this.passwordFormControl.disable();
-    this.passwordRepeatFormControl.disabled ? this.passwordRepeatFormControl.enable() : this.passwordRepeatFormControl.disable();
-   }
-
+    this.passwordRepeatFormControl.disabled
+      ? this.passwordRepeatFormControl.enable()
+      : this.passwordRepeatFormControl.disable();
+  }
 }

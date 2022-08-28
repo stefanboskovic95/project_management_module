@@ -9,7 +9,7 @@ import ProjectItem from '../db/models/projectItem';
 
 export const createProject = async (req: Request, res: Response) => {
   try {
-    const user = await User.findOne({ where: { id: res.locals.userId }});
+    const user = await User.findOne({ where: { id: res.locals.userId } });
     const userType = user['type'];
     if (userType === 'Regular') {
       return res.status(403).send({ message: 'You are not authorized to preform this action.' });
@@ -105,7 +105,7 @@ const checkProjectStatus = async (project: Project, status: string, userType: st
 
 export const updateProject = async (req: Request, res: Response) => {
   try {
-    const user = await User.findOne({ where: { id: res.locals.userId }});
+    const user = await User.findOne({ where: { id: res.locals.userId } });
     const userType = user['type'];
     if (userType === 'Regular') {
       return res.status(403).json({ message: 'You are not authorized to preform this action.' });

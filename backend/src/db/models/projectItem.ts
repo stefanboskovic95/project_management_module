@@ -12,7 +12,7 @@ ProjectItem.init(
       primaryKey: true,
       autoIncrement: true,
       type: DataTypes.INTEGER,
-      unique: 'project_item'
+      unique: 'project_item',
     },
     name: DataTypes.STRING,
     subject: DataTypes.STRING,

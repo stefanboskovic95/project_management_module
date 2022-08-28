@@ -3,12 +3,7 @@
     <div class="float-left-80">
       <input type="text" id="find" name="find" [formControl]="findFormControl" placeholder="Find users by username" />
     </div>
-    <button
-      mat-icon-button
-      (click)="goToAddUser()"
-      class="add-user"
-      matTooltip="Add new user"
-    >
+    <button mat-icon-button (click)="goToAddUser()" class="add-user" matTooltip="Add new user">
       <mat-icon>add_circle_outline</mat-icon>
     </button>
   </div>
@@ -39,21 +34,20 @@
       <div class="table-td">{{ user.type }}</div>
       <div class="table-td">{{ getDepartmentForId(user.departmentId) }}</div>
       <div class="table-td">
-        <button mat-icon-button class="details-btn" matTooltip="More details about this user" (click)="goToEditUser(user.id)">
+        <button
+          mat-icon-button
+          class="details-btn"
+          matTooltip="More details about this user"
+          (click)="goToEditUser(user.id)"
+        >
           <mat-icon class="details-mat-icon">fullscreen</mat-icon>
         </button>
       </div>
       <div class="table-td">
-        <button
-          mat-icon-button
-          class="details-btn"
-          (click)="deleteUser(user.id)"
-          matTooltip="Delete this user"
-        >
+        <button mat-icon-button class="details-btn" (click)="deleteUser(user.id)" matTooltip="Delete this user">
           <mat-icon class="delete-mat-icon">delete_outline</mat-icon>
         </button>
       </div>
     </div>
   </div>
 </div>
-

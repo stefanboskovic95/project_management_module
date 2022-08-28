@@ -109,16 +109,15 @@ export class ItemsDetailsComponent implements OnInit {
     this.router.navigate(['/editItem']);
   }
 
-  
   deleteProjectItem(itemId: number) {
     this.projectsService.deleteProjectItem(itemId).subscribe({
       next: () => {
-        this.getProjectItems()
+        this.getProjectItems();
       },
       error: (err) => {
         this.openSnackBar(err.error.message);
-      }
-    })
+      },
+    });
   }
 
   getItemStatus(statusId: number) {

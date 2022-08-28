@@ -19,7 +19,7 @@
     <div class="flex-item">
       <div class="half-width-float-left">
         <label for="cost">Cost</label>
-        <input type="number" id="cost" name="cost" ngModel [(ngModel)]="cost"/>
+        <input type="number" id="cost" name="cost" ngModel [(ngModel)]="cost" />
       </div>
       <div class="half-width-float-right">
         <label for="currency">Currency</label>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="flex-item">
-      <div class="half-width-float-left" >
+      <div class="half-width-float-left">
         <input
           type="text"
           class="value-cls"
@@ -38,7 +38,7 @@
           name="constEur"
           [value]="getCostInEur() | currency: 'EUR'"
           [disabled]="true"
-          style="margin-top: 0px;"
+          style="margin-top: 0px"
         />
       </div>
     </div>

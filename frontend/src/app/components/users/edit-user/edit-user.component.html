@@ -25,13 +25,23 @@
     <div class="flex-item">
       <div class="half-width-float-left">
         <label for="firstName">Password</label>
-        <input type="password" id="password" name="password" [formControl]="passwordFormControl"
-          [ngClass]="{ 'error-border': passwordFormControl.hasError('password') }"/>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [formControl]="passwordFormControl"
+          [ngClass]="{ 'error-border': passwordFormControl.hasError('password') }"
+        />
       </div>
       <div class="half-width-float-right">
         <label for="passwordRepeat">Repeat password</label>
-        <input type="password" id="passwordRepeat" name="passwordRepeat" [formControl]="passwordRepeatFormControl"
-          [ngClass]="{ 'error-border': passwordRepeatFormControl.hasError('password') }"/>
+        <input
+          type="password"
+          id="passwordRepeat"
+          name="passwordRepeat"
+          [formControl]="passwordRepeatFormControl"
+          [ngClass]="{ 'error-border': passwordRepeatFormControl.hasError('password') }"
+        />
       </div>
     </div>
 

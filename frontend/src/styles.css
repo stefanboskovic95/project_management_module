@@ -38,7 +38,7 @@ input {
   box-sizing: border-box;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   width: 25px;
 }
 
@@ -49,7 +49,6 @@ input[disabled] {
   color: black;
   background-color: #dddddd;
 }
-
 
 label {
   cursor: pointer;
@@ -110,10 +109,10 @@ label {
   float: right;
 }
 
-.check-box{
+.check-box {
   width: 48%;
   float: right;
-} 
+}
 
 .checkbox-section {
   margin: 12px 0;
@@ -150,7 +149,6 @@ label {
 .h3-w-button button {
   float: right;
 }
-
 
 /* (=============== Dropdown stuff ===============) */
 .drop-downs-container {

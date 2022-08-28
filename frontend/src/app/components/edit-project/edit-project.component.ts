@@ -80,7 +80,7 @@ export class EditProjectComponent implements OnInit {
         },
         error: (err) => {
           const msg = err.error.message;
-          console.log(err.error.message)
+          console.log(err.error.message);
           if (msg.includes('budget')) {
             this.budgetFormControl.setErrors({ budget: true });
           } else if (msg.includes('Project lead')) {
@@ -98,12 +98,12 @@ export class EditProjectComponent implements OnInit {
         this.budget = project.budget;
         this.isConfidential = project.isConfidential;
         this.isEditable = project.isEditable;
-        console.log(`isEditable: ${project.isEditable}`)
+        console.log(`isEditable: ${project.isEditable}`);
         this.nda = this.project?.nda ? this.project.nda.text : '';
       },
       error: (err) => {
         this.openSnackBar(err.error.message);
-      }
+      },
     });
   }
 
@@ -134,7 +134,7 @@ export class EditProjectComponent implements OnInit {
       return 0;
     }
 
-    return this.getBudgetInEur() - this.project.totalCost
+    return this.getBudgetInEur() - this.project.totalCost;
   }
 
   getItemsOverview() {

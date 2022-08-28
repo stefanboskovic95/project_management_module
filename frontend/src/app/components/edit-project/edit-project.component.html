@@ -2,7 +2,13 @@
   <div class="form-container">
     <div class="title-box">
       <h1>Project Details</h1>
-      <button class="details-btn" mat-menu-item (click)="toggleEditing()" matTooltip="Edit project" [disabled]="!isEditable">
+      <button
+        class="details-btn"
+        mat-menu-item
+        (click)="toggleEditing()"
+        matTooltip="Edit project"
+        [disabled]="!isEditable"
+      >
         <mat-icon class="details-mat-icon">edit</mat-icon>
       </button>
     </div>
@@ -54,7 +60,7 @@
         </div>
       </div>
       <div class="flex-item">
-        <div class="half-width-float-left" >
+        <div class="half-width-float-left">
           <label for="budgetEur">Budget in Eur</label>
           <input
             type="text"
@@ -63,7 +69,7 @@
             name="budgetEur"
             [value]="getBudgetInEur() | currency: 'EUR'"
             [disabled]="true"
-            style="margin-top: 0px;"
+            style="margin-top: 0px"
           />
         </div>
         <div class="half-width-float-right">
@@ -75,7 +81,7 @@
             [value]="getBudgetAvailable() | currency: 'EUR'"
             [disabled]="true"
             [ngClass]="{ 'red-color': getBudgetAvailable() <= 0, 'green-color': getBudgetAvailable() > 0 }"
-            style="margin-top: 0px;"
+            style="margin-top: 0px"
           />
         </div>
       </div>
@@ -134,23 +140,23 @@
       </div>
 
       <div class="flex-item">
-          <div class="half-width-float-left">
-            <label for="status">Status</label>
-            <select id="status" name="status" ngModel [(ngModel)]="project.status" [disabled]="!isEditing">
-              <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
-            </select>
-          </div>
-          <div class="check-box">
-              <input
-                type="checkbox"
-                id="isConfidential"
-                name="isConfidential"
-                [(ngModel)]="isConfidential"
-                ngModel
-                [disabled]="!isEditing"
-              />
-            <label for="isConfidential" [ngClass]="{ 'label-disabled': !isEditing }">Is confidential</label>
-          </div>
+        <div class="half-width-float-left">
+          <label for="status">Status</label>
+          <select id="status" name="status" ngModel [(ngModel)]="project.status" [disabled]="!isEditing">
+            <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+          </select>
+        </div>
+        <div class="check-box">
+          <input
+            type="checkbox"
+            id="isConfidential"
+            name="isConfidential"
+            [(ngModel)]="isConfidential"
+            ngModel
+            [disabled]="!isEditing"
+          />
+          <label for="isConfidential" [ngClass]="{ 'label-disabled': !isEditing }">Is confidential</label>
+        </div>
       </div>
 
       <div class="vertical-spacer">

@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
   users: Array<User> = [];
@@ -19,21 +19,26 @@ export class UsersComponent implements OnInit {
 
   findWhat: string = '';
 
-  constructor(private userService: UserService, private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) { }
+  constructor(
+    private userService: UserService,
+    private projectsService: ProjectsService,
+    private router: Router,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     if (this.userService.getUserType() != 'Admin') {
       this.router.navigate(['/']);
     }
 
-    this.getUsers()
+    this.getUsers();
     this.projectsService.getDepartments().subscribe((departments) => {
       this.departments = departments;
     });
     this.findFormControl.valueChanges.subscribe((val) => {
       this.findWhat = val;
       this.getUsers();
-    })
+    });
   }
 
   getUsers() {
@@ -43,11 +48,11 @@ export class UsersComponent implements OnInit {
     }
     this.userService.getUsers(queryString).subscribe({
       next: (users) => {
-        this.users = users
+        this.users = users;
       },
       error: (err) => {
         console.log(err);
-      }
+      },
     });
   }
 
@@ -56,7 +61,7 @@ export class UsersComponent implements OnInit {
       next: (resp: any) => {
         this.getUsers();
         this.openSnackBar(resp.message, 'Dismiss');
-      }
+      },
     });
   }
 
@@ -73,7 +78,7 @@ export class UsersComponent implements OnInit {
   }
 
   goToEditUser(userId: number) {
-    this.userService.setSelectedUserId(userId)
+    this.userService.setSelectedUserId(userId);
     this.router.navigate(['/editUser']);
   }
 }
