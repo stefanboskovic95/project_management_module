@@ -2,7 +2,8 @@ import express, { Router, Request, Response } from 'express';
 import cors from 'cors';
 
 import checkAuth from './middleware/check-auth';
-import { createUser, getUser, getUsers, getUserTypes, login, updateUser } from './routes/user';
+import checkAdmin from './middleware/check-admin';
+import { createUser, deleteUser, getUser, getUsers, getUserTypes, login, updateUser } from './routes/user';
 import { getDepartments, getDepartmentOfficials, getDepartmentUsers } from './routes/department';
 import {
   createProject,
@@ -40,10 +41,11 @@ router.route('/test').get(async (_: Request, res: Response) => {
 
 router.route('/login').post(login);
 
-router.route('/users').get(checkAuth, getUsers);
-router.route('/user').get(checkAuth, getUser);
-router.route('/user').post(checkAuth, createUser);
-router.route('/user').put(checkAuth, updateUser);
+router.route('/users').get(checkAuth, checkAdmin, getUsers);
+router.route('/user').get(checkAuth, checkAdmin, getUser);
+router.route('/user').post(checkAuth, checkAdmin, createUser);
+router.route('/user').put(checkAuth, checkAdmin, updateUser);
+router.route('/user').delete(checkAuth, checkAdmin, deleteUser);
 router.route('/user/type').get(checkAuth, getUserTypes);
 
 router.route('/project').post(checkAuth, createProject);

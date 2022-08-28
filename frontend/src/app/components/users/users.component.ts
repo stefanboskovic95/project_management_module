@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Department } from 'src/app/models/department';
 import { User } from 'src/app/models/user';
@@ -18,7 +19,7 @@ export class UsersComponent implements OnInit {
 
   findWhat: string = '';
 
-  constructor(private userService: UserService, private projectsService: ProjectsService, private router: Router) { }
+  constructor(private userService: UserService, private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if (this.userService.getUserType() != 'Admin') {
@@ -48,6 +49,19 @@ export class UsersComponent implements OnInit {
         console.log(err);
       }
     });
+  }
+
+  deleteUser(userId: number) {
+    this.userService.deleteUser(userId).subscribe({
+      next: (resp: any) => {
+        this.getUsers();
+        this.openSnackBar(resp.message, 'Dismiss');
+      }
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 
   getDepartmentForId(departmentId: number) {

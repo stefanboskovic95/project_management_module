@@ -42,11 +42,6 @@ export const login = async (req: Request, res: Response) => {
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
-    const user = await User.findOne({ where: { id: res.locals.userId }});
-    if (user['type'] !== 'Admin') {
-      return res.status(403).send({ message: 'You do not have permissions to access this API.' })
-    }
-
     const where = { type: { [Op.not]: 'Admin' } }
     
     // Finding
@@ -69,11 +64,6 @@ export const getUsers = async (req: Request, res: Response) => {
 
 export const getUser = async (req: Request, res: Response) => {
   try {
-    const user = await User.findOne({ where: { id: res.locals.userId }});
-    if (user['type'] !== 'Admin') {
-      return res.status(403).send({ message: 'You do not have permissions to access this API.' })
-    }
-
     const id = req.query.id;
 
     const foundUser = await User.findOne({
@@ -104,11 +94,6 @@ const updateDepartmentChief = async (type, departmentId) => {
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const user = await User.findOne({ where: { id: res.locals.userId }});
-    if (user['type'] !== 'Admin') {
-      return res.status(403).send({ message: 'You do not have permissions to access this API.' })
-    }
-
     const username = req.body.username;
     const password = req.body.password;
     const firstName = req.body.firstName;
@@ -117,12 +102,12 @@ export const createUser = async (req: Request, res: Response) => {
     const departmentId = req.body.departmentId;
 
     if (type === 'Admin') {
-      return res.status(403).send({ message: 'Creating admin accounts is prohibited! '});
+      return res.status(403).send({ message: 'Creating admin accounts is prohibited!' });
     }
 
     const hash = await bcrypt.hash(password, 10);
 
-    const newUser = await User.create({
+    const user = await User.create({
       username,
       password: hash,
       firstName,
@@ -133,7 +118,7 @@ export const createUser = async (req: Request, res: Response) => {
     
     await updateDepartmentChief(type, departmentId);
 
-    res.status(200).send(newUser);
+    res.status(200).send(user);
   } catch(err) {
     console.log(err);
     res.status(400).send({ message: err.message })
@@ -142,12 +127,6 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
   try {
-    const user = await User.findOne({ where: { id: res.locals.userId }});
-    if (user['type'] !== 'Admin') {
-      return res.status(403).send({ message: 'You do not have permissions to access this API.' })
-    }
-
-    console.log(req.body);
     const id = req.body.id;
     const username = req.body.username;
     const password = req.body.password;
@@ -168,7 +147,7 @@ export const updateUser = async (req: Request, res: Response) => {
       updateWhat = { ...updateWhat, password: hash };
     }
 
-    const newUser = await User.update(
+    const user = await User.update(
       {
         ...updateWhat
       },
@@ -177,7 +156,7 @@ export const updateUser = async (req: Request, res: Response) => {
     
     await updateDepartmentChief(type, departmentId);
 
-    res.status(200).send(newUser);
+    res.status(200).send(user);
   } catch(err) {
     console.log(err);
     res.status(400).send({ message: err.message })
@@ -186,13 +165,25 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const getUserTypes = async (req: Request, res: Response) => {
   try {
-    const user = await User.findOne({ where: { id: res.locals.userId }});
-    if (user['type'] !== 'Admin') {
-      return res.status(403).send({ message: 'You do not have permissions to access this API.' })
-    }
-
     const userTypes = User.getAttributes().type.values;
     res.status(200).send(userTypes);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({ message: err.message })
+  }
+}
+
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const id = req.query.id;
+
+    const user = await User.findOne({ where: { id } });
+    if (user['type'] === 'Admin') {
+      return res.status(403).send({ message: 'Deleting admin accounts is prohibited!'});
+    }
+
+    await User.destroy({ where: { id } });
+    res.status(200).send({ message: 'User deleted.' })
   } catch (err) {
     console.log(err);
     res.status(400).send({ message: err.message })

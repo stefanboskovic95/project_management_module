@@ -87,6 +87,10 @@ export class UserService {
     });
   }
 
+  deleteUser(id: number) {
+    return this.http.delete(`${environment.backend_url}/user?id=${id}`);
+  }
+
   private saveAuthData(token: string, expirationDate: Date, username: string, userType: string) {
     sessionStorage.setItem('token', token);
     sessionStorage.setItem('expirationDate', expirationDate.toISOString());
