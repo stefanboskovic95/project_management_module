@@ -91,11 +91,16 @@ export class EditProjectComponent implements OnInit {
   }
 
   getProject() {
-    this.projectsService.getProject(this.projectsService.getSelectedProjectId()).subscribe((project) => {
-      this.project = project;
-      this.budget = project.budget;
-      this.isConfidential = project.isConfidential;
-      this.nda = this.project?.nda ? this.project.nda.text : '';
+    this.projectsService.getProject(this.projectsService.getSelectedProjectId()).subscribe({
+      next: (project) => {
+        this.project = project;
+        this.budget = project.budget;
+        this.isConfidential = project.isConfidential;
+        this.nda = this.project?.nda ? this.project.nda.text : '';
+      },
+      error: (err) => {
+        this.openSnackBar(err.error.message);
+      }
     });
   }
 
