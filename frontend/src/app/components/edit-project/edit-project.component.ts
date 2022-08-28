@@ -21,6 +21,7 @@ export class EditProjectComponent implements OnInit {
   project: Project | undefined;
   statuses: Array<string> = [];
   isEditing: boolean = false;
+  isEditable: boolean = true;
   nda: string = '';
   itemsOverview: boolean = true;
   private itemsOverviewName = 'itemsOverview';
@@ -96,6 +97,8 @@ export class EditProjectComponent implements OnInit {
         this.project = project;
         this.budget = project.budget;
         this.isConfidential = project.isConfidential;
+        this.isEditable = project.isEditable;
+        console.log(`isEditable: ${project.isEditable}`)
         this.nda = this.project?.nda ? this.project.nda.text : '';
       },
       error: (err) => {

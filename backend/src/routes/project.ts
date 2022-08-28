@@ -303,15 +303,15 @@ export const getProject = async (req: Request, res: Response) => {
     const where = { id: projectId };
     let isEditable = true;
 
-    // Regular user
+    // Regular users cannot edit projects
     if (userType == 'Regular') {
-      // Project user belongs to
-      const projectUsers: ProjectUsers = await ProjectUsers.findOne({
-        where: { projectId, userId },
-      });
-      if (!projectUsers) {
-        return res.status(403).send({ message: 'You do not have access to this project' });
-      }
+      // // Regular
+      // const projectUsers: ProjectUsers = await ProjectUsers.findOne({
+      //   where: { projectId, userId },
+      // });
+      // if (!projectUsers) {
+      //   return res.status(403).send({ message: 'You do not have access to this project' });
+      // }
       isEditable = false;
     }
 
