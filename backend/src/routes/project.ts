@@ -279,16 +279,20 @@ export const getProjects = async (req: Request, res: Response) => {
         [Op.or]: projectIds,
       };
     }
-    // Department Official
-    if (userType == 'Department Official') {
-      where['isConfidential'] = false;
-    }
     where['departmentId'] = departmentId;
 
-    const projects: Array<Project> = await Project.findAll({
+    let projects: Array<Project> = await Project.findAll({
       where,
       order,
     });
+    if (userType !== 'Department Chief') {
+      projects = projects.filter((project) => { 
+        if (project['isConfidential'] && project['userId'] !== userId) {
+          return false;
+        }
+        return true;
+      });
+    }
     res.status(200).send(projects);
   } catch (err) {
     console.log(err);
