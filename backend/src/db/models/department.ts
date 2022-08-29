@@ -29,11 +29,11 @@ Department.init(
 );
 
 Department.belongsTo(User, {
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
+  onUpdate: 'CASCADE',
+  onDelete: 'RESTRICT',
 });
 
 Department.hasOne(User, {
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
+  onUpdate: 'CASCADE',
+  onDelete: 'RESTRICT',
 });

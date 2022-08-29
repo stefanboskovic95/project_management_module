@@ -28,6 +28,6 @@ ProjectItem.init(
 );
 
 ProjectItem.belongsTo(User, {
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
+  onUpdate: 'CASCADE',
+  onDelete: 'RESTRICT',
 });

@@ -39,30 +39,21 @@ Project.init(
 );
 
 Project.hasMany(ProjectItem, {
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
+  onUpdate: 'CASCADE',
+  onDelete: 'RESTRICT',
 });
 
 Project.belongsTo(User, {
-  // TODO: Why is this causing problems?
-  // foreignKey: {
-  //   field: 'projectLeadId'
-  // },
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
+  onUpdate: 'CASCADE',
+  onDelete: 'RESTRICT',
 });
 
 Department.hasMany(Project, {
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
+  onUpdate: 'CASCADE',
+  onDelete: 'RESTRICT',
 });
 
 Project.hasOne(Nda, {
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
-});
-
-Project.hasOne(Nda, {
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE',
 });

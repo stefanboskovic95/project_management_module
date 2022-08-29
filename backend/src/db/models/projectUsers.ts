@@ -22,11 +22,11 @@ ProjectUsers.init(
 );
 
 ProjectUsers.belongsTo(Project, {
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
+  onUpdate: 'CASCADE',
+  onDelete: 'RESTRICT',
 });
 
 ProjectUsers.belongsTo(User, {
-  onUpdate: 'SET NULL',
-  onDelete: 'SET NULL',
+  onUpdate: 'CASCADE',
+  onDelete: 'RESTRICT',
 });
