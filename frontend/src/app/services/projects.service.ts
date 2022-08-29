@@ -12,9 +12,6 @@ import { Department } from '../models/department';
   providedIn: 'root',
 })
 export class ProjectsService {
-  // TODO: User's department
-  private departmentId = 1;
-  private selectedProjectId: number = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -41,7 +38,6 @@ export class ProjectsService {
       currencyId,
       businessCategory,
       projectLeadId,
-      departmentId: this.departmentId,
     });
   }
 
@@ -79,7 +75,6 @@ export class ProjectsService {
       businessCategory,
       projectLeadId,
       status,
-      departmentId: this.departmentId,
     });
   }
 

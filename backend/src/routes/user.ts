@@ -30,6 +30,7 @@ export const login = async (req: Request, res: Response) => {
       firstName: user['firstName'],
       lastName: user['lastName'],
       type: user['type'],
+      departmentId: user['departmentId'],
       token: token,
       expiresIn: 3600,
     });

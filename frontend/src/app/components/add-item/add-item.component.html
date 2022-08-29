@@ -48,7 +48,7 @@
       </mat-autocomplete>
     </div>
 
-    <div class="verical-spacer">
+    <div class="verical-spacer" *ngIf="isConfVisible()">
       <input type="checkbox" id="isNdaSigned" name="isNdaSigned" ngModel />
       <label for="isNdaSigned" style="cursor: pointer">NDA signed</label>
     </div>

@@ -7,6 +7,7 @@ import { Currency } from 'src/app/models/currency';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-add-item',
@@ -25,7 +26,7 @@ export class AddItemComponent implements OnInit {
   departmentUsers: Array<User> = [];
   filteredUsers: Observable<Array<User>> | undefined;
 
-  constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar, private router: Router) {}
+  constructor(private userService: UserService, private projectsService: ProjectsService, private _snackBar: MatSnackBar, private router: Router) {}
 
   ngOnInit(): void {
     this.projectsService.getProject(this.projectsService.getSelectedProjectId()).subscribe({
@@ -85,6 +86,10 @@ export class AddItemComponent implements OnInit {
 
   private _normalizeValue(value: string): string {
     return value.toLowerCase().replace(/\s/g, '');
+  }
+
+  isConfVisible() {
+    return this.userService.getDepartmentId() !== 3;
   }
 
   getCostInEur() {

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Currency } from 'src/app/models/currency';
 import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-add-project',
@@ -22,7 +23,7 @@ export class AddProjectComponent implements OnInit {
   budget: number = 0;
   nameFormControl: FormControl = new FormControl();
 
-  constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar, private router: Router) {}
+  constructor(private userService: UserService, private projectsService: ProjectsService, private _snackBar: MatSnackBar, private router: Router) {}
 
   ngOnInit(): void {
     this.projectsService.getBusinessCategories().subscribe((businessCategories) => {
@@ -63,7 +64,7 @@ export class AddProjectComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this._snackBar.open(`Added: "${data.name}".`, 'Dismiss');
+          this._snackBar.open(`Added: "${this.nameFormControl.value}".`, 'Dismiss');
           this.router.navigate(['/projectsOverview']);
         },
         error: (err) => {
@@ -78,5 +79,9 @@ export class AddProjectComponent implements OnInit {
 
   openSnackBar(message: string, action: string = 'Dismiss') {
     this._snackBar.open(message, action);
+  }
+
+  isConfVisible() {
+    return this.userService.getDepartmentId() !== 3;
   }
 }

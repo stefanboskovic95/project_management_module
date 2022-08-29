@@ -20,12 +20,12 @@ export const createProject = async (req: Request, res: Response) => {
     const country: string = req.body.country;
     const budget: number = req.body.budget;
     const totalCost: number = 0;
-    const isConfidential: boolean = req.body.isConfidential;
+    let isConfidential: boolean = req.body.isConfidential || false;
     const status: string = 'Draft';
     const businessCategory: string = req.body.businessCategory;
     const region: string = req.body.region;
     const userId: number = req.body.projectLeadId;
-    const departmentId: number = req.body.departmentId;
+    const departmentId: number = user['departmentId'];
     const ndaText: string = req.body.nda;
 
     const project = await Project.create({
@@ -42,7 +42,7 @@ export const createProject = async (req: Request, res: Response) => {
       departmentId,
     });
 
-    if (isConfidential) {
+    if (isConfidential && departmentId !== 3) {
       await Nda.create({
         text: ndaText,
         projectId: project['id'],
@@ -116,12 +116,12 @@ export const updateProject = async (req: Request, res: Response) => {
     const description: string = req.body.description;
     const country: string = req.body.country;
     const budget: number = req.body.budget | 0;
-    const isConfidential: boolean = req.body.isConfidential;
+    let isConfidential: boolean = req.body.isConfidential || false;
     const status: string = req.body.status;
     const businessCategory: string = req.body.businessCategory;
     const region: string = req.body.region;
     const projectLeadId: number = req.body.projectLeadId;
-    const departmentId: number = req.body.departmentId;
+    const departmentId: number = user['departmentId'];
     const ndaText: string = req.body.nda;
 
     const existingProject = await Project.findOne({ where: { id: projectId } });
@@ -130,15 +130,17 @@ export const updateProject = async (req: Request, res: Response) => {
     existingProject['budget'] = budget;
     await checkProjectStatus(existingProject, status, userType);
 
-    if (isConfidential && !existingProject['isConfidential']) {
-      Nda.create({
-        text: ndaText,
-        projectId,
-      });
-    } else if (!isConfidential && existingProject['isConfidential']) {
-      Nda.destroy({ where: { projectId } });
-    } else if (isConfidential && existingProject['isConfidential']) {
-      Nda.update({ text: ndaText }, { where: { projectId } });
+    if (departmentId !== 3) {
+      if (isConfidential && !existingProject['isConfidential']) {
+        Nda.create({
+          text: ndaText,
+          projectId,
+        });
+      } else if (!isConfidential && existingProject['isConfidential']) {
+        Nda.destroy({ where: { projectId } });
+      } else if (isConfidential && existingProject['isConfidential']) {
+        Nda.update({ text: ndaText }, { where: { projectId } });
+      }
     }
 
     await Project.update(

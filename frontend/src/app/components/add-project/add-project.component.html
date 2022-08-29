@@ -64,13 +64,13 @@
       </div>
     </div>
 
-    <div class="flex-item">
+    <div class="flex-item" *ngIf="isConfVisible()">
       <div class="half-width-float-left">
         <input type="checkbox" id="isConfidential" name="isConfidential" [(ngModel)]="isConfidential" ngModel />
         <label for="isConfidential">Is confidential</label>
       </div>
     </div>
-    <div class="vertical-spacer">
+    <div class="vertical-spacer" *ngIf="isConfVisible()">
       <label for="description">NDA</label>
       <textarea type="text" class="value-cls" id="nda" name="nda" ngModel></textarea>
     </div>

@@ -24,7 +24,7 @@ export class UserService {
         this.username = user.username;
         this.setTimer(user.expiresIn);
         const expireDate = new Date().getTime() + user.expiresIn * 1000;
-        this.saveAuthData(this.token, new Date(expireDate), this.username, user.type);
+        this.saveAuthData(this.token, new Date(expireDate), this.username, user.type, user.departmentId);
         this.authStatusListener.next(true);
       },
       error: (err) => {
@@ -106,11 +106,12 @@ export class UserService {
     return this.http.delete(`${environment.backend_url}/user?id=${id}`);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, username: string, userType: string) {
+  private saveAuthData(token: string, expirationDate: Date, username: string, userType: string, departmentId: number) {
     sessionStorage.setItem('token', token);
     sessionStorage.setItem('expirationDate', expirationDate.toISOString());
     sessionStorage.setItem('username', username);
     sessionStorage.setItem('userType', userType);
+    sessionStorage.setItem('departmentId', departmentId.toString());
   }
 
   private clearAuthData() {
@@ -118,6 +119,7 @@ export class UserService {
     sessionStorage.removeItem('expirationDate');
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('userType');
+    sessionStorage.removeItem('departmentId');
   }
 
   autoAuthUser() {
@@ -155,6 +157,10 @@ export class UserService {
 
   getSelectedUserId() {
     return Number(sessionStorage.getItem('selectedUserId'));
+  }
+
+  getDepartmentId() {
+    return Number(sessionStorage.getItem('departmentId'));
   }
 
   getAuthStatusListener() {
