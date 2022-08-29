@@ -8,7 +8,8 @@
   <form #addItemForm="ngForm" (ngSubmit)="submitItem(addItemForm.value)">
     <div class="vertical-spacer">
       <label for="name">Name</label>
-      <input type="text" id="name" name="name" ngModel />
+      <input type="text" id="name" name="name" [formControl]="nameFormControl"
+        [ngClass]="{ 'error-border': nameFormControl.hasError('name') }" />
     </div>
 
     <div class="vertical-spacer">
@@ -31,29 +32,15 @@
 
     <div class="flex-item">
       <div class="half-width-float-left">
-        <input
-          type="text"
-          class="value-cls"
-          id="constEur"
-          name="constEur"
-          [value]="getCostInEur() | currency: 'EUR'"
-          [disabled]="true"
-          style="margin-top: 0px"
-        />
+        <input type="text" class="value-cls" id="constEur" name="constEur" [value]="getCostInEur() | currency: 'EUR'"
+          [disabled]="true" style="margin-top: 0px" />
       </div>
     </div>
 
     <div class="vertical-spacer">
       <label for="assignee">Assignee</label>
-      <input
-        id="assignee"
-        name="assignee"
-        [ngClass]="{ 'error-border': assigneeControl.hasError('assignee') }"
-        type="text"
-        placeholder="Search for user"
-        [matAutocomplete]="auto"
-        [formControl]="assigneeControl"
-      />
+      <input id="assignee" name="assignee" [ngClass]="{ 'error-border': assigneeControl.hasError('assignee') }"
+        type="text" placeholder="Search for user" [matAutocomplete]="auto" [formControl]="assigneeControl" />
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let user of filteredUsers | async" [value]="user.username">
           {{ user.username }}

@@ -74,14 +74,14 @@ const checkProjectStatus = async (project: Project, status: string, userType: st
 
   // Project budget must be set before project is sent to deliberation
   if (
-    ['Deliberation', 'Accepted', 'Rejected', 'Completed'].includes(status) &&
+    ['Deliberation', 'Accepted', 'Completed'].includes(status) &&
     (project['budget'] == 0 || !project['budget'])
   ) {
     throw new Error('Project budget must be set before project is sent to deliberation');
   }
 
   // Project lead must be set before project is sent to deliberation
-  if (['Deliberation', 'Accepted', 'Rejected', 'Completed'].includes(status) && !project['userId']) {
+  if (['Deliberation', 'Accepted', 'Completed'].includes(status) && !project['userId']) {
     throw new Error('Project lead must be set before project is sent to deliberation');
   }
 

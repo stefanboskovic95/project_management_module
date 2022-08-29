@@ -60,11 +60,11 @@
         <div class="right-item">
           {{ project.isConfidential ? 'Yes' : 'No' }}
         </div>
-        <div *ngIf="project.isConfidential">
+        <div class="left-item" *ngIf="project.isConfidential">
           Nda:
         </div>
-        <div *ngIf="project.isConfidential">
-          {{ project.nda }}:
+        <div class="right-item" *ngIf="project.isConfidential && project.nda">
+          {{ project.nda.text }}
         </div>
       </div>
     </div>

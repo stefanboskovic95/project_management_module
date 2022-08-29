@@ -3,7 +3,8 @@
   <form #addProjectForm="ngForm" (ngSubmit)="submitProject(addProjectForm.value)">
     <div class="vertical-spacer">
       <label for="name">Project name</label>
-      <input type="text" id="name" name="name" ngModel />
+      <input type="text" id="name" name="name" [formControl]="nameFormControl"
+        [ngClass]="{ 'error-border': nameFormControl.hasError('name') }" />
     </div>
 
     <div class="vertical-spacer">
@@ -26,15 +27,8 @@
     <div class="flex-item">
       <div class="half-width-float-left">
         <!-- <label for="budgetEur">Budget in Eur</label> -->
-        <input
-          type="text"
-          class="value-cls"
-          id="budgetEur"
-          name="budgetEur"
-          [value]="getBudgetInEur() | currency: 'EUR'"
-          [disabled]="true"
-          style="margin-top: 0px"
-        />
+        <input type="text" class="value-cls" id="budgetEur" name="budgetEur"
+          [value]="getBudgetInEur() | currency: 'EUR'" [disabled]="true" style="margin-top: 0px" />
       </div>
     </div>
 

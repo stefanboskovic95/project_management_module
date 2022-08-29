@@ -20,6 +20,7 @@ export class AddItemComponent implements OnInit {
   currenciesMap: { [key: number]: number } = {};
   selectedCurrencyId = 1;
 
+  nameFormControl: FormControl = new FormControl();
   assigneeControl: FormControl = new FormControl();
   departmentUsers: Array<User> = [];
   filteredUsers: Observable<Array<User>> | undefined;
@@ -49,13 +50,18 @@ export class AddItemComponent implements OnInit {
   }
 
   submitItem(formData: any) {
+    if (!this.nameFormControl.value) {
+      this.nameFormControl.setErrors({ name: true });
+      this.openSnackBar('Name is mandatory', 'Dismiss');
+      return;
+    }
     if (!this.project) {
       return;
     }
     this.projectsService
       .addProjectItem(
         this.project.id,
-        formData.name,
+        this.nameFormControl.value,
         formData.subject,
         this.getCostInEur(),
         formData.isNdaSigned || false,
@@ -63,7 +69,7 @@ export class AddItemComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this._snackBar.open(`Added: "${formData.name}".`, 'Dismiss');
+          this._snackBar.open(`Added: "${this.nameFormControl.value}".`, 'Dismiss');
           this.router.navigate(['/editProject']);
         },
         error: (err) => {

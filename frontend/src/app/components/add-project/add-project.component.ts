@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Currency } from 'src/app/models/currency';
@@ -19,6 +20,7 @@ export class AddProjectComponent implements OnInit {
   currenciesMap: { [key: number]: number } = {};
   selectedCurrencyId = 1;
   budget: number = 0;
+  nameFormControl: FormControl = new FormControl();
 
   constructor(private projectsService: ProjectsService, private _snackBar: MatSnackBar, private router: Router) {}
 
@@ -41,10 +43,14 @@ export class AddProjectComponent implements OnInit {
   }
 
   submitProject(data: any) {
-    console.log(data);
+    if (!this.nameFormControl.value) {
+      this.nameFormControl.setErrors({ name: true });
+      this.openSnackBar('Name is mandatory', 'Dismiss');
+      return;
+    }
     this.projectsService
       .addProject(
-        data.name,
+        this.nameFormControl.value,
         data.description,
         this.getBudgetInEur(),
         data.isConfidential,
