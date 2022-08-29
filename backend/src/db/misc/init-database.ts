@@ -245,7 +245,7 @@ connection.sync().then(async () => {
     description: 'Kanalizaciona mreža u centru Zemuna.',
     budget: 8000000.0,
     totalCost: 0,
-    isConfidential: false,
+    isConfidential: true,
     country: 'Serbia',
     status: 'Accepted',
     userId: 6,
@@ -259,8 +259,8 @@ connection.sync().then(async () => {
     name: 'Solar power plant in Grenada',
     description: 'Solar power plant in Grenada.',
     totalCost: 0,
-    isConfidential: true,
-    country: 'Sapin',
+    isConfidential: false,
+    country: 'Spain',
     status: 'Draft',
     businessCategory: 'Development Project',
     departmentId: 1,
@@ -360,6 +360,6 @@ connection.sync().then(async () => {
   await Nda.create({
     id: 1,
     text: 'Strogo povjerljivo',
-    projectId: 5,
+    projectId: 4,
   });
 });
