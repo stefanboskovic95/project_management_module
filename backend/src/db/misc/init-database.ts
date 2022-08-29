@@ -145,6 +145,49 @@ connection.sync().then(async () => {
     departmentId: 1,
   });
 
+  // Inventory department users.
+  await User.create({
+    id: 11,
+    username: 'gkundaci',
+    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    firstName: 'Georgije',
+    lastName: 'Kundacina',
+    type: 'Department Official',
+    departmentId: 2,
+  });
+
+  await User.create({
+    id: 12,
+    username: 'svukovic',
+    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    firstName: 'Sanja',
+    lastName: 'Vukovic',
+    type: 'Regular',
+    departmentId: 2,
+  });
+
+  // Utilities department users.
+  await User.create({
+    id: 13,
+    username: 'mivanovi',
+    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    firstName: 'Marija',
+    lastName: 'Ivanovic',
+    type: 'Department Official',
+    departmentId: 3,
+  });
+
+  await User.create({
+    id: 14,
+    username: 'krokosov',
+    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    firstName: 'Konstantin',
+    lastName: 'Rokosovksi',
+    type: 'Regular',
+    departmentId: 3,
+  });
+
+
   // Set Department chiefs
   await cpx.update({ userId: 2 });
   await inv.update({ userId: 3 });
@@ -205,7 +248,7 @@ connection.sync().then(async () => {
     isConfidential: false,
     country: 'Serbia',
     status: 'Accepted',
-    userId: 2,
+    userId: 6,
     businessCategory: 'Resource Project',
     departmentId: 1,
     region: 'Eastern Europe',
@@ -216,7 +259,7 @@ connection.sync().then(async () => {
     name: 'Solar power plant in Grenada',
     description: 'Solar power plant in Grenada.',
     totalCost: 0,
-    isConfidential: false,
+    isConfidential: true,
     country: 'Sapin',
     status: 'Draft',
     businessCategory: 'Development Project',
@@ -251,35 +294,35 @@ connection.sync().then(async () => {
   });
 
   // ==================== Inventory Department Projects ====================
-  // await Project.create({
-  //   id: ?,
-  //   name: 'Nabavka 10 vozova tipa Soko',
-  //   description: 'Nabavka 10 brzih vozova tipa Soko',
-  //   budget: 10000000.0,
-  //   totalCost: 0,
-  //   isConfidential: false,
-  //   country: 'Serbia',
-  //   status: 'Draft',
-  //   userId: 2,
-  //   businessCategory: 'Resource Project',
-  //   departmentId: 2,
-  //   region: 'Eastern Europe',
-  // });
+  await Project.create({
+    id: 8,
+    name: 'Nabavka 10 vozova tipa Soko',
+    description: 'Nabavka 10 brzih vozova tipa Soko',
+    budget: 10000000.0,
+    totalCost: 0,
+    isConfidential: false,
+    country: 'Serbia',
+    status: 'Draft',
+    userId: 2,
+    businessCategory: 'Resource Project',
+    departmentId: 2,
+    region: 'Eastern Europe',
+  });
 
-  // await Project.create({
-  //   id: ?,
-  //   name: 'Nabavka 5 miliona kubnih metara prirodnog gasa.',
-  //   description: 'Nabavka 5 miliona kubnih metara prirodnog gasa.',
-  //   budget: 10000000.0,
-  //   totalCost: 0,
-  //   isConfidential: false,
-  //   country: 'Serbia',
-  //   status: 'Draft',
-  //   userId: 2,
-  //   businessCategory: 'Resource Project',
-  //   departmentId: 2,
-  //   region: 'Eastern Europe',
-  // });
+  await Project.create({
+    id: 9,
+    name: 'Nabavka 5 miliona kubnih metara prirodnog gasa.',
+    description: 'Nabavka 5 miliona kubnih metara prirodnog gasa.',
+    budget: 10000000.0,
+    totalCost: 0,
+    isConfidential: false,
+    country: 'Serbia',
+    status: 'Draft',
+    userId: 2,
+    businessCategory: 'Resource Project',
+    departmentId: 2,
+    region: 'Eastern Europe',
+  });
 
   // ==================== ProjectItems ====================
   await ProjectItem.create({
@@ -313,22 +356,10 @@ connection.sync().then(async () => {
     projectId: 1,
   });
 
-  // ==================== ProjectUsers ====================
-  await ProjectUsers.create({
+  // NDAs
+  await Nda.create({
     id: 1,
+    text: 'Strogo povjerljivo',
     projectId: 5,
-    userId: 9,
-  });
-
-  await ProjectUsers.create({
-    id: 2,
-    projectId: 5,
-    userId: 10,
-  });
-
-  await ProjectUsers.create({
-    id: 3,
-    projectId: 6,
-    userId: 10,
   });
 });
