@@ -61,9 +61,14 @@ export class AddItemComponent implements OnInit {
         formData.isNdaSigned || false,
         formData.currency
       )
-      .subscribe(() => {
-        this._snackBar.open(`Added: "${formData.name}".`, 'Dismiss');
-        this.router.navigate(['/editProject']);
+      .subscribe({
+        next: () => {
+          this._snackBar.open(`Added: "${formData.name}".`, 'Dismiss');
+          this.router.navigate(['/editProject']);
+        },
+        error: (err) => {
+          this._snackBar.open(err.error.message, 'Dismiss');          
+        }
       });
   }
 

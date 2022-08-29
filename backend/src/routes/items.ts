@@ -37,6 +37,10 @@ export const createProjectItem = async (req: Request, res: Response) => {
     const projectBudget = project['budget'];
     const projectTotalCost = project['totalCost'];
 
+    if (project['status'] === 'Completed') {
+      return res.status(403).send({ message: 'You cannot add new item to completed project.' });
+    }
+
     await checkItemNameUnique(project, name);
 
     if (projectTotalCost + cost > projectBudget) {
@@ -93,6 +97,10 @@ export const updateProjectItem = async (req: Request, res: Response) => {
     const user = await User.findOne({ where: { username: assigneeUsername } });
     const oldItemCost = projectItem['cost'];
 
+    if (projectItem['status'] === 'Completed' && status !== 'Completed' && project['status'] === 'Completed') {
+      return res.status(403).send({ message: 'Project is completed.' });
+    }
+
     await checkItemNameUnique(project, name, projectItem['id']);
 
     projectItem['cost'] = updatedItemCost;
@@ -145,6 +153,10 @@ export const updateProjectItemStatus = async (req: Request, res: Response) => {
 
     const projectItem = await ProjectItem.findOne({ where: { id } });
     const project = await Project.findOne({ where: { id: projectItem['projectId'] } });
+
+    if (projectItem['status'] === 'Completed' && status !== 'Completed' && project['status'] === 'Completed') {
+      return res.status(403).send({ message: 'Project is completed.' });
+    }
 
     checkProjectItemStatus(project, projectItem, status);
 
