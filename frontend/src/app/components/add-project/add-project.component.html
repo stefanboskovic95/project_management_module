@@ -39,7 +39,7 @@
       </div>
       <div class="half-width-float-right">
         <label for="region">Region</label>
-        <select id="region" name="region" ngModel>
+        <select id="region" name="region" [formControl]="regionFormControl" [ngClass]="{ 'error-border': regionFormControl.hasError('region') }">
           <option *ngFor="let region of regions" [value]="region">
             {{ region }}
           </option>
@@ -58,7 +58,7 @@
       </div>
       <div class="half-width-float-right">
         <label for="categoryId">Business category</label>
-        <select id="categoryId" name="categoryId" ngModel>
+        <select id="categoryId" name="categoryId" [formControl]="categoryFormControl" [ngClass]="{ 'error-border': categoryFormControl.hasError('category') }">
           <option *ngFor="let category of businessCategories" [value]="category">{{ category }}</option>
         </select>
       </div>

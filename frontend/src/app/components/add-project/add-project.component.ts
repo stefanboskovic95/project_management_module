@@ -21,7 +21,10 @@ export class AddProjectComponent implements OnInit {
   currenciesMap: { [key: number]: number } = {};
   selectedCurrencyId = 1;
   budget: number = 0;
+
   nameFormControl: FormControl = new FormControl();
+  categoryFormControl: FormControl = new FormControl();
+  regionFormControl: FormControl = new FormControl();
 
   constructor(private userService: UserService, private projectsService: ProjectsService, private _snackBar: MatSnackBar, private router: Router) {}
 
@@ -44,12 +47,24 @@ export class AddProjectComponent implements OnInit {
   }
 
   submitProject(data: any) {
+    let errors = false;
     if (!this.nameFormControl.value) {
       this.nameFormControl.setErrors({ name: true });
-      this.openSnackBar('Name is mandatory', 'Dismiss');
+      errors = true;
+    }
+    if (!this.categoryFormControl.value) {
+      this.categoryFormControl.setErrors({ category: true });
+      errors = true;
+    }
+    if (!this.regionFormControl.value) {
+      this.regionFormControl.setErrors({ region: true });
+      errors = true;
+    }
+    if (errors) {
+      this.openSnackBar('These fields are mandatory', 'Dismiss');
       return;
     }
-    console.log(`data.userId: ${data.userId}`)
+
     this.projectsService
       .addProject(
         this.nameFormControl.value,
@@ -59,8 +74,8 @@ export class AddProjectComponent implements OnInit {
         data.nda,
         data.currency ? data.currency : 1,
         data.userId,
-        data.category,
-        data.region,
+        this.categoryFormControl.value,
+        this.regionFormControl.value,
         data.country
       )
       .subscribe({
