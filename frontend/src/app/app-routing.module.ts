@@ -10,6 +10,7 @@ import { EditItemComponent } from './components/edit-item/edit-item.component';
 import { UsersComponent } from './components/users/users.component';
 import { AddUserComponent } from './components/users/add-user/add-user.component';
 import { EditUserComponent } from './components/users/edit-user/edit-user.component';
+import { ProjectReportComponent } from './components/project-report/project-report.component';
 
 import { AuthGuard } from './services/auth-guard';
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'projectsOverview', component: ProjectsOverviewComponent, canActivate: [AuthGuard] },
   { path: 'addProject', component: AddProjectComponent, canActivate: [AuthGuard] },
   { path: 'editProject', component: EditProjectComponent, canActivate: [AuthGuard] },
+  { path: 'projectReport', component: ProjectReportComponent, canActivate: [AuthGuard] },
   { path: 'projectsDetails', component: ProjectsDetailsComponent, canActivate: [AuthGuard] },
   { path: 'addItem', component: AddItemComponent, canActivate: [AuthGuard] },
   { path: 'editItem', component: EditItemComponent, canActivate: [AuthGuard] },

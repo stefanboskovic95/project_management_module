@@ -17,6 +17,7 @@ ProjectItem.init(
     name: DataTypes.STRING,
     subject: DataTypes.STRING,
     cost: DataTypes.DOUBLE,
+    completedAt: DataTypes.DATE,
     status: DataTypes.ENUM('Draft', 'In Progress', 'Completed'),
     isNdaSigned: DataTypes.BOOLEAN,
   },

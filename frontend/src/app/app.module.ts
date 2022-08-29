@@ -32,6 +32,7 @@ import { ItemsDetailsComponent } from './components/items-details/items-details.
 import { UsersComponent } from './components/users/users.component';
 import { EditUserComponent } from './components/users/edit-user/edit-user.component';
 import { AddUserComponent } from './components/users/add-user/add-user.component';
+import { ProjectReportComponent } from './components/project-report/project-report.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { AddUserComponent } from './components/users/add-user/add-user.component
     UsersComponent,
     EditUserComponent,
     AddUserComponent,
+    ProjectReportComponent,
   ],
   imports: [
     BrowserModule,

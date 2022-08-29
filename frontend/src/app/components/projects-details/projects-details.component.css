@@ -36,6 +36,11 @@ button {
   cursor: pointer;
 }
 
+button:disabled,
+button[disabled] {
+  color: #666666;
+}
+
 .find-btn {
   background-color: #4caf50;
   color: white;
@@ -56,6 +61,10 @@ button {
 
 .details-mat-icon {
   margin: auto;
+}
+
+.mat-icon-disabled {
+  color: #666666;
 }
 
 .small-margin {

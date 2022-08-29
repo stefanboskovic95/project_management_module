@@ -252,3 +252,18 @@ label {
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* (=============== Table ===============) */
+.table-border {
+  padding: 15px 0 0 0;
+  box-shadow: 3px 3px 3px 3px #c9c9c9;
+}
+
+.table-td {
+  padding: 15px;
+}
+
+.table-th {
+  font-weight: bold;
+  padding: 15px;
+}

@@ -111,12 +111,21 @@ export const updateProjectItem = async (req: Request, res: Response) => {
       return res.status(400).send({ message: 'Project item cost exceeds project budget.' });
     }
 
+    let completedAt = projectItem['completedAt'];
+    if (status === 'Completed') {
+      completedAt = Date.now();
+    }
+    else if (projectItem['status'] === 'Completed' && status !== 'Completed') {
+      completedAt = null;
+    }
+
     await projectItem.update({
       name,
       subject,
       cost: updatedItemCost,
       userId: user ? user['id'] : null,
       isNdaSigned,
+      completedAt,
       status,
     });
 
@@ -139,7 +148,15 @@ export const updateProjectItemStatus = async (req: Request, res: Response) => {
 
     checkProjectItemStatus(project, projectItem, status);
 
-    projectItem.update({ status });
+    let completedAt = projectItem['completedAt'];
+    if (status === 'Completed') {
+      completedAt = Date.now();
+    }
+    else if (projectItem['status'] === 'Completed' && status !== 'Completed') {
+      completedAt = null;
+    }
+
+    await projectItem.update({ status, completedAt });
     res.status(200).json({ message: 'ok' });
   } catch (err) {
     // console.error(err);

@@ -84,7 +84,7 @@
       </th>
       <th>
         <div id="p-w-button">
-          <p>Budget used</p>
+          <p>Cost</p>
           <button
             mat-icon-button
             class="tittle-add-btn-btn"
@@ -112,7 +112,7 @@
       </th>
       <th>
         <div id="p-w-button">
-          <p>Project status</p>
+          <p>Status</p>
           <button
             mat-icon-button
             class="tittle-add-btn-btn"
@@ -126,7 +126,7 @@
       </th>
       <th>
         <div id="p-w-button">
-          <p>Business category</p>
+          <p>Category</p>
           <button
             mat-icon-button
             class="tittle-add-btn-btn"
@@ -201,10 +201,21 @@
         <button
           mat-icon-button
           class="details-btn"
-          (click)="deleteProject(project.id)"
-          matTooltip="Delete this project"
+          matTooltip="Project report"
+          (click)="goToProjectReport(project.id)"
+          [matTooltip]="project.status !== 'Completed' ? 'Available only for completed projects' : 'Generate project report'"
         >
-          <mat-icon class="delete-mat-icon">delete_outline</mat-icon>
+          <mat-icon class="details-mat-icon" [ngClass]="{'mat-icon-disabled': project.status !== 'Completed'}">event_note</mat-icon>
+        </button>
+      </td>
+      <td>
+        <button
+          mat-icon-button
+          class="details-btn"
+          (click)="deleteProject(project)"
+          [matTooltip]="!isDeleteDisabled(project) ? 'Delete this project' : 'You cannot delete projects in progress'"
+        >
+          <mat-icon class="delete-mat-icon" [ngClass]="{'mat-icon-disabled': isDeleteDisabled(project)}">delete_outline</mat-icon>
         </button>
       </td>
     </tr>

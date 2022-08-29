@@ -126,8 +126,24 @@ export class ProjectsDetailsComponent implements OnInit {
     this.router.navigate(['editProject']);
   }
 
-  deleteProject(projectId: number) {
-    this.projectsService.deleteProject(projectId).subscribe({
+  goToProjectReport(projectId: number) {
+    this.projectsService.setSelectedProjectId(projectId);
+    this.router.navigate(['projectReport']);
+  }
+
+  isDeleteDisabled(project: Project) {
+    if (['Draft', 'Deliberation', 'Rejected', 'Completed'].includes(project.status)) {
+      return false;
+    }
+    return true;
+  }
+
+  deleteProject(project: Project) {
+    if (this.isDeleteDisabled(project)) {
+      return;
+    }
+
+    this.projectsService.deleteProject(project.id).subscribe({
       next: (resp: any) => {
         this.openSnackBar(resp.message);
         this.getProjects();

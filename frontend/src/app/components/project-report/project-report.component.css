@@ -1,0 +1,39 @@
+.table-container {
+  width: 800px;
+  margin: auto;
+}
+
+.items-table-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border-bottom: 1px solid #c9c9c9;
+}
+
+.header-table-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: auto;
+}
+
+.header {
+  text-align: center;
+  padding-left: 15px;
+}
+
+.header-table-container {
+  padding: 15px;  
+}
+
+.left-item {
+  text-align: right;
+  padding: 5px 10px 5px 0;
+}
+
+.right-item {
+  text-align: left;
+  padding: 5px 0 5px 10px;
+}
+
+.green-color {
+  color: green;
+}
