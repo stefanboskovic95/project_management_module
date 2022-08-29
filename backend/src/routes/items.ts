@@ -32,6 +32,9 @@ export const createProjectItem = async (req: Request, res: Response) => {
     const isNdaSigned = req.body.isNdaSigned;
     const status = 'Draft';
     const projectId = req.body.projectId;
+    const username = req.body.username;
+
+    const user = await User.findOne({ where: { username } });
 
     const project = await Project.findOne({ where: { id: projectId } });
     const projectBudget = project['budget'];
@@ -54,6 +57,7 @@ export const createProjectItem = async (req: Request, res: Response) => {
       isNdaSigned,
       status,
       projectId,
+      userId: user['id'],
     });
 
     await project.update({ totalCost: projectTotalCost + cost });

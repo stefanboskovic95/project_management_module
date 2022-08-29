@@ -49,6 +49,7 @@ export class AddProjectComponent implements OnInit {
       this.openSnackBar('Name is mandatory', 'Dismiss');
       return;
     }
+    console.log(`data.userId: ${data.userId}`)
     this.projectsService
       .addProject(
         this.nameFormControl.value,
@@ -57,7 +58,7 @@ export class AddProjectComponent implements OnInit {
         data.isConfidential,
         data.nda,
         data.currency ? data.currency : 1,
-        data.projectLead,
+        data.userId,
         data.category,
         data.region,
         data.country

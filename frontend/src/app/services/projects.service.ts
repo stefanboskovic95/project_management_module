@@ -84,7 +84,8 @@ export class ProjectsService {
     subject: string,
     cost: number,
     isNdaSigned: boolean,
-    currencyId: number
+    currencyId: number,
+    username: string,
   ) {
     return this.http.post(`${environment.backend_url}/project/item`, {
       projectId,
@@ -93,6 +94,7 @@ export class ProjectsService {
       cost,
       isNdaSigned,
       currencyId,
+      username,
     });
   }
 

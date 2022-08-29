@@ -51,6 +51,7 @@ export class AddItemComponent implements OnInit {
   }
 
   submitItem(formData: any) {
+    console.log(`${this.assigneeControl.value}`)
     if (!this.nameFormControl.value) {
       this.nameFormControl.setErrors({ name: true });
       this.openSnackBar('Name is mandatory', 'Dismiss');
@@ -66,7 +67,8 @@ export class AddItemComponent implements OnInit {
         formData.subject,
         this.getCostInEur(),
         formData.isNdaSigned || false,
-        formData.currency
+        formData.currency,
+        this.assigneeControl.value,
       )
       .subscribe({
         next: () => {
