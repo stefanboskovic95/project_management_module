@@ -35,8 +35,7 @@ export const login = async (req: Request, res: Response) => {
       expiresIn: 3600,
     });
   } catch (err) {
-    console.log('Login error');
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: 'Login error' });
   }
 };
@@ -47,7 +46,6 @@ export const getUsers = async (req: Request, res: Response) => {
 
     // Finding
     const findWhat = req.query.find;
-    console.log(findWhat);
     if (findWhat) {
       where['username'] = { [Op.like]: `%${findWhat}%` };
     }
@@ -58,7 +56,7 @@ export const getUsers = async (req: Request, res: Response) => {
     });
     res.status(200).send(users);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err.message });
   }
 };
@@ -74,7 +72,7 @@ export const getUser = async (req: Request, res: Response) => {
 
     res.status(200).send(foundUser);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err.message });
   }
 };
@@ -121,7 +119,7 @@ export const createUser = async (req: Request, res: Response) => {
 
     res.status(200).send(user);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err.message });
   }
 };
@@ -159,7 +157,7 @@ export const updateUser = async (req: Request, res: Response) => {
 
     res.status(200).send(user);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err.message });
   }
 };
@@ -169,7 +167,7 @@ export const getUserTypes = async (req: Request, res: Response) => {
     const userTypes = User.getAttributes().type.values;
     res.status(200).send(userTypes);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err.message });
   }
 };
@@ -186,7 +184,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     await User.destroy({ where: { id } });
     res.status(200).send({ message: 'User deleted.' });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err.message });
   }
 };

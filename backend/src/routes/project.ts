@@ -179,7 +179,7 @@ export const updateProject = async (req: Request, res: Response) => {
     );
     res.status(200).json({ message: 'ok' });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).json({ message: err.message });
   }
 };
@@ -201,7 +201,7 @@ export const updateProjectStatus = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: 'Updated!' });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).json({ message: err.message });
   }
 };
@@ -322,7 +322,7 @@ export const getProjects = async (req: Request, res: Response) => {
 
     res.status(200).send(projects);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err });
   }
 };
@@ -344,7 +344,7 @@ export const getProject = async (req: Request, res: Response) => {
     };
     res.status(200).send(result);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err });
   }
 };
@@ -354,7 +354,7 @@ export const getProjectStatuses = async (req: Request, res: Response) => {
     const projectStatuses: any = Project.getAttributes().status.values;
     res.status(200).send(projectStatuses);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err });
   }
 };
@@ -364,7 +364,7 @@ export const getBusinessCategories = async (req: Request, res: Response) => {
     const businessCategories: any = Project.getAttributes().businessCategory.values;
     res.status(200).send(businessCategories);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err });
   }
 };
@@ -374,7 +374,7 @@ export const getCurrencies = async (req: Request, res: Response) => {
     const currencies: Array<Currency> = await Currency.findAll();
     res.status(200).send(currencies);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err });
   }
 };
@@ -384,7 +384,7 @@ export const getRegions = async (req: Request, res: Response) => {
     const regions: any = Project.getAttributes().region.values;
     res.status(200).send(regions);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err });
   }
 };
@@ -429,7 +429,7 @@ export const deleteProject = async (req: Request, res: Response) => {
     await Project.destroy({ where: { id: projectId } });
     res.status(200).json({ message: `Project ${project['name']} deleted!` });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err });
   }
 };

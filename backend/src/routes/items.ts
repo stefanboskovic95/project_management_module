@@ -38,7 +38,6 @@ export const getProjectItem = async (req: Request, res: Response) => {
       ...item['dataValues'],
       isEditable
     }
-    console.log(item);
     
     res.status(200).send(item);
   } catch (err) {

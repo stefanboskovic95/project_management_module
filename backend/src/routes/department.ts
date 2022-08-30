@@ -8,7 +8,7 @@ export const getDepartments = async (req: Request, res: Response) => {
     const departments: Array<Department> = await Department.findAll();
     res.status(200).send(departments);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err });
   }
 };
@@ -27,7 +27,7 @@ export const getDepartmentOfficials = async (req: Request, res: Response) => {
     const officials = await getProjectLeads(userId);
     res.status(200).send(officials);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err });
   }
 };
@@ -47,7 +47,7 @@ export const getDepartmentUsers = async (req: Request, res: Response) => {
 
     res.status(200).send(users);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(400).send({ message: err });
   }
 };
