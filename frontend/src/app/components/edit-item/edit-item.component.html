@@ -1,7 +1,7 @@
 <div class="form-container" *ngIf="project && item">
   <div class="title-box">
     <h1>Item Details</h1>
-    <button class="details-btn" mat-menu-item (click)="toggleEditing()" matTooltip="Edit project">
+    <button class="details-btn" mat-menu-item (click)="toggleEditing()" matTooltip="Edit project" [disabled]="isEditDisabled()">
       <mat-icon class="details-mat-icon">edit</mat-icon>
     </button>
   </div>

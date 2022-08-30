@@ -23,8 +23,8 @@ export class EditProjectComponent implements OnInit {
   isEditing: boolean = false;
   isEditable: boolean = true;
   nda: string = '';
-  itemsOverview: boolean = true;
-  private itemsOverviewName = 'itemsOverview';
+  itemsDetails: boolean = true;
+  private itemsDetailsName = 'itemsDetailsName';
   selectedCurrencyId: number = 1;
   budgetFormControl: FormControl = new FormControl();
   budget: number = 0;
@@ -117,11 +117,9 @@ export class EditProjectComponent implements OnInit {
   }
 
   toggleItemsOverview() {
-    this.itemsOverview = !(sessionStorage.getItem(this.itemsOverviewName) == 'true');
-    // this.itemsOverview = !this.itemsOverview;
-    console.log(this.itemsOverview);
-    sessionStorage.setItem(this.itemsOverviewName, String(this.itemsOverview));
-    return this.itemsOverview;
+    this.itemsDetails = !(sessionStorage.getItem(this.itemsDetailsName) == 'true');
+    sessionStorage.setItem(this.itemsDetailsName, String(this.itemsDetails));
+    return this.itemsDetails;
   }
 
   getBudgetInEur() {
@@ -136,8 +134,8 @@ export class EditProjectComponent implements OnInit {
     return this.getBudgetInEur() - this.project.totalCost;
   }
 
-  getItemsOverview() {
-    return sessionStorage.getItem(this.itemsOverviewName) == 'true';
+  getItemsDetails() {
+    return sessionStorage.getItem(this.itemsDetailsName) == 'true';
   }
 
   openSnackBar(message: string, action: string = 'Dismiss') {

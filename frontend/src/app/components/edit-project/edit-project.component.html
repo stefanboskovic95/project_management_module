@@ -181,7 +181,7 @@
         <mat-icon class="details-mat-icon">swap_horiz</mat-icon>
       </button>
     </div>
-    <app-project-items *ngIf="getItemsOverview()" [project]="project"></app-project-items>
-    <app-items-details *ngIf="!getItemsOverview()"></app-items-details>
+    <app-project-items *ngIf="!getItemsDetails()" [project]="project"></app-project-items>
+    <app-items-details *ngIf="getItemsDetails()" [project]="project"></app-items-details>
   </div>
 </div>

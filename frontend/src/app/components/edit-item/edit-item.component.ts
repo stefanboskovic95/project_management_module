@@ -137,4 +137,14 @@ export class EditItemComponent implements OnInit {
   openSnackBar(message: string, action: string = 'Dismiss') {
     this._snackBar.open(message, action);
   }
+
+  isEditDisabled() {
+    if (!this.project) {
+      return true;
+    }
+    if (!this.project.isEditable) {
+      return false;
+    }
+    return false;
+  }
 }

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ProcurementStatus } from 'src/app/models/procurementStatus';
+import { Project } from 'src/app/models/project';
 import { ProjectItem } from 'src/app/models/ProjectItem';
 import { ProjectsService } from 'src/app/services/projects.service';
 
@@ -12,6 +13,8 @@ import { ProjectsService } from 'src/app/services/projects.service';
   styleUrls: ['./items-details.component.css'],
 })
 export class ItemsDetailsComponent implements OnInit {
+  @Input()
+  project: Project | undefined;
   projectItems: Array<ProjectItem> = [];
   statuses: Array<ProcurementStatus> = [];
   findFormControl: FormControl = new FormControl();

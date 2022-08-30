@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="project">
   <div class="dropdown-list-container">
     <div class="h3-w-button">
       <h3 class="tittle-add-btn">Draft</h3>
@@ -21,7 +21,8 @@
       class="dropdown-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div class="dropdown-box" *ngFor="let item of draftProjectItems" cdkDrag>
+      <div class="dropdown-box" *ngFor="let item of draftProjectItems" cdkDrag 
+        [cdkDragDisabled]="!project.isEditable">
         <p>{{ item.name }}</p>
         <button
           class="more-info-btn"
@@ -47,7 +48,8 @@
       class="dropdown-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div class="dropdown-box" *ngFor="let item of inProgressProjectItems" cdkDrag>
+      <div class="dropdown-box" *ngFor="let item of inProgressProjectItems" cdkDrag
+        [cdkDragDisabled]="!project.isEditable">
         <p>{{ item.name }}</p>
         <button
           class="more-info-btn"
@@ -73,7 +75,8 @@
       class="dropdown-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div class="dropdown-box" *ngFor="let item of completedProjectItems" cdkDrag>
+      <div class="dropdown-box" *ngFor="let item of completedProjectItems" cdkDrag
+      [cdkDragDisabled]="!project.isEditable">
         <p>{{ item.name }}</p>
         <button
           class="more-info-btn"

@@ -1,7 +1,7 @@
 <div>
   <input type="text" id="find" name="find" [formControl]="findFormControl" placeholder="Find item by Id or name" />
 </div>
-<div class="table-border">
+<div class="table-border" *ngIf="project">
   <mat-menu #menu="matMenu" xPosition="before" class="menu-width">
     <button mat-menu-item [matMenuTriggerFor]="myProjectItemsMenu" class="mat-menu-btn">My items</button>
     <button mat-menu-item [matMenuTriggerFor]="confidentialMenu" class="mat-menu-btn">Confidential</button>
@@ -78,6 +78,7 @@
           class="details-btn"
           (click)="goToProjectItem(item.id)"
           matTooltip="More details about this item"
+          [disabled]="!project.isEditable"
         >
           <mat-icon class="details-mat-icon">fullscreen</mat-icon>
         </button>
