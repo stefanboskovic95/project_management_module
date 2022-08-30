@@ -111,7 +111,9 @@ export class UserService {
     sessionStorage.setItem('expirationDate', expirationDate.toISOString());
     sessionStorage.setItem('username', username);
     sessionStorage.setItem('userType', userType);
-    sessionStorage.setItem('departmentId', departmentId.toString());
+    if (userType !== 'Admin') {
+      sessionStorage.setItem('departmentId', departmentId.toString());
+    }
   }
 
   private clearAuthData() {
