@@ -267,32 +267,36 @@ export const getProjects = async (req: Request, res: Response) => {
         where['name'] = { [Op.like]: `%${findWhat}%` };
       }
     }
-
-    // Regular user
-    if (userType == 'Regular') {
-      // Project user belongs to
-      const projectUsers: Array<ProjectUsers> = await ProjectUsers.findAll({
-        where: { userId },
-      });
-      const projectIds = projectUsers.map((item) => item['projectId']);
-      where['id'] = {
-        [Op.or]: projectIds,
-      };
-    }
     where['departmentId'] = departmentId;
 
     let projects: Array<Project> = await Project.findAll({
       where,
       order,
     });
-    if (userType !== 'Department Chief') {
-      projects = projects.filter((project) => { 
-        if (project['isConfidential'] && project['userId'] !== userId) {
+
+    // Confidentiality
+    if (userType === 'Regular') {
+      // Regular user cannot se projects where he is not assigned to any items.
+      const projectItems = await ProjectItem.findAll({ where: { userId } });
+      const projectItemsIds = projectItems.map((item) => item['id']);
+      projects = projects.filter((project) => {
+        if (project['isConfidential'] && !projectItemsIds.includes(project['id'])) {
           return false;
         }
         return true;
-      });
+      })
+    } else if (userType === 'Department Official') {
+      const userProjects = await Project.findAll({ where: { userId } });
+      const userProjectIds = userProjects.map((project) => project['id']);
+      console.log(userProjectIds)
+      projects = projects.filter((project) => {
+        if (project['isConfidential'] && !userProjectIds.includes(project['id'])) {
+          return false;
+        }
+        return true;
+      })
     }
+
     res.status(200).send(projects);
   } catch (err) {
     console.log(err);
