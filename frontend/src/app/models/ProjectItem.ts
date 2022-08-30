@@ -8,4 +8,5 @@ export interface ProjectItem {
   status: string;
   projectId: number;
   userId: number;
+  isEditable: boolean;
 }

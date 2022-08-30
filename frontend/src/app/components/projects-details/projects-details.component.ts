@@ -6,6 +6,7 @@ import { Currency } from 'src/app/models/currency';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
 import { ProjectsService } from 'src/app/services/projects.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-projects-details',
@@ -22,6 +23,7 @@ export class ProjectsDetailsComponent implements OnInit {
   distinctCountries: Array<string> = [];
   findFormControl: FormControl = new FormControl();
   findWhat: string = '';
+  deleteTooltip: string = ''
 
   // Sorter
   sortCriteria: { criteria: string; ascending: boolean } = { criteria: 'id', ascending: false };
@@ -126,16 +128,24 @@ export class ProjectsDetailsComponent implements OnInit {
     this.router.navigate(['editProject']);
   }
 
-  goToProjectReport(projectId: number) {
-    this.projectsService.setSelectedProjectId(projectId);
+  goToProjectReport(project: Project) {
+    if (project.status !== 'Completed') {
+      return;
+    }
+    this.projectsService.setSelectedProjectId(project.id);
     this.router.navigate(['projectReport']);
   }
 
   isDeleteDisabled(project: Project) {
-    if (['Draft', 'Deliberation', 'Rejected', 'Completed'].includes(project.status)) {
-      return false;
+    if ('Accepted' === project.status) {
+      this.deleteTooltip = 'You cannot delete projects in progress';
+      return true;
     }
-    return true;
+    if (!project.isEditable) {
+      this.deleteTooltip = 'You do not have delete rights for this project';
+      return true;
+    }
+    return false;
   }
 
   deleteProject(project: Project) {

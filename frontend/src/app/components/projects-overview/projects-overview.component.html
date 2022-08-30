@@ -22,20 +22,21 @@
       class="dropdown-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div class="dropdown-box" *ngFor="let item of projectsDraft" cdkDrag>
+      <div class="dropdown-box" *ngFor="let project of projectsDraft" cdkDrag
+      [cdkDragDisabled]="!project.isEditable">
         <button
-          *ngIf="item.isConfidential"
+          *ngIf="project.isConfidential"
           class="conf-btn"
-          mat-menu-item
+          mat-menu-project
           matTooltip="This project is confidential"
         >
           <mat-icon class="details-mat-icon" >security</mat-icon>
         </button>
-        <p>{{ item.name }}</p>
+        <p>{{ project.name }}</p>
         <button
           class="details-btn"
-          mat-menu-item
-          (click)="goToProject(item.id)"
+          mat-menu-project
+          (click)="goToProject(project.id)"
           matTooltip="More details about this project"
         >
           <mat-icon class="details-mat-icon">fullscreen</mat-icon>
@@ -56,20 +57,21 @@
       class="dropdown-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div class="dropdown-box" *ngFor="let item of projectsDeliberation" cdkDrag>
+      <div class="dropdown-box" *ngFor="let project of projectsDeliberation" cdkDrag
+      [cdkDragDisabled]="!project.isEditable">
         <button
-          *ngIf="item.isConfidential"
+          *ngIf="project.isConfidential"
           class="conf-btn"
-          mat-menu-item
+          mat-menu-project
           matTooltip="This project is confidential"
         >
           <mat-icon class="details-mat-icon" >security</mat-icon>
         </button>
-        <p>{{ item.name }}</p>
+        <p>{{ project.name }}</p>
         <button
           class="details-btn"
-          mat-menu-item
-          (click)="goToProject(item.id)"
+          mat-menu-project
+          (click)="goToProject(project.id)"
           matTooltip="More details about this project"
         >
           <mat-icon class="details-mat-icon">fullscreen</mat-icon>
@@ -90,20 +92,21 @@
       class="dropdown-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div class="dropdown-box" *ngFor="let item of projectsAccepted" cdkDrag>
+      <div class="dropdown-box" *ngFor="let project of projectsAccepted" cdkDrag
+      [cdkDragDisabled]="!project.isEditable">
         <button
-          *ngIf="item.isConfidential"
+          *ngIf="project.isConfidential"
           class="conf-btn"
-          mat-menu-item
+          mat-menu-project
           matTooltip="This project is confidential"
         >
           <mat-icon class="details-mat-icon" >security</mat-icon>
         </button>
-        <p>{{ item.name }}</p>
+        <p>{{ project.name }}</p>
         <button
           class="details-btn"
-          mat-menu-item
-          (click)="goToProject(item.id)"
+          mat-menu-project
+          (click)="goToProject(project.id)"
           matTooltip="More details about this project"
         >
           <mat-icon class="details-mat-icon">fullscreen</mat-icon>
@@ -124,20 +127,21 @@
       class="dropdown-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div class="dropdown-box" *ngFor="let item of projectsRejected" cdkDrag>
+      <div class="dropdown-box" *ngFor="let project of projectsRejected" cdkDrag
+      [cdkDragDisabled]="!project.isEditable">
         <button
-          *ngIf="item.isConfidential"
+          *ngIf="project.isConfidential"
           class="conf-btn"
-          mat-menu-item
+          mat-menu-project
           matTooltip="This project is confidential"
         >
           <mat-icon class="details-mat-icon" >security</mat-icon>
         </button>
-        <p class="dropped-rejected">{{ item.name }}</p>
+        <p class="dropped-rejected">{{ project.name }}</p>
         <button
           class="details-btn"
-          mat-menu-item
-          (click)="goToProject(item.id)"
+          mat-menu-project
+          (click)="goToProject(project.id)"
           matTooltip="More details about this project"
         >
           <mat-icon class="details-mat-icon">fullscreen</mat-icon>
@@ -158,20 +162,21 @@
       class="dropdown-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div class="dropdown-box" *ngFor="let item of projectsCompleted" cdkDrag>
+      <div class="dropdown-box" *ngFor="let project of projectsCompleted" cdkDrag
+        [cdkDragDisabled]="!project.isEditable">
         <button
-          *ngIf="item.isConfidential"
+          *ngIf="project.isConfidential"
           class="details-btn"
-          mat-menu-item
+          mat-menu-project
           matTooltip="This project is confidential"
         >
           <mat-icon class="details-mat-icon" >security</mat-icon>
         </button>
-        <p class="completed">{{ item.name }}</p>
+        <p class="completed">{{ project.name }}</p>
         <button
           class="details-btn"
-          mat-menu-item
-          (click)="goToProject(item.id)"
+          mat-menu-project
+          (click)="goToProject(project.id)"
           matTooltip="More details about this project"
         >
           <mat-icon class="details-mat-icon">fullscreen</mat-icon>

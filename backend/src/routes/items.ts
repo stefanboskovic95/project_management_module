@@ -4,10 +4,42 @@ import ProjectItem from '../db/models/projectItem';
 import { Op } from 'sequelize';
 import Project from '../db/models/project';
 
+const isProjectItemEditable = async (item: ProjectItem, userId: number) => {
+  const user = await User.findOne({ where: { id: userId } });
+  let isEditable = false;
+
+  // Regular user - item is editable if user is asignee
+  if (item['userId'] === userId) {
+    isEditable = true;
+  }
+
+  // Department Official - Item is editable for project lead
+  const project = await Project.findOne({ where: { userId, id: item['projectId'] } });
+  if (project) {
+    isEditable = true;
+  }
+
+  // Department chief can edit any project Item
+  if (user['type'] === 'Department Chief') {
+    isEditable = true;
+  }
+
+  return isEditable;
+}
+
 export const getProjectItem = async (req: Request, res: Response) => {
   try {
+    const userId = res.locals.userId;
     const id = req.query.itemId;
-    const item = await ProjectItem.findOne({ where: { id } });
+
+    let item = await ProjectItem.findOne({ where: { id } });
+    const isEditable = await isProjectItemEditable(item, userId);
+    item = {
+      ...item['dataValues'],
+      isEditable
+    }
+    console.log(item);
+    
     res.status(200).send(item);
   } catch (err) {
     console.error(err);
@@ -221,13 +253,22 @@ export const getProjectItems = async (req: Request, res: Response) => {
         where['name'] = { [Op.like]: `%${findWhat}%` };
       }
     }
-    console.log(where);
 
     const items = await ProjectItem.findAll({
       where,
       order,
     });
-    res.status(200).send(items);
+
+    const itemsRes = [];
+    for (let item of items) {
+      const isEditable = await isProjectItemEditable(item, userId);
+      itemsRes.push({
+        ...item['dataValues'],
+        isEditable,
+      })
+    }
+
+    res.status(200).send(itemsRes);
   } catch (err) {
     console.error(err);
     res.status(400).json({ message: err.message });

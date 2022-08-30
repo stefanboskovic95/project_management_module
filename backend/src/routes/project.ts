@@ -103,6 +103,22 @@ const checkProjectStatus = async (project: Project, status: string, userType: st
   }
 };
 
+const isProjectEditable = (project: Project, userType: string, userId: number) => {
+  let isEditable = true;
+
+  // Regular users cannot edit projects
+  if (userType == 'Regular') {
+    isEditable = false;
+  }
+
+  // Department Official cannot edit projects on which he is not a project lead
+  if (userType == 'Department Official' && project['userId'] != userId) {
+    isEditable = false;
+  }
+
+  return isEditable;
+};
+
 export const updateProject = async (req: Request, res: Response) => {
   try {
     const user = await User.findOne({ where: { id: res.locals.userId } });
@@ -269,7 +285,7 @@ export const getProjects = async (req: Request, res: Response) => {
     }
     where['departmentId'] = departmentId;
 
-    let projects: Array<Project> = await Project.findAll({
+    let projects: any = await Project.findAll({
       where,
       order,
     });
@@ -288,7 +304,6 @@ export const getProjects = async (req: Request, res: Response) => {
     } else if (userType === 'Department Official') {
       const userProjects = await Project.findAll({ where: { userId } });
       const userProjectIds = userProjects.map((project) => project['id']);
-      console.log(userProjectIds)
       projects = projects.filter((project) => {
         if (project['isConfidential'] && !userProjectIds.includes(project['id'])) {
           return false;
@@ -296,6 +311,11 @@ export const getProjects = async (req: Request, res: Response) => {
         return true;
       })
     }
+
+    projects = projects.map((project) => ({
+      ...project['dataValues'],
+      isEditable: isProjectEditable(project, userType, userId),
+    }));
 
     res.status(200).send(projects);
   } catch (err) {
@@ -313,21 +333,11 @@ export const getProject = async (req: Request, res: Response) => {
     const where = { id: projectId };
     let isEditable = true;
 
-    // Regular users cannot edit projects
-    if (userType == 'Regular') {
-      isEditable = false;
-    }
-
     const project: Project = await Project.findOne({ where, include: [Nda] });
-
-    // Department Official cannot edit projects on which he is not a project lead
-    if (userType == 'Department Official' && project['userId'] != userId) {
-      isEditable = false;
-    }
 
     const result = {
       ...project['dataValues'],
-      isEditable: isEditable,
+      isEditable: isProjectEditable(project, userType, userId),
     };
     res.status(200).send(result);
   } catch (err) {

@@ -78,14 +78,14 @@
           class="details-btn"
           (click)="goToProjectItem(item.id)"
           matTooltip="More details about this item"
-          [disabled]="!project.isEditable"
         >
           <mat-icon class="details-mat-icon">fullscreen</mat-icon>
         </button>
       </div>
       <div class="table-td">
-        <button mat-icon-button class="details-btn" (click)="deleteProjectItem(item.id)" matTooltip="Delete this item">
-          <mat-icon class="delete-mat-icon">delete_outline</mat-icon>
+        <button mat-icon-button class="details-btn" (click)="deleteProjectItem(item)" 
+          [matTooltip]="!isDeleteDisabled(item) ? 'Delete this project' : deleteTooltip">
+          <mat-icon class="delete-mat-icon" [ngClass]="{'mat-icon-disabled': isDeleteDisabled(item)}">delete_outline</mat-icon>
         </button>
       </div>
     </div>

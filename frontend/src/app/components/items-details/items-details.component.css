@@ -57,3 +57,7 @@ button {
   align-items: center;
   width: 25px;
 }
+
+.mat-icon-disabled {
+  color: #666666;
+}

@@ -202,7 +202,7 @@
           mat-icon-button
           class="details-btn"
           matTooltip="Project report"
-          (click)="goToProjectReport(project.id)"
+          (click)="goToProjectReport(project)"
           [matTooltip]="project.status !== 'Completed' ? 'Available only for completed projects' : 'Generate project report'"
         >
           <mat-icon class="details-mat-icon" [ngClass]="{'mat-icon-disabled': project.status !== 'Completed'}">event_note</mat-icon>
@@ -213,7 +213,7 @@
           mat-icon-button
           class="details-btn"
           (click)="deleteProject(project)"
-          [matTooltip]="!isDeleteDisabled(project) ? 'Delete this project' : 'You cannot delete projects in progress'"
+          [matTooltip]="!isDeleteDisabled(project) ? 'Delete this project' : deleteTooltip"
         >
           <mat-icon class="delete-mat-icon" [ngClass]="{'mat-icon-disabled': isDeleteDisabled(project)}">delete_outline</mat-icon>
         </button>

@@ -19,6 +19,7 @@ export class ItemsDetailsComponent implements OnInit {
   statuses: Array<ProcurementStatus> = [];
   findFormControl: FormControl = new FormControl();
   findWhat: string = '';
+  deleteTooltip: string = '';
 
   // Sorter
   sortCriteria: { criteria: string; ascending: boolean } = { criteria: 'id', ascending: false };
@@ -112,8 +113,23 @@ export class ItemsDetailsComponent implements OnInit {
     this.router.navigate(['/editItem']);
   }
 
-  deleteProjectItem(itemId: number) {
-    this.projectsService.deleteProjectItem(itemId).subscribe({
+  isDeleteDisabled(item: ProjectItem) {
+    if ('In Progress' === item.status) {
+      this.deleteTooltip = 'You cannot delete items in progress';
+      return true;
+    }
+    if (!item.isEditable) {
+      this.deleteTooltip = 'You do not have delete rights for this project';
+      return true;
+    }
+    return false;
+  }
+
+  deleteProjectItem(item: ProjectItem) {
+    if (this.isDeleteDisabled(item)) {
+      return;
+    }
+    this.projectsService.deleteProjectItem(item.id).subscribe({
       next: () => {
         this.getProjectItems();
       },
