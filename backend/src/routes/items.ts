@@ -116,6 +116,10 @@ const checkProjectItemStatus = (project: Project, projectItem: ProjectItem, stat
   if (['In Progress', 'Completed'].includes(status) && (projectItem['cost'] == 0 || !projectItem['cost'])) {
     throw new Error('Project Item must have cost before work on it can start.');
   }
+
+  if (['In Progress', 'Completed'].includes(status) && project['isConfidential'] && !projectItem['isNdaSigned']) {
+    throw new Error('NDA has to be signed before work on item can start.')
+  }
 };
 
 export const updateProjectItem = async (req: Request, res: Response) => {
@@ -141,6 +145,7 @@ export const updateProjectItem = async (req: Request, res: Response) => {
 
     projectItem['cost'] = updatedItemCost;
     projectItem['userId'] = user ? user['id'] : undefined;
+    projectItem['isNdaSigned'] = isNdaSigned;
     checkProjectItemStatus(project, projectItem, status);
 
     const projectBudget = project['budget'];
