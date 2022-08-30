@@ -256,13 +256,15 @@ connection.sync().then(async () => {
 
   await Project.create({
     id: 5,
-    name: 'Solar power plant in Grenada',
-    description: 'Solar power plant in Grenada.',
-    totalCost: 0,
+    name: 'Decorative lights for Alhambra',
+    description: 'Decorative lights for Alhambra in Grenada.',
+    budget: 60000,
+    totalCost: 55000,
     isConfidential: false,
     country: 'Spain',
-    status: 'Draft',
-    businessCategory: 'Development Project',
+    status: 'Completed',
+    userId: 5,
+    businessCategory: 'Resource Project',
     departmentId: 1,
     region: 'Western Europe',
   });
@@ -282,13 +284,13 @@ connection.sync().then(async () => {
 
   await Project.create({
     id: 7,
-    name: 'Pipeline in Antalya',
-    description: 'Pipeline in Antalya.',
+    name: 'Marcus Aurelius statue for Antalya Archeology Museum',
+    description: 'Marcus Aurelius statue for Antalya Archeology Museum.',
     totalCost: 0,
-    isConfidential: false,
+    isConfidential: true,
     country: 'Turkey',
     status: 'Draft',
-    businessCategory: 'Development Project',
+    businessCategory: 'Resource Project',
     departmentId: 1,
     region: 'Middle East',
   });
@@ -356,10 +358,46 @@ connection.sync().then(async () => {
     projectId: 1,
   });
 
+  await ProjectItem.create({
+    id: 4,
+    name: 'Purchase decorative lightning.',
+    subject: 'Purchase decorative lightning.',
+    cost: 30000,
+    isNdaSigned: true,
+    completedAt: Date.now(),
+    status: 'Completed',
+    userId: 9,
+    projectId: 5,
+  });
+
+  await ProjectItem.create({
+    id: 5,
+    name: 'Install decorative lightning.',
+    subject: 'Install decorative lightning.',
+    cost: 25000,
+    isNdaSigned: true,
+    completedAt: Date.now(),
+    status: 'Completed',
+    userId: 9,
+    projectId: 5,
+  });
+
   // NDAs
   await Nda.create({
     id: 1,
-    text: 'Strogo povjerljivo',
+    text: 'Strogo povjerljivo!',
     projectId: 4,
+  });
+
+  await Nda.create({
+    id: 2,
+    text: 'A little bit classified.',
+    projectId: 5,
+  });
+
+  await Nda.create({
+    id: 3,
+    text: 'A little bit classified.',
+    projectId: 7,
   });
 });

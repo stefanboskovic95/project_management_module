@@ -1,6 +1,6 @@
 ### Prerequisites
-1. Node version: v16.16.0
-2. Npm version: 8.11.0
+1. Node - version used v16.16.0
+2. Npm - version used 8.11.0
 3. Repository cloned to directory of your choosing. e.g. `C:\code\project_management_module`.
 
 ### Running Backend
@@ -18,10 +18,14 @@
 4. Open `localhost:4200` in your browser to open frontend.
 
 ### Users
+All users have password s123, except admin. Admin panel allows user management.
+CPX department is populated with sample projects and project items to make testing more easy.
+
+                                  admin // password: Tranquility78@.'
 
         CPX Department        INV Department        UTIL Department
               |                     |                     |
               |                     |                     |
-          sboskovi               mandrije              gstancev     // Department chiefs
-                                                                    // Department Officials
-                                                                    // Regular users
+          sboskovi           |   mandrije       |      gstancev     // Department chiefs
+mmatejic, mstojkov, urnastic |   gkundaci       |      mivanovi     // Department Officials
+avasilje, aboljano, agrubaci |   svukovic       |      krokosov     // Regular users
