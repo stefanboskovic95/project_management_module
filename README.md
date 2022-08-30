@@ -8,8 +8,9 @@
 2. Run `npm install` to install project dependencies defined in `backend\package.json`.
 3. Create `.env` file based on `example.env` file - populate DB name, DBMS user and password.
 4. Create DB with name you supplied in `.env` file.
-5. Run `npm init-db` to migrate DB models and populate DB with example data.
-6. Run `npm run dev` to run backend.
+5. Run `npm run dev` to compile backend TS code.
+6. Run `npm run init-db` to migrate DB models and populate DB with example data.
+7. Run `npm run dev` to run backend.
 
 ### Running Frontend
 1. Navigate to `C:\code\project_management_module\frontend` from cmd.
