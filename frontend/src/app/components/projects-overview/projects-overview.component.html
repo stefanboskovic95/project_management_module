@@ -15,6 +15,7 @@
     <div
       id="list-0"
       cdkDropList
+      cdkDropListSortingDisabled
       #draftList="cdkDropList"
       [cdkDropListData]="projectsDraft"
       [cdkDropListConnectedTo]="[deliberationList, acceptedList, rejectedList, completedList]"
@@ -24,7 +25,7 @@
       <div class="dropdown-box" *ngFor="let item of projectsDraft" cdkDrag>
         <button
           *ngIf="item.isConfidential"
-          class="details-btn"
+          class="conf-btn"
           mat-menu-item
           matTooltip="This project is confidential"
         >
@@ -48,6 +49,7 @@
     <div
       id="list-1"
       cdkDropList
+      cdkDropListSortingDisabled
       #deliberationList="cdkDropList"
       [cdkDropListData]="projectsDeliberation"
       [cdkDropListConnectedTo]="[draftList, acceptedList, rejectedList, completedList]"
@@ -57,7 +59,7 @@
       <div class="dropdown-box" *ngFor="let item of projectsDeliberation" cdkDrag>
         <button
           *ngIf="item.isConfidential"
-          class="details-btn"
+          class="conf-btn"
           mat-menu-item
           matTooltip="This project is confidential"
         >
@@ -81,6 +83,7 @@
     <div
       id="list-2"
       cdkDropList
+      cdkDropListSortingDisabled
       #acceptedList="cdkDropList"
       [cdkDropListData]="projectsAccepted"
       [cdkDropListConnectedTo]="[draftList, deliberationList, rejectedList, completedList]"
@@ -90,7 +93,7 @@
       <div class="dropdown-box" *ngFor="let item of projectsAccepted" cdkDrag>
         <button
           *ngIf="item.isConfidential"
-          class="details-btn"
+          class="conf-btn"
           mat-menu-item
           matTooltip="This project is confidential"
         >
@@ -114,6 +117,7 @@
     <div
       id="list-3"
       cdkDropList
+      cdkDropListSortingDisabled
       #rejectedList="cdkDropList"
       [cdkDropListData]="projectsRejected"
       [cdkDropListConnectedTo]="[draftList, deliberationList, acceptedList, completedList]"
@@ -123,7 +127,7 @@
       <div class="dropdown-box" *ngFor="let item of projectsRejected" cdkDrag>
         <button
           *ngIf="item.isConfidential"
-          class="details-btn"
+          class="conf-btn"
           mat-menu-item
           matTooltip="This project is confidential"
         >
@@ -147,6 +151,7 @@
     <div
       id="list-4"
       cdkDropList
+      cdkDropListSortingDisabled
       #completedList="cdkDropList"
       [cdkDropListData]="projectsCompleted"
       [cdkDropListConnectedTo]="[draftList, deliberationList, acceptedList, rejectedList]"

@@ -318,7 +318,6 @@ export const getProject = async (req: Request, res: Response) => {
       isEditable = false;
     }
 
-    console.log(where);
     const project: Project = await Project.findOne({ where, include: [Nda] });
 
     // Department Official cannot edit projects on which he is not a project lead
@@ -395,11 +394,11 @@ export const deleteProject = async (req: Request, res: Response) => {
     // Department chief can delete any project in his department.
     // Department Official can only delete his projects.
     // Regular user cannot delete project.
-    if (user['userType'] == 'Department Official' && projectUserId !== userId) {
+    if (user['type'] === 'Department Official' && userId !== projectUserId) {
       return res.status(403).json({ message: 'You are not authorized to perform this action.' });
     }
 
-    if (user['userType'] == 'Regular') {
+    if (user['type'] == 'Regular') {
       return res.status(403).json({ message: 'You are not authorized to perform this action.' });
     }
 

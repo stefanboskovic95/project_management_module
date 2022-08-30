@@ -72,7 +72,7 @@
     </div>
     <div class="vertical-spacer" *ngIf="isConfVisible()">
       <label for="description">NDA</label>
-      <textarea type="text" class="value-cls" id="nda" name="nda" ngModel></textarea>
+      <textarea type="text" class="value-cls" id="nda" name="nda" ngModel [disabled]="!isConfidential"></textarea>
     </div>
     <button type="submit">Submit</button>
   </form>

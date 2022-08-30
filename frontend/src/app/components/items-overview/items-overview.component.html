@@ -6,7 +6,7 @@
         mat-icon-button
         class="tittle-add-btn-btn"
         (click)="goToAddItem()"
-        [matTooltip]="isAddDisabled() ? 'Set project budget to add new item' : 'Add new project item'"
+        [matTooltip]="isAddDisabled() ? addDisabledTooltip : 'Add new project item'"
       >
         <!-- <mat-icon [ngClass]="{'disabled-mat-icon': project && project.budget === 0}">add_circle_outline</mat-icon> -->
         <mat-icon [ngClass]="{ 'disabled-mat-icon': isAddDisabled() }">add_circle_outline</mat-icon>

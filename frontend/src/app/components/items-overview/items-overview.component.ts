@@ -22,6 +22,7 @@ export class ItemsOverviewComponent implements OnInit {
     'list-1': 'In Progress',
     'list-2': 'Completed',
   };
+  addDisabledTooltip = '';
 
   constructor(private projectsService: ProjectsService, private router: Router, private _snackBar: MatSnackBar) {}
 
@@ -65,7 +66,18 @@ export class ItemsOverviewComponent implements OnInit {
   }
 
   isAddDisabled() {
-    return this.project && (this.project.budget === 0 || !this.project.budget);
+    if (!this.project) {
+      return true;
+    }
+    if (!this.project.isEditable) {
+      this.addDisabledTooltip = 'You do not have access to this project';
+      return true;
+    }
+    if (this.project.budget === 0 || !this.project.budget) {
+      this.addDisabledTooltip = 'Project budget must be set before items can be added';
+      return true;
+    }
+    return false;
   }
 
   openSnackBar(message: string, action: string) {
