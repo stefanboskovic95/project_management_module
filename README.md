@@ -21,11 +21,11 @@
 All users have password s123, except admin. Admin panel allows user management.
 CPX department is populated with sample projects and project items to make testing more easy.
 
-                                  admin // password: Tranquility78@.'
+                                   admin // password: Tranquility78@.'
 
-        CPX Department        INV Department        UTIL Department
-              |                     |                     |
-              |                     |                     |
-          sboskovi           |   mandrije       |      gstancev     // Department chiefs
-mmatejic, mstojkov, urnastic |   gkundaci       |      mivanovi     // Department Officials
-avasilje, aboljano, agrubaci |   svukovic       |      krokosov     // Regular users
+            CPX Department        INV Department        UTIL Department
+                  |                     |                     |
+                  |                     |                     |
+              sboskovi           |   mandrije       |      gstancev     // Department chiefs
+    mmatejic, mstojkov, urnastic |   gkundaci       |      mivanovi     // Department Officials
+    avasilje, aboljano, agrubaci |   svukovic       |      krokosov     // Regular users
