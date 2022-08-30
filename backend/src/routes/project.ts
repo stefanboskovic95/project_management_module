@@ -91,6 +91,9 @@ const checkProjectStatus = async (project: Project, status: string, userType: st
   if (status == 'Completed' && nonCompletedProjectItems.length > 0) {
     throw new Error('All project items must be in completed state before project can be completed.');
   }
+  if (status == 'Rejected' && nonCompletedProjectItems.length > 0) {
+    throw new Error('All project items must be in completed state before project can be rejected / dropped.');
+  }
 
   // const totalProjectCost = await ProjectItem.findAll({
   //   attributes: [ [fn('sum', col('cost')), 'total_cost'] ],
