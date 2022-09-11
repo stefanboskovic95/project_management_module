@@ -58,7 +58,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 2,
     username: 'sboskovi',
-    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    password: '$2b$10$yvhaRwQemnuiBs15PB0E3ONgY9t3qZee4JzMySmU0XABvxS0RVzIy', // s123
     firstName: 'Stefan',
     lastName: 'Boskovic',
     type: 'Department Chief',
@@ -68,7 +68,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 3,
     username: 'mandrije',
-    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    password: '$2b$10$yvhaRwQemnuiBs15PB0E3ONgY9t3qZee4JzMySmU0XABvxS0RVzIy', // s123
     firstName: 'Marko',
     lastName: 'Andrijevic',
     type: 'Department Chief',
@@ -78,7 +78,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 4,
     username: 'gstancev',
-    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    password: '$2b$10$yvhaRwQemnuiBs15PB0E3ONgY9t3qZee4JzMySmU0XABvxS0RVzIy', // s123
     firstName: 'Goran',
     lastName: 'Stancevic',
     type: 'Department Chief',
@@ -88,7 +88,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 5,
     username: 'mmatejic',
-    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    password: '$2b$10$yvhaRwQemnuiBs15PB0E3ONgY9t3qZee4JzMySmU0XABvxS0RVzIy', // s123
     firstName: 'Mihailo',
     lastName: 'Matejic',
     type: 'Department Official',
@@ -98,7 +98,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 6,
     username: 'mstojkov',
-    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    password: '$2b$10$yvhaRwQemnuiBs15PB0E3ONgY9t3qZee4JzMySmU0XABvxS0RVzIy', // s123
     firstName: 'Marko',
     lastName: 'Stojkovic',
     type: 'Department Official',
@@ -108,7 +108,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 7,
     username: 'avasilje',
-    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    password: '$2b$10$yvhaRwQemnuiBs15PB0E3ONgY9t3qZee4JzMySmU0XABvxS0RVzIy', // s123
     firstName: 'Aleksandar',
     lastName: 'Vasiljevic',
     type: 'Regular',
@@ -118,7 +118,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 8,
     username: 'urnastic',
-    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    password: '$2b$10$yvhaRwQemnuiBs15PB0E3ONgY9t3qZee4JzMySmU0XABvxS0RVzIy', // s123
     firstName: 'Uros',
     lastName: 'Nastic',
     type: 'Department Official',
@@ -128,7 +128,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 9,
     username: 'aboljano',
-    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    password: '$2b$10$yvhaRwQemnuiBs15PB0E3ONgY9t3qZee4JzMySmU0XABvxS0RVzIy', // s123
     firstName: 'Arsen',
     lastName: 'Boljanovic',
     type: 'Regular',
@@ -138,7 +138,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 10,
     username: 'agrubaci',
-    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    password: '$2b$10$yvhaRwQemnuiBs15PB0E3ONgY9t3qZee4JzMySmU0XABvxS0RVzIy', // s123
     firstName: 'Aleksa',
     lastName: 'Grubacic',
     type: 'Regular',
@@ -149,7 +149,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 11,
     username: 'gkundaci',
-    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    password: '$2b$10$yvhaRwQemnuiBs15PB0E3ONgY9t3qZee4JzMySmU0XABvxS0RVzIy', // s123
     firstName: 'Georgije',
     lastName: 'Kundacina',
     type: 'Department Official',
@@ -159,7 +159,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 12,
     username: 'svukovic',
-    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    password: '$2b$10$yvhaRwQemnuiBs15PB0E3ONgY9t3qZee4JzMySmU0XABvxS0RVzIy', // s123
     firstName: 'Sanja',
     lastName: 'Vukovic',
     type: 'Regular',
@@ -170,7 +170,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 13,
     username: 'mivanovi',
-    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    password: '$2b$10$yvhaRwQemnuiBs15PB0E3ONgY9t3qZee4JzMySmU0XABvxS0RVzIy', // s123
     firstName: 'Marija',
     lastName: 'Ivanovic',
     type: 'Department Official',
@@ -180,7 +180,7 @@ connection.sync().then(async () => {
   await User.create({
     id: 14,
     username: 'krokosov',
-    password: '$2b$10$74nFonWbMdJxuHO0J1WPWeDbMd/8RWPnJJNWgfo/F1C/sSEdlLAiS', // s123
+    password: '$2b$10$yvhaRwQemnuiBs15PB0E3ONgY9t3qZee4JzMySmU0XABvxS0RVzIy', // s123
     firstName: 'Konstantin',
     lastName: 'Rokosovksi',
     type: 'Regular',

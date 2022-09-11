@@ -104,7 +104,7 @@ export const createUser = async (req: Request, res: Response) => {
       return res.status(403).send({ message: 'Creating admin accounts is prohibited!' });
     }
 
-    const hash = await bcrypt.hash(password, 10);
+    const hash = await bcrypt.hash(password, process.env.SALT);
 
     const user = await User.create({
       username,
