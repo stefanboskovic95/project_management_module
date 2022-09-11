@@ -10,6 +10,6 @@ export default async (req, res, next) => {
     next();
   } catch (err) {
     console.log(err);
-    res.status(401).send({ message: err.message });
+    res.status(403).send({ message: err.message });
   }
 };

@@ -288,6 +288,8 @@ export const getProjects = async (req: Request, res: Response) => {
     }
     where['departmentId'] = departmentId;
 
+    // Querying database for projects with sorting (order) and with all filters (where)
+    // except confidentiality applied.
     let projects: any = await Project.findAll({
       where,
       order,
