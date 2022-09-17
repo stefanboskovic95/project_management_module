@@ -52,9 +52,9 @@ export class ProjectsOverviewComponent implements OnInit {
       error: (err) => {
         // Revert update
         this.swap(event, 'previousContainer', 'container');
+        this.swap(event, 'previousIndex', 'currentIndex');
         this.updateSwimLanes(event);
 
-        console.log(err);
         this.openSnackBar(err.error.message, 'Dismiss');
       },
     });
